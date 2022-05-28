@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DAISY.Models.TB_SANPHAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+
+
+<h4 style="margin-top:5rem">Trà sữa</h4>
+<hr />
+
+
+<div class="container">
+    <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
+        @foreach (var item in Model)
+        {
+        <div class="col">
+            <div class="card shadow" style=" border:none; border-radius: 1rem ">
+                <img style="border-radius:1rem;" src="@item.HINH" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h6 class="card-title" style="height: 40px;">@Html.DisplayFor(modelItem => item.TENSP)</h6>
+                    <h6 class="card-title">Kích cỡ: @item.SIZE</h6>
+                    <h6 class="card-title" style="color:red">$<b>@String.Format("{0:0,0}", item.GIABAN)₫</b></h6>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-warning" type="button">Chọn mua</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+         }
+    </div>
+</div>

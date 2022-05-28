@@ -1,0 +1,151 @@
+﻿@model DAISY.Models.IndexViewModel
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+}
+
+<h2 style="margin-top: 1rem">@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Thay đổi cài đặt tài khoản của bạn</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>Ảnh đại diện:</dt>
+        <dd>
+            @*<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+                    <button class="btn btn-primary" type="button" disabled>Disabled button</button>
+                </span>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>
+
+                <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        ...
+                    </div>
+                </div>
+                <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>*@
+            <!-- Button trigger modal -->
+            @if (Model.Image == null)
+            {
+                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height:10rem; width:10rem; border-radius:50%; margin-top:1rem" src="~/Content/img/image_none.png" class="img-thumbnail" alt="...">
+            }
+            else
+            {
+                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height:10rem; width:10rem; border-radius:50%; margin-top:1rem" src="@Model.Image" class="img-thumbnail" alt="...">
+            }
+
+            <!-- Modal -->
+            @if (Model.Image != null)
+            {
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Ảnh đại diện</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="@Model.Image" class="img-thumbnail" alt="...">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            <a href="#">
+
+
+            </a>
+        </dd>
+        @*<dd>
+                [
+                @if (Model.HasImage)
+                {
+                    @Html.ActionLink("Thay đổi ảnh đại diện của bạn", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Thêm ảnh đại diện", "SetPassword")
+                }
+                ]
+            </dd>*@
+        <dt>Mật khẩu:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Thay đổi mật khẩu của bạn", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Tạo mới", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Đăng nhập bên ngoài:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Quản lý", "ManageLogins") ]
+        </dd>
+
+        @*Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+            See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+               for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+            Uncomment the following block after you have set up two-factor authentication*@
+
+
+        @*<dt>Phone Number:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None") [
+                @if (Model.PhoneNumber != null)
+                {
+                    @Html.ActionLink("Change", "AddPhoneNumber")
+                    @: &nbsp;|&nbsp;
+                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                }
+                else
+                {
+                    @Html.ActionLink("Add", "AddPhoneNumber")
+                }
+                ]
+            </dd>
+            <dt>Two-Factor Authentication:</dt>
+            <dd>
+                @if (Model.TwoFactor)
+                {
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Enabled
+                            <input type="submit" value="Disable" class="btn btn-link" />
+                        </text>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Disabled
+                            <input type="submit" value="Enable" class="btn btn-link" />
+                        </text>
+                    }
+                }
+            </dd>*@
+
+
+    </dl>
+</div>
+
+
