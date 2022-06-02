@@ -219,18 +219,35 @@
     <Compile Include="Controllers\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="CustomAuthorizeAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConstantHelper.cs" />
     <Compile Include="Helper\SendMail.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetRoles.cs" />
+    <Compile Include="Models\AspNetUserClaims.cs" />
+    <Compile Include="Models\AspNetUserLogins.cs" />
+    <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\DaisyContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\TB_SANPHAM.cs" />
+    <Compile Include="Models\tb_CUAHANG.cs" />
+    <Compile Include="Models\tb_CUAHANG_SANPHAM.cs" />
+    <Compile Include="Models\tb_CUAHANG_SPCT.cs" />
+    <Compile Include="Models\tb_CUAHANG_SPDK.cs" />
+    <Compile Include="Models\tb_GIOHANG.cs" />
+    <Compile Include="Models\tb_GIOHANG_SPC.cs" />
+    <Compile Include="Models\tb_GIOHANG_SPDK.cs" />
+    <Compile Include="Models\tb_KICHCO.cs" />
+    <Compile Include="Models\tb_LOAISANPHAM.cs" />
+    <Compile Include="Models\tb_SANPHAM.cs" />
+    <Compile Include="Models\tb_SANPHAM_KICHCO.cs" />
+    <Compile Include="Models\tb_SANPHAM_SPDK.cs" />
+    <Compile Include="Models\tb_SPDK.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -319,8 +336,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -345,9 +360,19 @@
     <Content Include="Views\SanPham\Create.cshtml" />
     <Content Include="Views\Account\NotificationEmailConfirm.cshtml" />
     <Content Include="Views\Manage\NotificationEmailConfirm.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
+    <Content Include="Views\Role\Details.cshtml" />
+    <Content Include="Views\Home\Quanly.cshtml" />
+    <Content Include="Views\Home\Cuahang.cshtml" />
+    <Content Include="Views\Home\Khachhang.cshtml" />
+    <Content Include="Views\Shared\AuthorizeFailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -83,6 +83,13 @@ namespace DAISY.Models
         [Display(Name = "Ảnh đại diện")]
         public string Image { get; set; }
 
+        [Display(Name = "Giới tính")]
+        public bool Gioitinh { get; set; }
+
+        [Display(Name = "Số điện thoại")]
+        public string PhoneNumber { get; set; }
+
+        public string RoleName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} phải dài ít nhất {2} ký tự.", MinimumLength = 6)]

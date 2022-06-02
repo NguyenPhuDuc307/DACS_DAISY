@@ -18,23 +18,23 @@ namespace DAISY.Controllers
 
         public ActionResult Create()
         {
-            TB_SANPHAM objSAMPHAM = new TB_SANPHAM();
+            tb_SANPHAM objSAMPHAM = new tb_SANPHAM();
             return View(objSAMPHAM);
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TB_SANPHAM objSANPHAM)
+        public ActionResult Create(tb_SANPHAM objSANPHAM)
         {
             if (!ModelState.IsValid)
             {
-                objSANPHAM.lstsp = context.TB_SANPHAM.ToList();
+                objSANPHAM.lstsp = context.tb_SANPHAM.ToList();
                 return View("Create", objSANPHAM);
             }
             //lấy Login user ID
             //add vào CSDL
-            context.TB_SANPHAM.Add(objSANPHAM);
+            context.tb_SANPHAM.Add(objSANPHAM);
             context.SaveChanges();
             //Trở về Home, Action Index
            return RedirectToAction("Index", "Home");

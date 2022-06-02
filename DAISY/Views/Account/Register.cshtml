@@ -10,23 +10,41 @@
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
+<form autocomplete="off">
+
     <div class="form-floating mb-3">
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @id = "floatingName", @placeholder = "Họ tên" })
         <label for="floatingName">Họ tên</label>
     </div>
 
-    @*<div class="form-floating mb-3">
-        @Html.TextBoxFor(m => m.Image, new { @class = "form-control", @id = "floatingImage", @placeholder = "Ảnh đại diện" })
-        <label for="floatingImage">Ảnh đại diện</label>
-    </div>*@
+    <div class="form-floating mb-3">
+        @Html.DropDownListFor(m => m.RoleName, new SelectList(ViewBag.Roles, "Value", "Text"), new {@class = "form-control", @id = "floatingPasswordRole", @placeholder = "Role" })
+        <label for="floatingPasswordRole">Role</label>
+    </div>
 
     <div class="form-floating mb-3">
-        @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control", @id = "floatingEmail", @placeholder = "name@example.com" })
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Giới tính</label>
+            <select style="height:54px" name="Gioitinh" class="form-select" id="inputGroupSelect01" required>
+                <option selected disabled>Chọn...</option>
+                <option value="True">Nam</option>
+                <option value="False">Nữ</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input class="form-control" id="floatingPhone" placeholder="Số điện thoại" name="PhoneNumber" type="text" />
+        <label for="floatingPhone">Số điện thoại</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input class="form-control" id="floatingInput" placeholder="name@example.com" name="Email" type="email" />
         <label for="floatingEmail">Địa chỉ Email</label>
     </div>
 
     <div class="form-floating mb-3">
-        @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "form-control", @id = "floatingPassword", @placeholder = "Password" })
+        <input class="form-control" id="floatingPassword" placeholder="Password" name="Password" type="password" value="" />
         <label for="floatingPassword">Mật khẩu</label>
     </div>
 
@@ -40,6 +58,10 @@
             <button type="submit" class="btn btn-primary mb-3">Đăng ký</button>
         </div>
     </div>
+
+</form>
+
+    
     <p>
         @Html.ActionLink("Tôi đã có tài khoản", "Login")
     </p>

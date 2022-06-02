@@ -22,9 +22,34 @@ namespace DAISY.Controllers
             {
                 Session["Name"] = user.Name;
             }
-            var listsp = context.TB_SANPHAM.OrderBy(p => p.TENSP).ToList();
+            var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
             return View(listsp);
 
         }
+
+        [CustomAuthorize(Roles = "Admin")]//user 1
+        public ActionResult Quanly()
+        {
+            ViewBag.Message = "Chào mừng bạn đến với Quản lý Website.";
+
+            return View();
+        }
+
+        [CustomAuthorize(Roles = "Cửa hàng")]//user 2
+        //[Authorize(Roles = "Cửa hàng, Admin")]//user 1,2
+        public ActionResult Cuahang()
+        {
+            ViewBag.Message = "Chào mừng bạn đến với Quản lý Cửa Hàng.";
+
+            return View();
+        }
+        [CustomAuthorize(Roles = "Khách hàng")]//user 3
+        public ActionResult Khachhang()
+        {
+            ViewBag.Message = "Chào mừng bạn đến với Quản lý giỏ hàng.";
+
+            return View();
+        }
+
     }
 }

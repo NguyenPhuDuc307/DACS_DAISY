@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,7 +10,10 @@ namespace DAISY.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        [Display (Name = "Họ tên"), Required]
+        [StringLength (100)]
         public string Name { get; set; }
+        public bool Gioitinh { get; set; }
         public string Image { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -20,6 +24,13 @@ namespace DAISY.Models
             return userIdentity;
         }
     }
+
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+        public ApplicationRole(string roleName) : base(roleName) { }
+    }
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -32,5 +43,7 @@ namespace DAISY.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<DAISY.Models.ApplicationRole> RoleViewModels { get; set; }
     }
 }

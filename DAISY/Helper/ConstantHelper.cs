@@ -35,9 +35,9 @@ namespace DAISY.Helper
         }
 
 
-        public static string hostMail = "smtp.gmail.com";
+        public static string hostMail = "smtp.office365.com";
         public static int portEmail = 587;
-        public static string email = "nguyenphuduc62001@gmail.com";
-        public static string pass = FromHexString("500068007500640075006300400033003000300037003200300030003100");
+        public static string email = "nguyenphuduc72001@outlook.com.vn";
+        public static string pass = "phuduc72001";
     }
 }

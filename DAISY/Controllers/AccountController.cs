@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DAISY.Models;
 using DAISY.Helper;
+using System.Collections.Generic;
 
 namespace DAISY.Controllers
 {
@@ -18,15 +19,28 @@ namespace DAISY.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
+        }
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
         }
 
         public ApplicationSignInManager SignInManager
@@ -147,8 +161,13 @@ namespace DAISY.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in RoleManager.Roles)
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            ViewBag.Roles = list;
             return View();
         }
+
 
         //
         // POST: /Account/Register
@@ -164,12 +183,15 @@ namespace DAISY.Controllers
                     Email = model.Email,
                     Name = model.Name,
                     Image = "link",
+                    Gioitinh = model.Gioitinh,
+                    PhoneNumber = model.PhoneNumber,
                     EmailConfirmed = false
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -230,10 +252,7 @@ namespace DAISY.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-
-
                 //await UserManager.SendEmailAsync(user.Email, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                 SendMail.SendEmail(user.Email, "Đặt lại mật khẩu", "Vui lòng đặt lại mật khẩu của bạn bằng cách nhấp vào <a href=\"" + callbackUrl + "\">đây</a>", "");
 
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
@@ -242,6 +261,7 @@ namespace DAISY.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation

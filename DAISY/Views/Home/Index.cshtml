@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DAISY.Models.TB_SANPHAM>
+﻿@model IEnumerable<DAISY.Models.tb_SANPHAM>
 
 @{
     ViewBag.Title = "Index";
@@ -19,11 +19,10 @@
         {
         <div class="col">
             <div class="card shadow" style=" border:none; border-radius: 1rem ">
-                <img style="border-radius:1rem;" src="@item.HINH" class="card-img-top" alt="...">
+                <img style="border-radius:1rem;" src="" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h6 class="card-title" style="height: 40px;">@Html.DisplayFor(modelItem => item.TENSP)</h6>
-                    <h6 class="card-title">Kích cỡ: @item.SIZE</h6>
-                    <h6 class="card-title" style="color:red">$<b>@String.Format("{0:0,0}", item.GIABAN)₫</b></h6>
+                    <h6 class="card-title" style="height: 40px;">@Html.DisplayFor(modelItem => item.TENSANPHAM)</h6>
+                    <h6 class="card-title" style="color:red">$<b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
                     <div class="d-grid gap-2">
                         <button class="btn btn-outline-warning" type="button">Chọn mua</button>
                     </div>
