@@ -38,9 +38,9 @@ namespace DAISY.Controllers
         [CustomAuthorize(Roles = "Admin")]//user 1
         public ActionResult Index()
         {
-            List<AspNetRoles> list = new List<AspNetRoles>();
+            List<AspNetRole> list = new List<AspNetRole>();
             foreach (var role in RoleManager.Roles)
-                list.Add(new AspNetRoles(role));
+                list.Add(new AspNetRole(role));
             return View(list);
         }
 
@@ -50,7 +50,7 @@ namespace DAISY.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(AspNetRoles model)
+        public async Task<ActionResult> Create(AspNetRole model)
         {
             var role = new ApplicationRole() { Name = model.Name };
             await RoleManager.CreateAsync(role);
@@ -60,11 +60,11 @@ namespace DAISY.Controllers
         public async Task<ActionResult> Edit(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
-            return View(new AspNetRoles(role));
+            return View(new AspNetRole(role));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(AspNetRoles model)
+        public async Task<ActionResult> Edit(AspNetRole model)
         {
             var role = new ApplicationRole() { Id = model.Id, Name = model.Name };
             await RoleManager.UpdateAsync(role);
@@ -74,13 +74,13 @@ namespace DAISY.Controllers
         public async Task<ActionResult> Details(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
-            return View(new AspNetRoles(role));
+            return View(new AspNetRole(role));
         }
 
         public async Task<ActionResult> Delete(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
-            return View(new AspNetRoles(role));
+            return View(new AspNetRole(role));
         }
 
         public async Task<ActionResult> DeleteConfirmed(string id)

@@ -1,0 +1,38 @@
+﻿@model DAISY.Models.tb_LOAISANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Thông tin về loại sản phẩm</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TENLOAISANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENLOAISANPHAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINHANH)
+        </dd>
+
+    </dl>
+}
+
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.IDLOAISANPHAM }) |*@
+    @Html.ActionLink("Trở về", "LoaiSP")
+</div>

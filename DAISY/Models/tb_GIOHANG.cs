@@ -24,7 +24,7 @@ namespace DAISY.Models
 
         public DateTime? NGAYTAO { get; set; }
 
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }

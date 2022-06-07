@@ -12,8 +12,8 @@ namespace DAISY.Models
         public tb_CUAHANG()
         {
             tb_CUAHANG_SANPHAM = new HashSet<tb_CUAHANG_SANPHAM>();
-            tb_CUAHANG_SPDK = new HashSet<tb_CUAHANG_SPDK>();
             tb_CUAHANG_SPCT = new HashSet<tb_CUAHANG_SPCT>();
+            tb_CUAHANG_SPDK = new HashSet<tb_CUAHANG_SPDK>();
         }
 
         [Key]
@@ -39,9 +39,9 @@ namespace DAISY.Models
         public virtual ICollection<tb_CUAHANG_SANPHAM> tb_CUAHANG_SANPHAM { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_CUAHANG_SPDK> tb_CUAHANG_SPDK { get; set; }
+        public virtual ICollection<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
+        public virtual ICollection<tb_CUAHANG_SPDK> tb_CUAHANG_SPDK { get; set; }
     }
 }

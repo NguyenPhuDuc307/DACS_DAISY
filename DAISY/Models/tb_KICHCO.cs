@@ -1,4 +1,4 @@
-namespace DAISY.Models
+﻿namespace DAISY.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,11 +19,13 @@ namespace DAISY.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Tên kích cỡ")]
         public string TENKICHCO { get; set; }
 
         [Column("THETICH-TRONGLUONG")]
         [Required]
         [StringLength(20)]
+        [Display(Name = "Thể tích - Trọng lượng")]
         public string THETICH_TRONGLUONG { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
