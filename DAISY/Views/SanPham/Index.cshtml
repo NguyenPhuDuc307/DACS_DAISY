@@ -1,0 +1,52 @@
+﻿@model IEnumerable<DAISY.Models.tb_SANPHAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_LOAISANPHAM.TENLOAISANPHAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TENSANPHAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GIASANPHAM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_LOAISANPHAM.TENLOAISANPHAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENSANPHAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GIASANPHAM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHANH)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDSANPHAM }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDSANPHAM }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDSANPHAM })
+        </td>
+    </tr>
+}
+
+</table>

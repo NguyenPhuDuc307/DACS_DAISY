@@ -1,0 +1,35 @@
+﻿@model DAISY.Models.tb_LOAISANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_LOAISANPHAM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TENLOAISANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENLOAISANPHAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINHANH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDLOAISANPHAM }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

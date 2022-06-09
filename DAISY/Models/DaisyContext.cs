@@ -12,8 +12,8 @@ namespace DAISY.Models
         {
         }
 
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<tb_CUAHANG> tb_CUAHANG { get; set; }
         public virtual DbSet<tb_CUAHANG_SANPHAM> tb_CUAHANG_SANPHAM { get; set; }
         public virtual DbSet<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
@@ -30,12 +30,12 @@ namespace DAISY.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AspNetRole>()
+            modelBuilder.Entity<AspNetRoles>()
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
 
-            modelBuilder.Entity<AspNetUser>()
+            modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.tb_GIOHANG)
                 .WithRequired(e => e.AspNetUser)
                 .HasForeignKey(e => e.IDKHACHHANG)

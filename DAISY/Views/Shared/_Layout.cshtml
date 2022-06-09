@@ -2,8 +2,10 @@
 <html>
 <head style="background-color:lavender">
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 </head>
 <body>
@@ -33,55 +35,19 @@
                     </li>
 
                     <li class="nav-item">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Xem bản đồ
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Bản đồ</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body row justify-content-md-center">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7836.130332445377!2d106.78245439999999!3d10.882648199999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x69ba5a55a3ec0e6f!2zS8O9IHTDumMgeMOhIEtodSBCIMSQ4bqhaSBo4buNYyBRdeG7kWMgZ2lhIFRQLiBIQ00sIFTDtCBWxKluaCBEaeG7h24sIMSQw7RuZyBIb8OgLCBExKkgQW4sIELDrG5oIETGsMahbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1649237535169!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
                     </li>
                 </ul>
-                @*@Html.Partial("~/Views/Home/GetUserName.cshtml")*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>*@
 
 
-    <div class="mx-auto" style="width: 1500px; height:250px; background-image: url('../Content/img/DAISY (4).png')">
+    <div class="mx-auto" style="width: 1550px; height: 250px; background-image: url('https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/286035425_1606494249751242_3939698244877660853_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=UOxFQDQTF8AAX82K1c8&_nc_ht=scontent.fsgn1-1.fna&oh=00_AT_HvMsJndG3oLEK1bI0ndj7CE9cadMaITj-sN99ADLozw&oe=62A651CA') ">
         <div class="position-relative" style="height:180px">
             <div class="position-absolute bottom-0 start-50 translate-middle-x">
                 <form class="container-fluid" style="width:600px">
