@@ -222,6 +222,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CuaHangController.cs" />
     <Compile Include="Controllers\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
@@ -236,9 +237,9 @@
     <Compile Include="Helper\SendMail.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRoles.cs" />
-    <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
+    <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\DaisyContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -389,10 +390,15 @@
     <Content Include="Views\SanPham\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
     <Content Include="Views\Home\SanPhamByDanhMuc.cshtml" />
+    <Content Include="Views\CuaHang\Create.cshtml" />
+    <Content Include="Views\CuaHang\Delete.cshtml" />
+    <Content Include="Views\CuaHang\Details.cshtml" />
+    <Content Include="Views\CuaHang\Edit.cshtml" />
+    <Content Include="Views\CuaHang\Index.cshtml" />
+    <Content Include="Views\Home\ViewDanhmuc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

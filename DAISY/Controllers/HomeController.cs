@@ -22,10 +22,23 @@ namespace DAISY.Controllers
             {
                 Session["Name"] = user.Name;
             }
+
             var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
+
             var listDanhmuc = context.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList();
             ViewBag.Danhmuc = listDanhmuc;
+
+            var listCuahang = context.tb_CUAHANG.OrderBy(p => p.TENCUAHANG).ToList();
+            ViewBag.Cuahang = listCuahang;
+
+            
             return View(listsp);
+        }
+
+        public ActionResult ViewDanhmuc()
+        {
+            var listDanhmuc = context.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList();
+            return View(listDanhmuc);
         }
 
         public ActionResult SanPhamByDanhMuc(int id)

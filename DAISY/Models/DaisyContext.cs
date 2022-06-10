@@ -14,11 +14,15 @@ namespace DAISY.Models
 
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        //===================================================================
         public virtual DbSet<tb_CUAHANG> tb_CUAHANG { get; set; }
+        //===================================================================
         public virtual DbSet<tb_CUAHANG_SANPHAM> tb_CUAHANG_SANPHAM { get; set; }
         public virtual DbSet<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
         public virtual DbSet<tb_CUAHANG_SPDK> tb_CUAHANG_SPDK { get; set; }
+        //===================================================================
         public virtual DbSet<tb_GIOHANG> tb_GIOHANG { get; set; }
+        //===================================================================
         public virtual DbSet<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
         public virtual DbSet<tb_GIOHANG_SPDK> tb_GIOHANG_SPDK { get; set; }
         public virtual DbSet<tb_KICHCO> tb_KICHCO { get; set; }
@@ -35,10 +39,24 @@ namespace DAISY.Models
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
 
+            //===================================================================
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.tb_CUAHANG)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.IDUSER)
+                .WillCascadeOnDelete(false);
+            //===================================================================
+
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.tb_GIOHANG)
-                .WithRequired(e => e.AspNetUser)
+                .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.IDKHACHHANG)
+                .WillCascadeOnDelete(false);
+            //===================================================================
+
+            modelBuilder.Entity<tb_CUAHANG>()
+                .HasMany(e => e.tb_CUAHANG_SPDK)
+                .WithRequired(e => e.tb_CUAHANG)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<tb_CUAHANG>()
@@ -48,11 +66,6 @@ namespace DAISY.Models
 
             modelBuilder.Entity<tb_CUAHANG>()
                 .HasMany(e => e.tb_CUAHANG_SPCT)
-                .WithRequired(e => e.tb_CUAHANG)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<tb_CUAHANG>()
-                .HasMany(e => e.tb_CUAHANG_SPDK)
                 .WithRequired(e => e.tb_CUAHANG)
                 .WillCascadeOnDelete(false);
 
@@ -120,7 +133,5 @@ namespace DAISY.Models
                 .WithRequired(e => e.tb_SPDK)
                 .WillCascadeOnDelete(false);
         }
-
-        
     }
 }

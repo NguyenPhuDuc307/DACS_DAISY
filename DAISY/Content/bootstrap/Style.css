@@ -113,6 +113,7 @@
 
 #load-more {
     margin-top: 20px;
+    margin-bottom: 20px;
     display: inline-block;
     padding: 13px 30px;
     border: 1px solid rgba(0, 0, 0, 0.125);
@@ -121,6 +122,24 @@
     font-size: 16px;
     background-color: #fff;
     cursor: pointer;
+}
+
+#thu-lai {
+    margin-top: 20px;
+    display: inline-block;
+    padding: 13px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.5rem;
+    color: #334;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#thu-lai:hover {
+    background-color: crimson;
+    border-color: crimson;
+    color: #fff;
 }
 
 .outline {
@@ -133,10 +152,13 @@
     cursor: pointer;
 }
 
-    #load-more:hover {
-        background-color: crimson;
-        border-color: crimson;
-        color: #fff;
-    }
+#load-more:hover {
+    background-color: crimson;
+    border-color: crimson;
+    color: #fff;
+}
+
+
+
 
 /*========================================================================================*/

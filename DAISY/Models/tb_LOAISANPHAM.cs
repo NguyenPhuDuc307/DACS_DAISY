@@ -1,4 +1,4 @@
-﻿namespace DAISY.Models
+namespace DAISY.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,11 +19,9 @@
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Tên loại sản phẩm")]
         public string TENLOAISANPHAM { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "Hình ảnh")]
         public string HINHANH { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

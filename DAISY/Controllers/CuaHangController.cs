@@ -10,118 +10,122 @@ using DAISY.Models;
 
 namespace DAISY.Controllers
 {
-    public class LoaiSanPhamController : Controller
+    public class CuaHangController : Controller
     {
-
         public string ProcessUpload(HttpPostedFileBase file)
         {
             if (file == null)
             {
                 return "";
             }
-            file.SaveAs(Server.MapPath("~/Content/img/Danhmuc/" + file.FileName));
-            return "/Content/img/danhmuc/" + file.FileName;
+            file.SaveAs(Server.MapPath("~/Content/img/Cuahang/" + file.FileName));
+            return "/Content/img/Cuahang/" + file.FileName;
         }
 
         private DaisyContext db = new DaisyContext();
 
-        // GET: LoaiSanPham
+        // GET: CuaHang
         public ActionResult Index()
         {
-            return View(db.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList());
+            var tb_CUAHANG = db.tb_CUAHANG.Include(t => t.AspNetUsers);
+            return View(tb_CUAHANG.ToList());
         }
 
-        // GET: LoaiSanPham/Details/5
+        // GET: CuaHang/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_LOAISANPHAM tb_LOAISANPHAM = db.tb_LOAISANPHAM.Find(id);
-            if (tb_LOAISANPHAM == null)
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            if (tb_CUAHANG == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_LOAISANPHAM);
+            return View(tb_CUAHANG);
         }
 
-        // GET: LoaiSanPham/Create
+        // GET: CuaHang/Create
         public ActionResult Create()
         {
+            ViewBag.IDUSER = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
-        // POST: LoaiSanPham/Create
+        // POST: CuaHang/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH")] tb_LOAISANPHAM tb_LOAISANPHAM)
+        public ActionResult Create([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,DIACHI,HINHANH")] tb_CUAHANG tb_CUAHANG)
         {
             if (ModelState.IsValid)
             {
-                db.tb_LOAISANPHAM.Add(tb_LOAISANPHAM);
+                db.tb_CUAHANG.Add(tb_CUAHANG);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tb_LOAISANPHAM);
+            ViewBag.IDUSER = new SelectList(db.AspNetUsers, "Id", "Email", tb_CUAHANG.IDUSER);
+            return View(tb_CUAHANG);
         }
 
-        // GET: LoaiSanPham/Edit/5
+        // GET: CuaHang/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_LOAISANPHAM tb_LOAISANPHAM = db.tb_LOAISANPHAM.Find(id);
-            if (tb_LOAISANPHAM == null)
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            if (tb_CUAHANG == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_LOAISANPHAM);
+            ViewBag.IDUSER = new SelectList(db.AspNetUsers, "Id", "Email", tb_CUAHANG.IDUSER);
+            return View(tb_CUAHANG);
         }
 
-        // POST: LoaiSanPham/Edit/5
+        // POST: CuaHang/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH")] tb_LOAISANPHAM tb_LOAISANPHAM)
+        public ActionResult Edit([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,DIACHI,HINHANH")] tb_CUAHANG tb_CUAHANG)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_LOAISANPHAM).State = EntityState.Modified;
+                db.Entry(tb_CUAHANG).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tb_LOAISANPHAM);
+            ViewBag.IDUSER = new SelectList(db.AspNetUsers, "Id", "Email", tb_CUAHANG.IDUSER);
+            return View(tb_CUAHANG);
         }
 
-        // GET: LoaiSanPham/Delete/5
+        // GET: CuaHang/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_LOAISANPHAM tb_LOAISANPHAM = db.tb_LOAISANPHAM.Find(id);
-            if (tb_LOAISANPHAM == null)
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            if (tb_CUAHANG == null)
             {
                 return HttpNotFound();
             }
-            return View(tb_LOAISANPHAM);
+            return View(tb_CUAHANG);
         }
 
-        // POST: LoaiSanPham/Delete/5
+        // POST: CuaHang/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tb_LOAISANPHAM tb_LOAISANPHAM = db.tb_LOAISANPHAM.Find(id);
-            db.tb_LOAISANPHAM.Remove(tb_LOAISANPHAM);
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            db.tb_CUAHANG.Remove(tb_CUAHANG);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

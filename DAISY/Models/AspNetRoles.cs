@@ -9,9 +9,9 @@ namespace DAISY.Models
     public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRoles(){}
+        public AspNetRoles() { }
 
-        public AspNetRoles(ApplicationRole role) 
+        public AspNetRoles(ApplicationRole role)
         {
             Id = role.Id;
             Name = role.Name;
