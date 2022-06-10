@@ -5,48 +5,57 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
+                @foreach (var item in Model)
+                {
+                    <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
+                        @item.TENSANPHAM
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
+                @foreach (var item in Model)
+                {
+                    <div class="show">
+                        <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                            <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 style="color: red; text-align: center"><b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
+                                <h6 style="height: 30px; text-align:center">@item.TENSANPHAM</h6>
+                            </div>
+                        </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.tb_LOAISANPHAM.TENLOAISANPHAM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TENSANPHAM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GIASANPHAM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HINHANH)
-        </th>
-        <th></th>
-    </tr>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+            Xem thêm
+        </div>
+    </div>
+    @*  Learn more*@
+    <script>let loadMoreBtn = document.querySelector('#load-more');
+        let currentItem = 10;
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.tb_LOAISANPHAM.TENLOAISANPHAM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TENSANPHAM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GIASANPHAM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HINHANH)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDSANPHAM }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDSANPHAM }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDSANPHAM })
-        </td>
-    </tr>
-}
+        loadMoreBtn.onclick = () => {
+            let showes = [...document.querySelectorAll('.container .show-container .show')];
+            let listes = [...document.querySelectorAll('.container .list-container .list')];
+            for (var i = currentItem; i < currentItem + 10; i++) {
+                showes[i].style.display = 'inline-block';
+                listes[i].style.display = 'inline-block';
+            }
+            currentItem += 10;
 
-</table>
+            if (currentItem >= showes.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+    </script>
+</div>

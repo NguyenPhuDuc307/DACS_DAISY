@@ -28,6 +28,52 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.HINHANH, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+
+
+
+                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                <br />
+                <input type="button" id="btnUpload" value="Chọn" class="btn btn-primary" />
+                <br />
+
+                <img src="~/Content/img/image_none.png" id="pictureUpload" style="width: 200px; height: 200px;" />
+                @section upload
+                {
+                    <script>
+                        $(function () {
+                            $('#btnUpload').click(function () {
+                                $('#fileUpload').trigger('click');
+                            });
+                        });
+                        $('#fileUpload').change(function () {
+                            if (window.FormData !== undefined) {
+                                var fileUpload = $('#fileUpload').get(0);
+                                var files = fileUpload.files;
+                                var formData = new FormData();
+                                formData.append('file', files[0]);
+                                $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '/LoaiSanPham/ProcessUpload',
+                                        contentType: false,
+                                        processData: false,
+                                        data: formData,
+                                        success: function (urlImage) {
+                                            $('#pictureUpload').attr('src', urlImage);
+                                            $('#HINHANH').val(urlImage);
+                                        },
+                                        error: function (err) {
+                                            alert('Error ', err.statusText);
+
+                                        }
+                                    });
+                            }
+                        });
+                    </script>
+                }
+
+
+
             </div>
         </div>
 

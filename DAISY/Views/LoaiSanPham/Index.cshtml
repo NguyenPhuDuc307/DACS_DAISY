@@ -1,40 +1,67 @@
 ﻿@model IEnumerable<DAISY.Models.tb_LOAISANPHAM>
-
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh mục";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <h5 style="margin-top:5rem; font-weight:700">TẤT CẢ DANH MỤC</h5>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TENLOAISANPHAM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HINHANH)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <div class="col-2">
+            <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
+                @foreach (var item in Model)
+                {
+                    <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
+                        <a style="text-decoration:none" class="text-hover" href="@Url.Action("SanPhamByDanhMuc", "Home",new { @id = item.IDLOAISANPHAM})">@item.TENLOAISANPHAM</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
+                @foreach (var item in Model)
+                {
+                    <div class="show">
+                        <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                            <a style="text-decoration:none" href="@Url.Action("SanPhamByDanhMuc", "Home",new { @id = item.IDLOAISANPHAM})"><img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top img-hover" alt="..."></a>
+                            
+                            <div class="card-body">
+                                <h6 style="height: 20px; text-align:center">@item.TENLOAISANPHAM</h6>
+                            </div>
+                        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TENLOAISANPHAM)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HINHANH)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDLOAISANPHAM }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDLOAISANPHAM }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDLOAISANPHAM })
-        </td>
-    </tr>
-}
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+            Xem thêm
+        </div>
+    </div>
 
-</table>
+    @*  Learn more*@
+    <script>
+        let loadMoreBtn = document.querySelector('#load-more');
+        let currentItem = 10;
+
+        loadMoreBtn.onclick = () => {
+            let showes = [...document.querySelectorAll('.container .show-container .show')];
+            let listes = [...document.querySelectorAll('.container .list-container .list')];
+            for (var i = currentItem; i < currentItem + 10; i++) {
+                showes[i].style.display = 'inline-block';
+                listes[i].style.display = 'inline-block';
+            }
+            currentItem += 10;
+
+            if (currentItem >= showes.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+    </script>
+
+</div>
+

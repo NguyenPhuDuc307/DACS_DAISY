@@ -2,10 +2,17 @@
 <html>
 <head style="background-color:lavender">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Content/bootstrap/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="~/Content/bootstrap/Swiper.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap/Style.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap/Font.css">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 <body>
@@ -46,28 +53,6 @@
         </div>
     </nav>
 
-
-    <div class="mx-auto" style="width: 1550px; height: 250px; background-image: url('https://scontent.fsgn1-1.fna.fbcdn.net/v/t39.30808-6/286035425_1606494249751242_3939698244877660853_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=UOxFQDQTF8AAX82K1c8&_nc_ht=scontent.fsgn1-1.fna&oh=00_AT_HvMsJndG3oLEK1bI0ndj7CE9cadMaITj-sN99ADLozw&oe=62A651CA') ">
-        <div class="position-relative" style="height:180px">
-            <div class="position-absolute bottom-0 start-50 translate-middle-x">
-                <form class="container-fluid" style="width:600px">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm món ăn mà bạn yêu thích, còn lại để DAISY lo nhé!" aria-label="Username" aria-describedby="basic-addon1">
-
-                        <button class="input-group-text btn-dark">
-                            <svg style="color:red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart" viewBox="0 0 16 16">
-                                <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
-                                <path d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
-                            </svg>
-                        </button>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -78,9 +63,33 @@
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+
+
     <script type="text/javascript" src="~/Scripts/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.bundle.min.js"></script>
 
+@*    Slide show*@
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 6,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+
+@*    Popover*@
     <script>
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
@@ -90,7 +99,9 @@
             container: 'body'
         })
     </script>
+
     <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+
     @RenderSection("upload", required: false)
 
 </body>

@@ -410,3 +410,12 @@ D:\DACS_DAISY1\DAISY\obj\Debug\DAISY.csproj.CoreCompileInputs.cache
 D:\DACS_DAISY1\DAISY\obj\Debug\DAISY.csproj.CopyComplete
 D:\DACS_DAISY1\DAISY\obj\Debug\DAISY.dll
 D:\DACS_DAISY1\DAISY\obj\Debug\DAISY.pdb
+D:\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Abstractions.dll
+D:\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Abstractions.xml
+D:\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+D:\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Logging.xml
+D:\DACS_DAISY\DAISY\bin\PagedList.dll
+D:\DACS_DAISY\DAISY\bin\PagedList.Mvc.dll
+D:\DACS_DAISY\DAISY\bin\PagedList.xml
+D:\DACS_DAISY\DAISY\bin\PagedList.Mvc.xml

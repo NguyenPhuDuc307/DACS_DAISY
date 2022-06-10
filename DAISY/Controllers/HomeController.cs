@@ -23,8 +23,21 @@ namespace DAISY.Controllers
                 Session["Name"] = user.Name;
             }
             var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
+            var listDanhmuc = context.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList();
+            ViewBag.Danhmuc = listDanhmuc;
             return View(listsp);
+        }
 
+        public ActionResult SanPhamByDanhMuc(int id)
+        {
+            var listsp = context.tb_SANPHAM.Where(p=> p.IDLOAISANPHAM == id).OrderBy(p => p.TENSANPHAM).ToList();
+            var Danhmuc = context.tb_SANPHAM.FirstOrDefault(p => p.IDLOAISANPHAM == id);
+
+            if (Danhmuc != null)
+                ViewBag.Danhmuc = Danhmuc.tb_LOAISANPHAM.TENLOAISANPHAM;
+            else
+                ViewBag.Danhmuc = "Trở về";
+            return View(listsp);
         }
 
         [CustomAuthorize(Roles = "Admin")]//user 1

@@ -12,12 +12,24 @@ namespace DAISY.Controllers
 {
     public class LoaiSanPhamController : Controller
     {
+
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Content/img/Danhmuc/" + file.FileName));
+            return "/Content/img/danhmuc/" + file.FileName;
+        }
+
+
         private DaisyContext db = new DaisyContext();
 
         // GET: LoaiSanPham
         public ActionResult Index()
         {
-            return View(db.tb_LOAISANPHAM.ToList());
+            return View(db.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList());
         }
 
         // GET: LoaiSanPham/Details/5

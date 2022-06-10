@@ -2,34 +2,107 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
 
 
 
 <div class="container">
-    <h5 style="margin-top:5rem">CHỌN THEO DANH MỤC</h5>
+    <h5 style="margin-top:5rem; font-weight:700">CHỌN THEO DANH MỤC</h5>
 
 
+    <div class="swiper mySwiper" style="padding:17px; padding-bottom:24px">
+        <div class="swiper-wrapper" style="margin-bottom: 1rem;">
 
-
-    @*<div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-        @foreach (var item in Model)
-        {
-            <div class="col">
-                <div class="card shadow" style=" border:none; border-radius: 1rem ">
-                    <img style="border-radius:1rem;" src="" class="card-img-top" alt="...">
+            @foreach (var item in ViewBag.Danhmuc)
+            {
+            <div class="swiper-slide" style="background-color:transparent">
+                
+                <div class="card card-hover" style=" border-radius: 1rem ">
+                    <a href="@Url.Action("SanPhamByDanhMuc", "Home",new { @id = item.IDLOAISANPHAM})">
+                        <img style="border-radius:1rem;" src="@item.HINHANH" class="img-hover card-img-top" alt="...">
+                    </a>
                     <div class="card-body">
-                        <h6 class="card-title" style="height: 40px;">@Html.DisplayFor(modelItem => item.TENSANPHAM)</h6>
-                        <h6 class="card-title" style="color:red">$<b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-outline-warning" type="button">Chọn mua</button>
-                        </div>
+                        <h6 style="height: 20px; text-decoration:none; color:black">@item.TENLOAISANPHAM</h6>
                     </div>
                 </div>
+                    
+                </div>
+            }
+        </div>
+        <div>
+            <a style="text-decoration:none" href="@Url.Action("Index", "LoaiSanPham")">
+                <h6 class="text-hover" style="text-align:right">
+                    Xem tất cả
+                    <svg style="color:red" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                    </svg>
+                </h6>
 
+            </a>
+        </div>
+
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+
+
+    <h5 style="margin-top:5rem; font-weight:700">KHÁM PHÁ SẢN PHẨM</h5>
+    <div class="row">
+        <div class="col-2">
+            <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
+                @foreach (var item in Model)
+                {
+                    <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
+                        @item.TENSANPHAM
+                    </div>
+                }
             </div>
+        </div>
+        <div class="col">
+            <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
+                @foreach (var item in Model)
+                {
+                    <div class="show">
+                        <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                            <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 style="color: red; text-align: center"><b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
+                                <h6 style="height: 30px; text-align:center">@item.TENSANPHAM</h6>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+            Xem thêm
+        </div>
+    </div>
+    @*  Learn more*@
+    <script>
+        let loadMoreBtn = document.querySelector('#load-more');
+        let currentItem = 10;
+
+        loadMoreBtn.onclick = () => {
+            let showes = [...document.querySelectorAll('.container .show-container .show')];
+            let listes = [...document.querySelectorAll('.container .list-container .list')];
+            for (var i = currentItem; i < currentItem + 10; i++) {
+                showes[i].style.display = 'inline-block';
+                listes[i].style.display = 'inline-block';
+            }
+            currentItem += 10;
+
+            if (currentItem >= showes.length) {
+                loadMoreBtn.style.display = 'none';
+            }
         }
-    </div>*@
+    </script>
 </div>
