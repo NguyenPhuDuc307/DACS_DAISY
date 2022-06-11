@@ -18,7 +18,7 @@ namespace DAISY.Controllers
             {
                 return "";
             }
-            file.SaveAs(Server.MapPath("../Content/img/Sanpham/" + file.FileName));
+            file.SaveAs(Server.MapPath("~/Content/img/Sanpham/" + file.FileName));
             return "/Content/img/Sanpham/" + file.FileName;
         }
 
@@ -40,6 +40,7 @@ namespace DAISY.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             tb_SANPHAM tb_SANPHAM = db.tb_SANPHAM.Find(id);
+
             if (tb_SANPHAM == null)
             {
                 return HttpNotFound();

@@ -285,6 +285,7 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\bootstrap\Custom.css" />
     <Content Include="Content\bootstrap\Style.css" />
     <Content Include="Content\bootstrap\Font.css" />
     <Content Include="Content\bootstrap\Swiper.css" />

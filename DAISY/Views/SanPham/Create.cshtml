@@ -42,20 +42,21 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HINHANH, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HINHANH, new { htmlAttributes = new { @class = "form-control" } })
+
+                <input name="HINHANH" id="HINHANH" class="form-control" value="" />
+
                 @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
 
 
-                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
                 <br />
-                <input type="button" id="btnUpload" value="Chọn" class="btn btn-primary" />
-                <br />
-                <img src="~/Content/img/image_none.png" id="pictureUpload" style="width: 200px; height: 200px;" />
+
+                <img src="~/Content/img/img-none.png" id="pictureUpload" class="img-none" />
                 @section upload
                 {
                     <script>
                         $(function () {
-                            $('#btnUpload').click(function () {
+                            $('#pictureUpload').click(function () {
                                 $('#fileUpload').trigger('click');
                             });
                         });
@@ -90,9 +91,9 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-top:1rem">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Thêm mới" class="btn btn-primary" />
             </div>
         </div>
     </div>

@@ -30,7 +30,9 @@
                 {
                     <div class="show">
                         <div class="card card-hover shadow" style=" border-radius: 1rem ">
-                            <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                            <a href="@Url.Action("Details", "SanPham", new { @id = item.IDSANPHAM})">
+                                <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                            </a>
                             <div class="card-body">
                                 <h6 style="color: red; text-align: center"><b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
                                 <h6 style="height: 30px; text-align:center">@item.TENSANPHAM</h6>
@@ -48,11 +50,11 @@
         </div>
     </div>
 
- @*   <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center">
         <div class="col col-lg-1" style="width:150px; text-align: center" id="thu-lai">
-            Xem thêm
+            Thu lại
         </div>
-    </div>*@
+    </div>
 
     <h5 style="margin-top:5rem; font-weight:700">KHÁM PHÁ CỬA HÀNG</h5>
     <div class="row">
@@ -84,7 +86,6 @@
         </div>
     </div>
 
-
     @*  Learn more*@
     <script>
         let loadMoreBtn = document.querySelector('#load-more');
@@ -99,7 +100,9 @@
             }
             currentItem += 10;
 
-            if (currentItem >= showes.length) {
+            var count = showes.length - 10;
+
+            if (count == 36) {
                 loadMoreBtn.style.display = 'none';
             }
         }
@@ -108,18 +111,17 @@
     @*  Thu lại*@
     <script>
         let thulaiBtn = document.querySelector('#thu-lai');
-        let currentItem = 10;
 
         thulaiBtn.onclick = () => {
-            let showes = [...document.querySelectorAll('.container .show-container .show')];
+            let showess = [...document.querySelectorAll('.container .show-container .show')];
             let listes = [...document.querySelectorAll('.container .list-container .list')];
-            for (var i = currentItem; i < currentItem + 10; i++) {
-                showes[i].style.display = 'inline-block';
-                listes[i].style.display = 'inline-block';
+            for (var i = 10; i < showess.length; i++) {
+                showess[i].style.display = 'none';
+                listes[i].style.display = 'none';
             }
-            currentItem += 10;
+            currentItem = 10;
 
-            if (currentItem >= showes.length) {
+            if (currentItem1 >= showess.length) {
                 thulaiBtn.style.display = 'none';
             }
         }

@@ -30,7 +30,6 @@ namespace DAISY.Controllers
 
             var listCuahang = context.tb_CUAHANG.OrderBy(p => p.TENCUAHANG).ToList();
             ViewBag.Cuahang = listCuahang;
-
             
             return View(listsp);
         }
