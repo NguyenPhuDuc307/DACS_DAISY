@@ -5,14 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Thông tin chi tiết</h2>
 
 <div>
-    <h4>tb_LOAISANPHAM</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TENLOAISANPHAM)
+            Tên loại sản phẩm
         </dt>
 
         <dd>
@@ -20,16 +19,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HINHANH)
+            Hình ảnh
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HINHANH)
+            <img src="@Html.DisplayFor(model => model.HINHANH)" />
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDLOAISANPHAM }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Cập nhật", "Edit", new { id = Model.IDLOAISANPHAM }) |
+    @Html.ActionLink("Trở về", "Index")
 </p>

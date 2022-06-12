@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\DAISY",
-    "\\DAISY\\Controllers"
+    ""
   ],
-  "SelectedNode": "\\DAISY\\Controllers\\LoaiSPController.cs",
+  "SelectedNode": "\\DAISY.sln",
   "PreviewInSolutionExplorer": false
 }
