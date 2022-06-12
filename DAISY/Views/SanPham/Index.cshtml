@@ -39,8 +39,13 @@
         </div>
     </div>
     <div class="row justify-content-md-center">
-        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
-            Xem thêm
+        <div class="col-md-auto">
+            <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+                Xem thêm
+            </div>
+            <div class="col col-lg-1" style="width:150px; text-align: center; display:none" id="thu-lai">
+                Thu lại
+            </div>
         </div>
     </div>
     @*  Learn more*@
@@ -52,13 +57,39 @@
             let showes = [...document.querySelectorAll('.container .show-container .show')];
             let listes = [...document.querySelectorAll('.container .list-container .list')];
             for (var i = currentItem; i < currentItem + 10; i++) {
-                showes[i].style.display = 'inline-block';
-                listes[i].style.display = 'inline-block';
+                try {
+                    showes[i].style.display = 'inline-block';
+                    listes[i].style.display = 'inline-block';
+                }
+                catch (err) { }
             }
             currentItem += 10;
+            thulaiBtn.style.display = 'inline-block';
+
 
             if (currentItem >= showes.length) {
                 loadMoreBtn.style.display = 'none';
+                thulaiBtn.style.display = 'inline-block';
+            }
+        }
+    </script>
+
+    @*  Thu lại*@
+    <script>
+        let thulaiBtn = document.querySelector('#thu-lai');
+
+        thulaiBtn.onclick = () => {
+            let showess = [...document.querySelectorAll('.container .show-container .show')];
+            let listes = [...document.querySelectorAll('.container .list-container .list')];
+            for (var i = 10; i < showess.length; i++) {
+                showess[i].style.display = 'none';
+                listes[i].style.display = 'none';
+            }
+            currentItem = 10;
+            thulaiBtn.style.display = 'none';
+            loadMoreBtn.style.display = 'inline-block';
+            if (currentItem1 >= showess.length) {
+
             }
         }
     </script>

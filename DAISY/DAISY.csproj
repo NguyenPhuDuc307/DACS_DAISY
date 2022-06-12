@@ -223,12 +223,16 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CuaHangController.cs" />
+    <Compile Include="Controllers\CuaHang_SanPhamController.cs" />
     <Compile Include="Controllers\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KichCoController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\SanPham_KichCoController.cs" />
     <Compile Include="CustomAuthorizeAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -256,6 +260,8 @@
     <Compile Include="Models\tb_SANPHAM_KICHCO.cs" />
     <Compile Include="Models\tb_SANPHAM_SPDK.cs" />
     <Compile Include="Models\tb_SPDK.cs" />
+    <Compile Include="Payment\Momo\MoMoSecurity.cs" />
+    <Compile Include="Payment\Momo\PaymentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -397,6 +403,23 @@
     <Content Include="Views\CuaHang\Edit.cshtml" />
     <Content Include="Views\CuaHang\Index.cshtml" />
     <Content Include="Views\Home\ViewDanhmuc.cshtml" />
+    <Content Include="Views\Payment\ConfirmPaymentClient.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\SanPham_KichCo\Create.cshtml" />
+    <Content Include="Views\SanPham_KichCo\Delete.cshtml" />
+    <Content Include="Views\SanPham_KichCo\Details.cshtml" />
+    <Content Include="Views\SanPham_KichCo\Edit.cshtml" />
+    <Content Include="Views\SanPham_KichCo\Index.cshtml" />
+    <Content Include="Views\KichCo\Create.cshtml" />
+    <Content Include="Views\KichCo\Delete.cshtml" />
+    <Content Include="Views\KichCo\Details.cshtml" />
+    <Content Include="Views\KichCo\Edit.cshtml" />
+    <Content Include="Views\KichCo\Index.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Create.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Delete.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Details.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Edit.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

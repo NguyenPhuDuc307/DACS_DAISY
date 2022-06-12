@@ -28,6 +28,9 @@ namespace DAISY.Models
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDKICHCO { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string HINHANH { get; set; }
 
         public virtual tb_CUAHANG tb_CUAHANG { get; set; }
 
