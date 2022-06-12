@@ -71,11 +71,11 @@ namespace DAISY.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<ActionResult> Details(string id)
+        /*public async Task<ActionResult> Details(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new AspNetRoles(role));
-        }
+        }*/
 
         public async Task<ActionResult> Delete(string id)
         {

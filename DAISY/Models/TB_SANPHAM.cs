@@ -1,4 +1,4 @@
-namespace DAISY.Models
+﻿namespace DAISY.Models
 {
     using System;
     using System.Collections.Generic;

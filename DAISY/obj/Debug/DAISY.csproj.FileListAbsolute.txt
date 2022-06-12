@@ -419,3 +419,12 @@ D:\DACS_DAISY\DAISY\bin\PagedList.dll
 D:\DACS_DAISY\DAISY\bin\PagedList.Mvc.dll
 D:\DACS_DAISY\DAISY\bin\PagedList.xml
 D:\DACS_DAISY\DAISY\bin\PagedList.Mvc.xml
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Abstractions.dll
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\PagedList.dll
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\PagedList.Mvc.dll
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Abstractions.xml
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.JsonWebTokens.xml
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\Microsoft.IdentityModel.Logging.xml
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\PagedList.xml
+D:\ĐỒ ÁN CS\DACS_DAISY\DAISY\bin\PagedList.Mvc.xml
