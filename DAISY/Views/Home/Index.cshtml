@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-
-
-
 <div class="container">
 
     @Html.Action("ViewDanhmuc", "Home")
@@ -34,8 +31,7 @@
                                 <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
                             </a>
                             <div class="card-body">
-                                <h6 style="color: red; text-align: center"><b>@String.Format("{0:0,0}", item.GIASANPHAM)₫</b></h6>
-                                <h6 style="height: 30px; text-align:center">@item.TENSANPHAM</h6>
+                                <h6 style="height: 30px; text-align:center; color:black">@item.TENSANPHAM</h6>
                             </div>
                         </div>
 
@@ -87,6 +83,8 @@
             </div>
         </div>
     </div>
+
+
 
     @*  Learn more*@
     <script>

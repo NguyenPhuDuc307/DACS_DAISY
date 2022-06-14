@@ -20,7 +20,7 @@ namespace DAISY.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-
+        private string _roleName;
         public AccountController()
         {
         }
@@ -75,7 +75,7 @@ namespace DAISY.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        DaisyContext context = new DaisyContext();
         //
         // POST: /Account/Login
         [HttpPost]
@@ -91,6 +91,13 @@ namespace DAISY.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            AspNetUsers user = context.AspNetUsers.FirstOrDefault(p => p.Email == model.Email);
+
+            var roleid = await UserManager.GetRolesAsync(user.Id);
+            _roleName = roleid[0].ToString();
+            Session["role"] = _roleName;
+
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -434,6 +441,7 @@ namespace DAISY.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            Session["role"] = null;
             return RedirectToAction("Index", "Home");
         }
 

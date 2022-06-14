@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace DAISY.Controllers
 {
@@ -14,13 +15,19 @@ namespace DAISY.Controllers
     {
         DaisyContext context = new DaisyContext();
 
+        public string Roles { get; private set; }
+
         public ActionResult Index()
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
-            if(user!= null)
+            tb_CUAHANG cuahang = context.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == id);
+
+            if (user!= null)
             {
                 Session["Name"] = user.Name;
+                if(cuahang!=null)
+                    Session["IdCuaHang"] = cuahang.IDCUAHANG;
             }
 
             var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
@@ -55,6 +62,11 @@ namespace DAISY.Controllers
         [CustomAuthorize(Roles = "Admin")]//user 1
         public ActionResult Quanly()
         {
+            if (Roles == null)
+            {
+
+            }
+
             ViewBag.Message = "Chào mừng bạn đến với Quản lý Website.";
 
             return View();

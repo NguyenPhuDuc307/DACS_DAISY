@@ -17,15 +17,14 @@ namespace DAISY.Models
 
         [Key]
         public int IDGIOHANG { get; set; }
-        //===================================================================
+
         [Required]
         [StringLength(128)]
         public string IDKHACHHANG { get; set; }
 
         public DateTime? NGAYTAO { get; set; }
-        //===================================================================
+
         public virtual AspNetUsers AspNetUsers { get; set; }
-        //===================================================================
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }

@@ -27,6 +27,8 @@ namespace DAISY.Controllers
         // GET: SanPham
         public ActionResult Index()
         {
+            ViewBag.ViDo = "10.871999612800334";
+            ViewBag.KinhDo = "106.79158015306331";
             var tb_SANPHAM = db.tb_SANPHAM.Include(t => t.tb_LOAISANPHAM);
             return View(tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList());
 
@@ -60,7 +62,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,GIASANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
+        public ActionResult Create([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +96,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,GIASANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
+        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
         {
             if (ModelState.IsValid)
             {

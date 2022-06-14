@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -71,13 +72,13 @@ namespace DAISY.Controllers
             return RedirectToAction("Index");
         }
 
-        /*public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new AspNetRoles(role));
-        }*/
+        }
 
-        public async Task<ActionResult> Delete(string id)
+        /*public async Task<ActionResult> Delete(string id)
         {
             var role = await RoleManager.FindByIdAsync(id);
             return View(new AspNetRoles(role));
@@ -88,6 +89,43 @@ namespace DAISY.Controllers
             var role = await RoleManager.FindByIdAsync(id);
             await RoleManager.DeleteAsync(role);
             return RedirectToAction("Index");
+        }*/
+
+        private DaisyContext db = new DaisyContext();
+
+        // GET: AspNetRoles/Delete/5
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            if (aspNetRoles == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetRoles);
+        }
+
+        // POST: AspNetRoles/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            AspNetRoles aspNetRoles = db.AspNetRoles.Find(id);
+            db.AspNetRoles.Remove(aspNetRoles);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

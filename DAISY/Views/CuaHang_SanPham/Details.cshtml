@@ -20,6 +20,22 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.tb_KICHCO.TENKICHCO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_KICHCO.TENKICHCO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_SANPHAM.TENSANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_SANPHAM.TENSANPHAM)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.tb_SANPHAM_KICHCO.IDSANPHAM)
         </dt>
 
@@ -34,10 +50,17 @@
         <dd>
             @Html.DisplayFor(model => model.HINHANH)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GIASANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIASANPHAM)
+        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { @idch = Model.IDCUAHANG, @idsp = Model.IDSANPHAM, @idkc = Model.IDKICHCO }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

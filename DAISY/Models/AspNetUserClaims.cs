@@ -17,5 +17,7 @@ namespace DAISY.Models
         public string ClaimType { get; set; }
 
         public string ClaimValue { get; set; }
+
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

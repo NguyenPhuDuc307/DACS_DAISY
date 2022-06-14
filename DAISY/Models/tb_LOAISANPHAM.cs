@@ -26,7 +26,5 @@ namespace DAISY.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_SANPHAM> tb_SANPHAM { get; set; }
-
-        public List<tb_LOAISANPHAM> lstlsp = new List<tb_LOAISANPHAM>();
     }
 }

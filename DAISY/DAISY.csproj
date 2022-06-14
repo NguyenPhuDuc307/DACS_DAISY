@@ -222,8 +222,10 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CuaHangController.cs" />
     <Compile Include="Controllers\CuaHang_SanPhamController.cs" />
+    <Compile Include="Controllers\CuaHang_ToppingController.cs" />
     <Compile Include="Controllers\Encryptor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KichCoController.cs" />
@@ -232,7 +234,8 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
-    <Compile Include="Controllers\SanPham_KichCoController.cs" />
+    <Compile Include="Controllers\SanPham_ToppingController.cs" />
+    <Compile Include="Controllers\ToppingController.cs" />
     <Compile Include="CustomAuthorizeAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +247,7 @@
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DaisyContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -275,6 +279,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Content\bootstrap\App.css" />
     <Content Include="Content\bootstrap\bootstrap-grid.css" />
     <Content Include="Content\bootstrap\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap\bootstrap-grid.rtl.css" />
@@ -292,8 +297,10 @@
     <Content Include="Content\bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css" />
     <Content Include="Content\bootstrap\Custom.css" />
+    <Content Include="Content\bootstrap\fontawesome.css" />
     <Content Include="Content\bootstrap\Style.css" />
     <Content Include="Content\bootstrap\Font.css" />
+    <Content Include="Scripts\swiper-bundle.min.js" />
     <Content Include="Content\bootstrap\Swiper.css" />
     <Content Include="Content\img\image_none.png" />
     <Content Include="Content\PagedList.css" />
@@ -405,11 +412,6 @@
     <Content Include="Views\Home\ViewDanhmuc.cshtml" />
     <Content Include="Views\Payment\ConfirmPaymentClient.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\SanPham_KichCo\Create.cshtml" />
-    <Content Include="Views\SanPham_KichCo\Delete.cshtml" />
-    <Content Include="Views\SanPham_KichCo\Details.cshtml" />
-    <Content Include="Views\SanPham_KichCo\Edit.cshtml" />
-    <Content Include="Views\SanPham_KichCo\Index.cshtml" />
     <Content Include="Views\KichCo\Create.cshtml" />
     <Content Include="Views\KichCo\Delete.cshtml" />
     <Content Include="Views\KichCo\Details.cshtml" />
@@ -420,6 +422,28 @@
     <Content Include="Views\CuaHang_SanPham\Details.cshtml" />
     <Content Include="Views\CuaHang_SanPham\Edit.cshtml" />
     <Content Include="Views\CuaHang_SanPham\Index.cshtml" />
+    <Content Include="Views\tb_SPDK\Create.cshtml" />
+    <Content Include="Views\tb_SPDK\Delete.cshtml" />
+    <Content Include="Views\tb_SPDK\Details.cshtml" />
+    <Content Include="Views\tb_SPDK\Edit.cshtml" />
+    <Content Include="Views\tb_SPDK\Index.cshtml" />
+    <Content Include="Views\Topping\Create.cshtml" />
+    <Content Include="Views\Topping\Delete.cshtml" />
+    <Content Include="Views\Topping\Details.cshtml" />
+    <Content Include="Views\Topping\Edit.cshtml" />
+    <Content Include="Views\Topping\Index.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Create.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Delete.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Details.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Edit.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Index.cshtml" />
+    <Content Include="Views\SanPham_Topping\Create.cshtml" />
+    <Content Include="Views\SanPham_Topping\Delete.cshtml" />
+    <Content Include="Views\SanPham_Topping\Details.cshtml" />
+    <Content Include="Views\SanPham_Topping\Index.cshtml" />
+    <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Manage\UpdateToaDo.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

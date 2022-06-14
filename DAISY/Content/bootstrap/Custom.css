@@ -157,3 +157,10 @@
     .img-none:hover {
         border: 2px solid rgba(0, 0, 0, 0.125);
     }
+
+
+/* Đặt kích thước của thẻ div chứa bản đồ */
+#map {
+    height: 400px;
+    width: 600px;
+}

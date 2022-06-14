@@ -8,11 +8,8 @@
     <link rel="stylesheet" href="~/Content/bootstrap/Swiper.css" />
     <link rel="stylesheet" href="~/Content/bootstrap/Custom.css" />
     <link rel="stylesheet" href="~/Content/bootstrap/Font.css">
-
+    <link rel="stylesheet" href="~/Content/bootstrap/fontawesome.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- font awesome cdn link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 <body>
@@ -28,25 +25,40 @@
                 <a class="navbar-brand" style="color:red" href="@Url.Action("Index", "Home")"><b>DAISY</b></a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "Home")">Quản lý Website</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Cuahang", "Home")">Quản lý Cửa hàng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Khachhang", "Home")">Quản lý Đơn hàng</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Role")">Quyền truy cập</a>
-                    </li>
+                    @if ((string)Session["role"] == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "Home")">Quản lý Website</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Role")">Quyền truy cập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang")">Cửa hàng</a>
+                        </li>
+                    }
+                    else if ((string)Session["role"] == "Cửa hàng")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Cuahang", "Home")">Quản lý Cửa hàng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Khachhang", "Home")">Quản lý Đơn hàng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "KichCo")">Kích cỡ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_SanPham")">Cửa hàng - sản phẩm</a>
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -67,9 +79,10 @@
 
     <script type="text/javascript" src="~/Scripts/bootstrap.bundle.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.bundle.min.js"></script>
-
-@*    Slide show*@
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Scripts/swiper-bundle.min.js"></script>
+ @*   AIzaSyAgfz-RxCgkchX1AU2jrNw4wi7jrHTV7NQ*@
+    <!--Load the API from the specified URL -- remember to replace YOUR_API_KEY-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?keyAIzaSyDCfIgMXhBjD13J9eX2169E7Wg7j74k4bI=&callback=initMap"></script>
     <script>
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 6,
@@ -89,7 +102,7 @@
     </script>
 
 
-@*    Popover*@
+    @*    Popover*@
     <script>
         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {

@@ -1,0 +1,131 @@
+﻿@model DAISY.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Tọa độ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+
+
+
+<h2>Cập nhật Tọa độ</h2>
+<button class="btn btn-primary" onclick="getLocation()">Lấy vị trí</button>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.HiddenFor(model => model.Email)
+
+    @Html.HiddenFor(model => model.EmailConfirmed)
+
+    @Html.HiddenFor(model => model.PasswordHash)
+
+    @Html.HiddenFor(model => model.SecurityStamp)
+
+    @Html.HiddenFor(model => model.PhoneNumber)
+
+    @Html.HiddenFor(model => model.PhoneNumberConfirmed)
+
+    @Html.HiddenFor(model => model.TwoFactorEnabled)
+
+    @Html.HiddenFor(model => model.LockoutEndDateUtc)
+
+    @Html.HiddenFor(model => model.LockoutEnabled)
+
+    @Html.HiddenFor(model => model.AccessFailedCount)
+
+    @Html.HiddenFor(model => model.UserName)
+
+    @Html.HiddenFor(model => model.Name)
+
+    @Html.HiddenFor(model => model.Image)
+
+    @Html.HiddenFor(model => model.Gioitinh)
+
+    <div id="demo"></div>
+
+    <div id="toado">
+        <input name="ToaDo_VD" class="form-control" id="ToaDo_VD" type="text" value="@Model.ToaDo_VD" />
+        <input name="ToaDo_KD" class="form-control" id="ToaDo_KD" onchange="initMap()" type="text" value="@Model.ToaDo_KD" />
+    </div>
+
+    <!-- Các thẻ div cho bản đồ -->
+    <div id="map"></div>
+
+    <script>
+        // Initialize and add the map
+        var map;
+        function initMap() {
+            // The map, centered on Central Park
+            const center = { lat: @Model.ToaDo_VD, lng:  @Model.ToaDo_KD};
+            const options = { zoom: 15, scaleControl: true, center: center };
+            map = new google.maps.Map(
+                document.getElementById('map'), options);
+            // Locations of landmarks
+            const vitri = { lat: @Model.ToaDo_VD, lng:  @Model.ToaDo_KD};
+            // The markers for The Dakota and The Frick Collection
+            var mk1 = new google.maps.Marker({ position: vitri, map: map });
+        }
+    </script>
+
+    <script>
+        var x = document.getElementById("toado");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation không được hỗ trợ bởi trình duyệt này.";
+            }
+        }
+
+        function showPosition(position) {
+
+            document.getElementById('ToaDo_VD').innerHTML = position.coords.latitude;
+            document.getElementById('ToaDo_KD').innerHTML = position.coords.longitude;
+
+            x.innerHTML = "<input name='ToaDo_VD' class='form-control' type='text' value='" + position.coords.latitude + "' />" +
+                "<input name='ToaDo_KD' class='form-control' type='text' value='" + position.coords.longitude + "' />"
+        }
+    </script>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.ToaDo_VD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToaDo_VD, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToaDo_KD, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToaDo_KD, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ToaDo_KD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    *@
+
+    <p>Kích vào button để lấy toạ độ của bạn</p>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

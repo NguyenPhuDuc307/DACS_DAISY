@@ -15,13 +15,7 @@
         <h4>tb_CUAHANG_SPCT</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDCUAHANG, "IDCUAHANG", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDCUAHANG", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDCUAHANG, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <input name="IDCUAHANG" hidden value="@Session["IdCuaHang"]" type="text" class="form-control" />
 
         <div class="form-group">
             @Html.LabelFor(model => model.IDSANPHAM, "IDSANPHAM", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,10 +34,75 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.TENSANPHAM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.HINHANH, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HINHANH, new { htmlAttributes = new { @class = "form-control" } })
+                <input name="HINHANH" id="HINHANH" class="form-control" value="" />
+
                 @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+
+
+                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+                <br />
+
+                <img src="~/Content/img/img-none.png" id="pictureUpload" class="img-none" />
+                @section upload
+                {
+                    <script>
+                        $(function () {
+                            $('#pictureUpload').click(function () {
+                                $('#fileUpload').trigger('click');
+                            });
+                        });
+                        $('#fileUpload').change(function () {
+                            if (window.FormData !== undefined) {
+                                var fileUpload = $('#fileUpload').get(0);
+                                var files = fileUpload.files;
+                                var formData = new FormData();
+                                formData.append('file', files[0]);
+                                $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '/CuaHang_SanPham/ProcessUpload',
+                                        contentType: false,
+                                        processData: false,
+                                        data: formData,
+                                        success: function (urlImage) {
+                                            $('#pictureUpload').attr('src', urlImage);
+                                            $('#HINHANH').val(urlImage);
+                                        },
+                                        error: function (err) {
+                                            alert('Error ', err.statusText);
+
+                                        }
+                                    });
+                            }
+                        });
+                    </script>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GIASANPHAM, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GIASANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GIASANPHAM, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TRANGTHAI, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TRANGTHAI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
             </div>
         </div>
 

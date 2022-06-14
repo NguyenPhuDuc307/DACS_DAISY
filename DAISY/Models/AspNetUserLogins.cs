@@ -19,5 +19,7 @@ namespace DAISY.Models
         [Key]
         [Column(Order = 2)]
         public string UserId { get; set; }
+
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -28,15 +28,29 @@ namespace DAISY.Models
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDKICHCO { get; set; }
+
+        [Required]
+        [StringLength(256)]
+        public string TENSANPHAM { get; set; }
+
         [Required]
         [StringLength(128)]
         public string HINHANH { get; set; }
 
+        public double GIASANPHAM { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string TRANGTHAI { get; set; }
         public virtual tb_CUAHANG tb_CUAHANG { get; set; }
 
         public virtual tb_SANPHAM_KICHCO tb_SANPHAM_KICHCO { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
+
+        public virtual tb_KICHCO tb_KICHCO { get; set; }
+
+        public virtual tb_SANPHAM tb_SANPHAM { get; set; }
     }
 }

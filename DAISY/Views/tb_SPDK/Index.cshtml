@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DAISY.Models.tb_SPDK>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TENSPDK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GIABANSPDK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENSPDK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GIABANSPDK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHANH)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDSPDK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDSPDK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDSPDK })
+        </td>
+    </tr>
+}
+
+</table>

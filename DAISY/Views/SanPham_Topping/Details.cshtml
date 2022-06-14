@@ -1,4 +1,4 @@
-﻿@model DAISY.Models.tb_SANPHAM_KICHCO
+﻿@model DAISY.Models.tb_SANPHAM_SPDK
 
 @{
     ViewBag.Title = "Details";
@@ -8,15 +8,15 @@
 <h2>Details</h2>
 
 <div>
-    <h4>tb_SANPHAM_KICHCO</h4>
+    <h4>tb_SANPHAM_SPDK</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.tb_KICHCO.TENKICHCO)
+            @Html.DisplayNameFor(model => model.tb_CUAHANG_SPDK.HINHANH)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.tb_KICHCO.TENKICHCO)
+            @Html.DisplayFor(model => model.tb_CUAHANG_SPDK.HINHANH)
         </dd>
 
         <dt>
@@ -30,6 +30,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

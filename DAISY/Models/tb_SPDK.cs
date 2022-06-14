@@ -21,8 +21,6 @@ namespace DAISY.Models
         [StringLength(100)]
         public string TENSPDK { get; set; }
 
-        public double GIABANSPDK { get; set; }
-
         [StringLength(100)]
         public string HINHANH { get; set; }
 

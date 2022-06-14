@@ -23,8 +23,19 @@ namespace DAISY.Models
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDSPDK { get; set; }
+        [Required]
+        [StringLength(256)]
+        public string TENSPDK { get; set; }
 
-        public int? SOLUONG { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string HINHANH { get; set; }
+
+        public double GIABAN { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string TRANGTHAI { get; set; }
 
         public virtual tb_CUAHANG tb_CUAHANG { get; set; }
 

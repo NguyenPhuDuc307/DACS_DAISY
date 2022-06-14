@@ -18,7 +18,7 @@ namespace DAISY.Models
 
         [Key]
         public int IDCUAHANG { get; set; }
-        //===================================================================
+
         [Required]
         [StringLength(128)]
         public string IDUSER { get; set; }
@@ -32,9 +32,8 @@ namespace DAISY.Models
         public string DIACHI { get; set; }
 
         public string HINHANH { get; set; }
-        //===================================================================
+
         public virtual AspNetUsers AspNetUsers { get; set; }
-        //===================================================================
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_CUAHANG_SPDK> tb_CUAHANG_SPDK { get; set; }
@@ -44,7 +43,5 @@ namespace DAISY.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
-
-        public List<tb_CUAHANG> lstch = new List<tb_CUAHANG>();
     }
 }

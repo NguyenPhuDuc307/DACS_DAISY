@@ -12,17 +12,16 @@ namespace DAISY.Models
         {
         }
 
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        //===================================================================
         public virtual DbSet<tb_CUAHANG> tb_CUAHANG { get; set; }
-        //===================================================================
         public virtual DbSet<tb_CUAHANG_SANPHAM> tb_CUAHANG_SANPHAM { get; set; }
         public virtual DbSet<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
         public virtual DbSet<tb_CUAHANG_SPDK> tb_CUAHANG_SPDK { get; set; }
-        //===================================================================
         public virtual DbSet<tb_GIOHANG> tb_GIOHANG { get; set; }
-        //===================================================================
         public virtual DbSet<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
         public virtual DbSet<tb_GIOHANG_SPDK> tb_GIOHANG_SPDK { get; set; }
         public virtual DbSet<tb_KICHCO> tb_KICHCO { get; set; }
@@ -39,20 +38,27 @@ namespace DAISY.Models
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
 
-            //===================================================================
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.tb_CUAHANG)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.IDUSER)
                 .WillCascadeOnDelete(false);
-            //===================================================================
 
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.tb_GIOHANG)
                 .WithRequired(e => e.AspNetUsers)
                 .HasForeignKey(e => e.IDKHACHHANG)
                 .WillCascadeOnDelete(false);
-            //===================================================================
 
             modelBuilder.Entity<tb_CUAHANG>()
                 .HasMany(e => e.tb_CUAHANG_SPDK)
@@ -92,6 +98,11 @@ namespace DAISY.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<tb_KICHCO>()
+                .HasMany(e => e.tb_CUAHANG_SPCT)
+                .WithRequired(e => e.tb_KICHCO)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<tb_KICHCO>()
                 .HasMany(e => e.tb_SANPHAM_KICHCO)
                 .WithRequired(e => e.tb_KICHCO)
                 .WillCascadeOnDelete(false);
@@ -103,6 +114,11 @@ namespace DAISY.Models
 
             modelBuilder.Entity<tb_SANPHAM>()
                 .HasMany(e => e.tb_CUAHANG_SANPHAM)
+                .WithRequired(e => e.tb_SANPHAM)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<tb_SANPHAM>()
+                .HasMany(e => e.tb_CUAHANG_SPCT)
                 .WithRequired(e => e.tb_SANPHAM)
                 .WillCascadeOnDelete(false);
 

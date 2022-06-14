@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DAISY.Models;
 using DAISY.Helper;
+using System.Data.Entity;
+using System.Net;
 
 namespace DAISY.Controllers
 {
@@ -16,9 +18,36 @@ namespace DAISY.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private DaisyContext db = new DaisyContext();
         public ManageController()
         {
+        }
+
+        // GET: AspNetUsers/Edit/5
+        public ActionResult UpdateToaDo()
+        {
+            AspNetUsers aspNetUsers = db.AspNetUsers.Find(User.Identity.GetUserId());
+            if (aspNetUsers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUsers);
+        }
+
+        // POST: AspNetUsers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateToaDo([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Name,Image,Gioitinh,ToaDo_VD,ToaDo_KD")] AspNetUsers aspNetUsers)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aspNetUsers).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(aspNetUsers);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
