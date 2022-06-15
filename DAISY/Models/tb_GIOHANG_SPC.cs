@@ -16,19 +16,13 @@ namespace DAISY.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IDCUAHANG { get; set; }
-
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDSANPHAM { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IDKICHCO { get; set; }
+        public int SOLUONGSPCHINH { get; set; }
 
-        public double? SOLUONGSPCHINH { get; set; }
+        public float GIABAN { get; set; }
+
+        public float THANHTIEN { get; set; }
 
         public virtual tb_CUAHANG_SPCT tb_CUAHANG_SPCT { get; set; }
 

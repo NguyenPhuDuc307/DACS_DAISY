@@ -222,11 +222,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\CuaHangController.cs" />
     <Compile Include="Controllers\CuaHang_SanPhamController.cs" />
     <Compile Include="Controllers\CuaHang_ToppingController.cs" />
     <Compile Include="Controllers\Encryptor.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KichCoController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
@@ -247,12 +247,12 @@
     <Compile Include="Models\AspNetUserClaims.cs" />
     <Compile Include="Models\AspNetUserLogins.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\DaisyContext.cs" />
+    <Compile Include="Models\Giohang.cs" />
+    <Compile Include="Models\GioHang_Topping.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\tb_CUAHANG.cs" />
-    <Compile Include="Models\tb_CUAHANG_SANPHAM.cs" />
     <Compile Include="Models\tb_CUAHANG_SPCT.cs" />
     <Compile Include="Models\tb_CUAHANG_SPDK.cs" />
     <Compile Include="Models\tb_GIOHANG.cs" />
@@ -261,7 +261,6 @@
     <Compile Include="Models\tb_KICHCO.cs" />
     <Compile Include="Models\tb_LOAISANPHAM.cs" />
     <Compile Include="Models\tb_SANPHAM.cs" />
-    <Compile Include="Models\tb_SANPHAM_KICHCO.cs" />
     <Compile Include="Models\tb_SANPHAM_SPDK.cs" />
     <Compile Include="Models\tb_SPDK.cs" />
     <Compile Include="Payment\Momo\MoMoSecurity.cs" />
@@ -417,11 +416,6 @@
     <Content Include="Views\KichCo\Details.cshtml" />
     <Content Include="Views\KichCo\Edit.cshtml" />
     <Content Include="Views\KichCo\Index.cshtml" />
-    <Content Include="Views\CuaHang_SanPham\Create.cshtml" />
-    <Content Include="Views\CuaHang_SanPham\Delete.cshtml" />
-    <Content Include="Views\CuaHang_SanPham\Details.cshtml" />
-    <Content Include="Views\CuaHang_SanPham\Edit.cshtml" />
-    <Content Include="Views\CuaHang_SanPham\Index.cshtml" />
     <Content Include="Views\tb_SPDK\Create.cshtml" />
     <Content Include="Views\tb_SPDK\Delete.cshtml" />
     <Content Include="Views\tb_SPDK\Details.cshtml" />
@@ -432,18 +426,28 @@
     <Content Include="Views\Topping\Details.cshtml" />
     <Content Include="Views\Topping\Edit.cshtml" />
     <Content Include="Views\Topping\Index.cshtml" />
-    <Content Include="Views\CuaHang_Topping\Create.cshtml" />
-    <Content Include="Views\CuaHang_Topping\Delete.cshtml" />
-    <Content Include="Views\CuaHang_Topping\Details.cshtml" />
-    <Content Include="Views\CuaHang_Topping\Edit.cshtml" />
-    <Content Include="Views\CuaHang_Topping\Index.cshtml" />
     <Content Include="Views\SanPham_Topping\Create.cshtml" />
     <Content Include="Views\SanPham_Topping\Delete.cshtml" />
     <Content Include="Views\SanPham_Topping\Details.cshtml" />
     <Content Include="Views\SanPham_Topping\Index.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Manage\UpdateToaDo.cshtml" />
-    <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Create.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Delete.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Details.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Edit.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Index.cshtml" />
+    <Content Include="Views\SanPham_Topping\Edit.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Create.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Delete.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Details.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Edit.cshtml" />
+    <Content Include="Views\CuaHang_Topping\Index.cshtml" />
+    <Content Include="Views\Home\SanPhamBySanPham.cshtml" />
+    <Content Include="Views\GioHang\GioHang.cshtml" />
+    <Content Include="Views\GioHang\GiohangPartial.cshtml" />
+    <Content Include="Views\GioHang\DatHang.cshtml" />
+    <Content Include="Views\GioHang\XacnhanDonhang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

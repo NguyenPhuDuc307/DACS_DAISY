@@ -7,7 +7,12 @@
 
 
 
-<script>
+
+<div class="container">
+
+    <div id="msg"></div>
+
+    <script>
 
     // Khởi tạo và thêm bản đồ
     var map;
@@ -52,10 +57,7 @@
         document.getElementById('msg').innerHTML = distance.toFixed(2) + " km";
 
     }
-</script>
-
-
-<div class="container">
+    </script>
 
     @Html.Action("ViewDanhmuc", "Home")
 
@@ -85,18 +87,19 @@
                     </div>
                 }
             </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+                        Xem thêm
+                    </div>
+                    <div class="col col-lg-1" style="width:150px; text-align: center; display:none" id="thu-lai">
+                        Thu lại
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-auto">
-            <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
-                Xem thêm
-            </div>
-            <div class="col col-lg-1" style="width:150px; text-align: center; display:none" id="thu-lai">
-                Thu lại
-            </div>
-        </div>
-    </div>
+
     @*  Learn more*@
     <script>
         let loadMoreBtn = document.querySelector('#load-more');

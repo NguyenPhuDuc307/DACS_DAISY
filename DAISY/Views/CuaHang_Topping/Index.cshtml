@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.tb_CUAHANG.TENCUAHANG)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.tb_SPDK.TENSPDK)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TENSPDK)
         </th>
         <th>
@@ -31,28 +34,31 @@
     </tr>
 
 @foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.tb_CUAHANG.TENCUAHANG)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TENSPDK)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.HINHANH)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.GIABAN)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TRANGTHAI)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { @idch = item.IDCUAHANG, @idsp = item.IDSPDK }) |
-        @Html.ActionLink("Details", "Details", new { @idch = item.IDCUAHANG, @idsp = item.IDSPDK }) |
-        @Html.ActionLink("Delete", "Delete", new { @idch = item.IDCUAHANG, @idsp = item.IDSPDK })
-    </td>
-</tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_CUAHANG.TENCUAHANG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_SPDK.TENSPDK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENSPDK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HINHANH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GIABAN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TRANGTHAI)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
 }
 
 </table>

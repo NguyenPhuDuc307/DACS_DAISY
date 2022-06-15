@@ -11,20 +11,16 @@ namespace DAISY.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tb_CUAHANG_SPDK()
         {
-            tb_SANPHAM_SPDK = new HashSet<tb_SANPHAM_SPDK>();
+            tb_GIOHANG_SPDK = new HashSet<tb_GIOHANG_SPDK>();
         }
 
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID { get; set; }
+
         public int IDCUAHANG { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDSPDK { get; set; }
-        [Required]
-        [StringLength(256)]
+
+        [StringLength(128)]
         public string TENSPDK { get; set; }
 
         [Required]
@@ -42,6 +38,6 @@ namespace DAISY.Models
         public virtual tb_SPDK tb_SPDK { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_SANPHAM_SPDK> tb_SANPHAM_SPDK { get; set; }
+        public virtual ICollection<tb_GIOHANG_SPDK> tb_GIOHANG_SPDK { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace DAISY.Models
         {
             tb_GIOHANG_SPC = new HashSet<tb_GIOHANG_SPC>();
             tb_GIOHANG_SPDK = new HashSet<tb_GIOHANG_SPDK>();
+
         }
 
         [Key]
@@ -23,6 +24,14 @@ namespace DAISY.Models
         public string IDKHACHHANG { get; set; }
 
         public DateTime? NGAYTAO { get; set; }
+
+        public double? THANHTIEN { get; set; }
+
+        public bool THANHTOAN { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string TRANGTHAI { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
 

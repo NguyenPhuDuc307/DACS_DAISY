@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "SanPhamByDanhSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>SanPhamByDanhSanPham</h2>
+<div class="container">
+    <script>
+        // Khởi tạo và thêm bản đồ
+        var map;
+
+        function haversine_distance(mk1, mk2) {
+            var R = 6371.0710 // Bán kính Trái đất tính bằng km
+            var rlat1 = mk1.position.lat() * (Math.PI / 180); // Chuyển đổi độ sang radian
+            var rlat2 = mk2.position.lat() * (Math.PI / 180); // Chuyển đổi độ sang radian
+            var difflat = rlat2 - rlat1; // Khoảng radian (vĩ độ)
+            var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Khoảng radian (kinh độ)
+
+            var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));
+            return d;
+        }
+
+        function initMap(id, vido, kinhdo) {
+
+            // Vị trí hiện tại
+            var vitrihientai;
+            // Vị trí cửa hàng
+            var vitridich;
+
+
+            // Vị trí hiện tại được đánh dấu
+            vitrihientai = new google.maps.Marker({ position: { lat: @Session["ViDo"], lng: @Session["KinhDo"] }, map: map });
+
+            // Vị trí cửa hàng được đánh dấu
+            vitridich = new google.maps.Marker({ position: { lat: vido, lng: kinhdo }, map: map });
+
+            // gán id động
+            var str = id;
+
+            // Tính toán và hiển thị khoảng cách giữa các điểm đánh dấu rồi gán vào thẻ div
+            document.getElementById(str).innerHTML = haversine_distance(vitrihientai, vitridich).toFixed(2) + " km";
+        }
+    </script>
+
+    @Html.Action("ViewDanhmuc", "Home")
+
+    <div class="show-container row row-cols-2 row-cols-lg-6 g-3 g-lg-3">
+        @foreach (var item in Model)
+        {
+            <div onmousemove="initMap('@item.IDCUAHANG@item.IDSANPHAM@item.IDKICHCO', @item.tb_CUAHANG.AspNetUsers.ToaDo_VD, @item.tb_CUAHANG.AspNetUsers.ToaDo_KD)" class="show">
+                <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                    <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h6 style="height: 50px; color:black; font-weight:700">@item.TENSANPHAM</h6>
+                        <h6 style="color: red; font-weight:800">@String.Format("{0:0,0}", item.GIASANPHAM)₫</h6>
+
+                        <div style="display:flex">
+                            <svg style="margin-top:3px; margin-right:5px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>
+                            <div id="@item.IDCUAHANG@item.IDSANPHAM@item.IDKICHCO"></div>
+                        </div>
+                        <hr />
+                        <div style="width: 100%">
+                            <a style="width: 100%" class="btn btn-outline-danger" href="@Url.Action("ThemGioHang", "GioHang", new { @id = item.ID, @strURL = Request.Url.ToString() })">Chọn mua</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

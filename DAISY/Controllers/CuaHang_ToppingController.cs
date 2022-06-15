@@ -14,8 +14,6 @@ namespace DAISY.Controllers
     {
         private DaisyContext db = new DaisyContext();
 
-        
-
         // GET: CuaHang_Topping
         public ActionResult Index()
         {
@@ -24,13 +22,13 @@ namespace DAISY.Controllers
         }
 
         // GET: CuaHang_Topping/Details/5
-        public ActionResult Details(int? idch, int? idsp)
+        public ActionResult Details(int? id)
         {
-            if (idch == null || idsp == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.FirstOrDefault(p => p.IDCUAHANG == idch && p.IDSPDK == idsp);
+            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.Find(id);
             if (tb_CUAHANG_SPDK == null)
             {
                 return HttpNotFound();
@@ -41,7 +39,6 @@ namespace DAISY.Controllers
         // GET: CuaHang_Topping/Create
         public ActionResult Create()
         {
-            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "TENCUAHANG");
             ViewBag.IDSPDK = new SelectList(db.tb_SPDK, "IDSPDK", "TENSPDK");
             return View();
         }
@@ -51,7 +48,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCUAHANG,IDSPDK,TENSPDK,HINHANH,GIABAN,TRANGTHAI")] tb_CUAHANG_SPDK tb_CUAHANG_SPDK)
+        public ActionResult Create([Bind(Include = "ID,IDCUAHANG,IDSPDK,TENSPDK,HINHANH,GIABAN,TRANGTHAI")] tb_CUAHANG_SPDK tb_CUAHANG_SPDK)
         {
             if (ModelState.IsValid)
             {
@@ -59,25 +56,22 @@ namespace DAISY.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "TENCUAHANG", tb_CUAHANG_SPDK.IDCUAHANG);
             ViewBag.IDSPDK = new SelectList(db.tb_SPDK, "IDSPDK", "TENSPDK", tb_CUAHANG_SPDK.IDSPDK);
             return View(tb_CUAHANG_SPDK);
         }
 
         // GET: CuaHang_Topping/Edit/5
-        public ActionResult Edit(int? idch, int? idsp)
+        public ActionResult Edit(int? id)
         {
-            if (idch == null || idsp == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.FirstOrDefault(p => p.IDCUAHANG == idch && p.IDSPDK == idsp);
+            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.Find(id);
             if (tb_CUAHANG_SPDK == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "TENCUAHANG", tb_CUAHANG_SPDK.IDCUAHANG);
             ViewBag.IDSPDK = new SelectList(db.tb_SPDK, "IDSPDK", "TENSPDK", tb_CUAHANG_SPDK.IDSPDK);
             return View(tb_CUAHANG_SPDK);
         }
@@ -87,7 +81,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCUAHANG,IDSPDK,TENSPDK,HINHANH,GIABAN,TRANGTHAI")] tb_CUAHANG_SPDK tb_CUAHANG_SPDK)
+        public ActionResult Edit([Bind(Include = "ID,IDCUAHANG,IDSPDK,TENSPDK,HINHANH,GIABAN,TRANGTHAI")] tb_CUAHANG_SPDK tb_CUAHANG_SPDK)
         {
             if (ModelState.IsValid)
             {
@@ -95,19 +89,18 @@ namespace DAISY.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "TENCUAHANG", tb_CUAHANG_SPDK.IDCUAHANG);
             ViewBag.IDSPDK = new SelectList(db.tb_SPDK, "IDSPDK", "TENSPDK", tb_CUAHANG_SPDK.IDSPDK);
             return View(tb_CUAHANG_SPDK);
         }
 
         // GET: CuaHang_Topping/Delete/5
-        public ActionResult Delete(int? idch, int? idsp)
+        public ActionResult Delete(int? id)
         {
-            if (idch == null || idsp == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.FirstOrDefault(p => p.IDCUAHANG == idch && p.IDSPDK == idsp);
+            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.Find(id);
             if (tb_CUAHANG_SPDK == null)
             {
                 return HttpNotFound();
@@ -118,9 +111,9 @@ namespace DAISY.Controllers
         // POST: CuaHang_Topping/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? idch, int? idsp)
+        public ActionResult DeleteConfirmed(int id)
         {
-            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.FirstOrDefault(p => p.IDCUAHANG == idch && p.IDSPDK == idsp);
+            tb_CUAHANG_SPDK tb_CUAHANG_SPDK = db.tb_CUAHANG_SPDK.Find(id);
             db.tb_CUAHANG_SPDK.Remove(tb_CUAHANG_SPDK);
             db.SaveChanges();
             return RedirectToAction("Index");

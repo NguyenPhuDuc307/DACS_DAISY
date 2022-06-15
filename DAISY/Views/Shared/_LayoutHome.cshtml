@@ -38,6 +38,16 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang")">Cửa hàng</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "KichCo")">Kích cỡ</a>
+                        </li>
                     }
                     else if ((string)Session["role"] == "Cửa hàng")
                     {
@@ -47,21 +57,20 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="@Url.Action("Khachhang", "Home")">Quản lý Đơn hàng</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_SanPham")">Sản phẩm</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "KichCo")">Kích cỡ</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_Topping")">Topping</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_SanPham")">Cửa hàng - sản phẩm</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham_Topping")">Sản Phẩm Topping</a>
                         </li>
                     }
-
+                    <li>@Html.Partial("~/Views/GioHang/GioHangPartial.cshtml")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -12,21 +12,15 @@ namespace DAISY.Models
         public tb_CUAHANG_SPCT()
         {
             tb_GIOHANG_SPC = new HashSet<tb_GIOHANG_SPC>();
+            tb_GIOHANG_SPDK = new HashSet<tb_GIOHANG_SPDK>();
         }
 
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID { get; set; }
+
         public int IDCUAHANG { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDSANPHAM { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IDKICHCO { get; set; }
 
         [Required]
@@ -42,15 +36,17 @@ namespace DAISY.Models
         [Required]
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
+
         public virtual tb_CUAHANG tb_CUAHANG { get; set; }
-
-        public virtual tb_SANPHAM_KICHCO tb_SANPHAM_KICHCO { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
 
         public virtual tb_KICHCO tb_KICHCO { get; set; }
 
         public virtual tb_SANPHAM tb_SANPHAM { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_GIOHANG_SPDK> tb_GIOHANG_SPDK { get; set; }
     }
 }

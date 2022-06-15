@@ -11,8 +11,6 @@ namespace DAISY.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AspNetUsers()
         {
-            AspNetUserClaims = new HashSet<AspNetUserClaims>();
-            AspNetUserLogins = new HashSet<AspNetUserLogins>();
             tb_CUAHANG = new HashSet<tb_CUAHANG>();
             tb_GIOHANG = new HashSet<tb_GIOHANG>();
             AspNetRoles = new HashSet<AspNetRoles>();
@@ -53,16 +51,10 @@ namespace DAISY.Models
         public bool? Gioitinh { get; set; }
 
         [StringLength(128)]
-        public string ToaDo_VD{ get; set; }
+        public string ToaDo_VD { get; set; }
 
         [StringLength(128)]
         public string ToaDo_KD { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_CUAHANG> tb_CUAHANG { get; set; }

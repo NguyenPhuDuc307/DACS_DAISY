@@ -22,12 +22,21 @@ namespace DAISY.Controllers
             string id = User.Identity.GetUserId();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
             tb_CUAHANG cuahang = context.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == id);
+            AspNetUsers us = context.AspNetUsers.FirstOrDefault(p => p.Id == id);
 
             if (user!= null)
             {
                 Session["Name"] = user.Name;
-                if(cuahang!=null)
+                Session["ViDo"] = us.ToaDo_VD;
+                Session["KinhDo"] = us.ToaDo_KD;
+
+                Session["TaiKhoan"] = us;
+
+                if (cuahang != null)
+                {
                     Session["IdCuaHang"] = cuahang.IDCUAHANG;
+                }
+                    
             }
 
             var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
@@ -51,6 +60,30 @@ namespace DAISY.Controllers
         {
             var listsp = context.tb_SANPHAM.Where(p=> p.IDLOAISANPHAM == id).OrderBy(p => p.TENSANPHAM).ToList();
             var Danhmuc = context.tb_SANPHAM.FirstOrDefault(p => p.IDLOAISANPHAM == id);
+
+            if (Danhmuc != null)
+                ViewBag.Danhmuc = Danhmuc.tb_LOAISANPHAM.TENLOAISANPHAM;
+            else
+                ViewBag.Danhmuc = "Trở về";
+            return View(listsp);
+        }
+
+        public ActionResult SanPhamBySanPham(int id)
+        {
+            var listsp = context.tb_CUAHANG_SPCT.Where(p => p.IDSANPHAM == id).OrderBy(p => p.TENSANPHAM).ToList();
+
+            List<string> list = new List<string>();
+
+            foreach (var item in listsp)
+            {
+                list.Add(item.tb_CUAHANG.AspNetUsers.ToaDo_VD.ToString());
+            }
+
+            ViewBag.listvd = list;
+
+            var Danhmuc = context.tb_SANPHAM.FirstOrDefault(p => p.IDLOAISANPHAM == id);
+
+            ViewBag.dem = listsp.Count;
 
             if (Danhmuc != null)
                 ViewBag.Danhmuc = Danhmuc.tb_LOAISANPHAM.TENLOAISANPHAM;
