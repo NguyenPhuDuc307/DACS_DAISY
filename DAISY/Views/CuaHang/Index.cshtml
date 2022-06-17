@@ -13,16 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+            Địa chỉ Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TENCUAHANG)
+            Tên cửa hàng
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DIACHI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HINHANH)
+            Hình ảnh trang bán hàng
         </th>
         <th></th>
     </tr>
@@ -36,15 +33,11 @@
             @Html.DisplayFor(modelItem => item.TENCUAHANG)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DIACHI)
+            <img style="height:200px; width: 400px; object-fit:cover" src="@item.HINHANH" />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HINHANH)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDCUAHANG }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDCUAHANG }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDCUAHANG })
+            @Html.ActionLink("Xem chi tiết", "Details", new { id=item.IDCUAHANG }) |
+            @Html.ActionLink("Quản lý", "Delete", new { id=item.IDCUAHANG })
         </td>
     </tr>
 }

@@ -10,7 +10,16 @@ namespace DAISY.Models
     {
         DaisyContext data = new DaisyContext();
 
-        [Key]
+        public Giohang(int id)
+        {
+            idSP = id;
+            tb_CUAHANG_SPCT sanpham = data.tb_CUAHANG_SPCT.Single(p => p.ID == idSP);
+            tenSP = sanpham.TENSANPHAM;
+            hinh = sanpham.HINHANH;
+            giaBan = float.Parse(sanpham.GIASANPHAM.ToString());
+            iSoluong = 1;
+        }
+
         [Display(Name = "ID sản phẩm")]
         public int idSP { get; set; }
 
@@ -30,19 +39,6 @@ namespace DAISY.Models
         public float dThanhtien
         {
             get { return iSoluong * giaBan; }
-        }
-
-        public virtual ICollection<GioHang_Topping> GioHang_Toppings { get; set; }
-
-        public Giohang(int id)
-        {
-            GioHang_Toppings = new List<GioHang_Topping>();
-            idSP = id;
-            tb_CUAHANG_SPCT sanpham = data.tb_CUAHANG_SPCT.Single(p => p.ID == idSP);
-            tenSP = sanpham.TENSANPHAM;
-            hinh = sanpham.HINHANH;
-            giaBan = float.Parse(sanpham.GIASANPHAM.ToString());
-            iSoluong = 1;
         }
     }
 }

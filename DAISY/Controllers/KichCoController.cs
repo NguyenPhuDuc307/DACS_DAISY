@@ -20,6 +20,12 @@ namespace DAISY.Controllers
             return View(db.tb_KICHCO.ToList());
         }
 
+        [CustomAuthorize(Roles = "Admin")]
+        public ActionResult Quanly()
+        {
+            return View(db.tb_KICHCO.ToList());
+        }
+
         // GET: KichCo/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,6 +44,7 @@ namespace DAISY.Controllers
         // GET: KichCo/Create
         public ActionResult Create()
         {
+            ViewBag.listkc = db.tb_KICHCO.OrderBy(p => p.TENKICHCO).ToList();
             return View();
         }
 
@@ -52,9 +59,10 @@ namespace DAISY.Controllers
             {
                 db.tb_KICHCO.Add(tb_KICHCO);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
+            ViewBag.listkc = db.tb_KICHCO.OrderBy(p => p.TENKICHCO).ToList();
             return View(tb_KICHCO);
         }
 
@@ -70,6 +78,7 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.listkc = db.tb_KICHCO.OrderBy(p => p.TENKICHCO).ToList();
             return View(tb_KICHCO);
         }
 
@@ -84,8 +93,9 @@ namespace DAISY.Controllers
             {
                 db.Entry(tb_KICHCO).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
+            ViewBag.listkc = db.tb_KICHCO.OrderBy(p => p.TENKICHCO).ToList();
             return View(tb_KICHCO);
         }
 

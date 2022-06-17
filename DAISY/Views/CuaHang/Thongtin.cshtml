@@ -1,0 +1,44 @@
+﻿@model DAISY.Models.tb_CUAHANG
+
+@{
+    ViewBag.Title = "Thông tin cửa hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:2rem">
+    <h4 style=" font-weight: 700">THÔNG TIN CỬA HÀNG</h4>
+    <hr />
+
+    <a href="@Url.Action("Edit", "CuaHang", new {@id = Model.IDCUAHANG})">Thay đổi thông tin cửa hàng</a>
+
+    <img style="padding:1rem; border-radius:1rem" src="@Model.HINHANH" class="card-img-top" alt="...">
+    <div class="card-body" style="font-weight: 700">
+
+
+
+        @if (@Model.TRANGTHAI == "Đang hoạt động")
+        {
+            <h5 style="color:green; font-weight:700" class="card-title">Trạng thái: @Model.TRANGTHAI</h5>
+        }
+        else
+        {
+            <h5 style="color: red; font-weight: 700" class="card-title">Trạng thái: @Model.TRANGTHAI</h5>
+        }
+
+        <h5 class="card-title">Tên cửa hàng: @Model.TENCUAHANG</h5>
+
+        <img src="@Model.AspNetUsers.Image" style="height:150px; width: 150px; border-radius:100%; border: 5px; border-style: solid; border-color:lightgray; margin:1rem" />
+
+        <h6 class="card-title">Đại diện cửa hàng: @Model.AspNetUsers.Name</h6>
+
+        <h6 class="card-title">Địa chỉ Email: @Model.AspNetUsers.Email</h6>
+
+        <h6 class="card-title">Số điện thoại: @Model.AspNetUsers.PhoneNumber</h6>
+
+        <iframe src="@Model.GOOGLEMAP" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <h6 class="card-title">Địa chỉ: @Model.AspNetUsers.Diachi</h6>
+
+
+    </div>
+</div>

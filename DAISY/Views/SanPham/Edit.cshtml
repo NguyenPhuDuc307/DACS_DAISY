@@ -5,97 +5,158 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Chỉnh sửa</h2>
+<h4 style="font-weight:700; margin-top:1rem">CẬP NHẬT SẢN PHẨM</h4>
+@Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
+<hr />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDSANPHAM)
+<div class="row">
+    <div class="col-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDSANPHAM)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDLOAISANPHAM, "Loại sản phẩm", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDLOAISANPHAM", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDLOAISANPHAM, "", new { @class = "text-danger" })
+            <div class="form-group mb-3">
+                Loại sản phẩm
+
+                <div class="col-md-10">
+                    @Html.DropDownList("IDLOAISANPHAM", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDLOAISANPHAM, "", new { @class = "text-danger" })
+                </div>
+                <a style="text-decoration:none" href="@Url.Action("Create", "LoaiSanPham")">Nhấn vào đây nếu không có sẵn</a>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TENSANPHAM,"Tên sản phẩm", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
+            <div class="form-group mb-3">
+                Tên sản phẩm
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HINHANH,"Hình ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="form-group mb-3">
+                Hình ảnh sản phẩm
+                <div class="col-md-10">
 
-                <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
+                    <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
 
-                @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
 
+                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+                    <br />
 
-                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
-                <br />
-
-                <img src="@Model.HINHANH" id="pictureUpload" class="img-none" />
-                @section upload
-                {
-                    <script>
-                        $(function () {
-                            $('#pictureUpload').click(function () {
-                                $('#fileUpload').trigger('click');
+                    <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:270px; width:270px" />
+                    @section upload
+                        {
+                        <script>
+                            $(function () {
+                                $('#pictureUpload').click(function () {
+                                    $('#fileUpload').trigger('click');
+                                });
                             });
-                        });
-                        $('#fileUpload').change(function () {
-                            if (window.FormData !== undefined) {
-                                var fileUpload = $('#fileUpload').get(0);
-                                var files = fileUpload.files;
-                                var formData = new FormData();
-                                formData.append('file', files[0]);
-                                $.ajax(
-                                    {
-                                        type: 'POST',
-                                        url: '/SanPham/ProcessUpload',
-                                        contentType: false,
-                                        processData: false,
-                                        data: formData,
-                                        success: function (urlImage) {
-                                            $('#pictureUpload').attr('src', urlImage);
-                                            $('#HINHANH').val(urlImage);
-                                        },
-                                        error: function (err) {
-                                            alert('Error ', err.statusText);
+                            $('#fileUpload').change(function () {
+                                if (window.FormData !== undefined) {
+                                    var fileUpload = $('#fileUpload').get(0);
+                                    var files = fileUpload.files;
+                                    var formData = new FormData();
+                                    formData.append('file', files[0]);
+                                    $.ajax(
+                                        {
+                                            type: 'POST',
+                                            url: '/SanPham/ProcessUpload',
+                                            contentType: false,
+                                            processData: false,
+                                            data: formData,
+                                            success: function (urlImage) {
+                                                $('#pictureUpload').attr('src', urlImage);
+                                                $('#HINHANH').val(urlImage);
+                                            },
+                                            error: function (err) {
+                                                alert('Error ', err.statusText);
 
-                                        }
-                                    });
-                            }
-                        });
-                    </script>
-                }
+                                            }
+                                        });
+                                }
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
 
+            <div class="form-group">
+                Trạng thái
+                <div class="col-md-10">
+                    @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
+            <br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Lưu thay đổi" class="btn btn-outline-danger" />
+                </div>
             </div>
         </div>
-
-        <br />
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-outline-danger" />
-            </div>
-        </div>
+        }
     </div>
-}
 
-<br />
+    <div class="col-8">
+        <a href="@Url.Action("Create")" style="text-decoration:none">
+            Thêm mới
+        </a>
+        <table class="table table-striped-columns">
+            <tr style="font-size:20px; color: red">
+                <th>
+                    TÊN LOẠI SẢN PHẨM
+                </th>
+                <th>
+                    TÊN SẢN PHẨM
+                </th>
+                <th>
+                    HÌNH ẢNH
+                </th>
+                <th>
+                    TRẠNG THÁI
+                </th>
+            </tr>
 
-<div>
-    @Html.ActionLink("Trở về", "Index")
+            @foreach (var item in ViewBag.listsp)
+            {
+                <tr>
+                    <td>
+                        <h6 style="font-weight:700">
+                            @item.tb_LOAISANPHAM.TENLOAISANPHAM
+                        </h6>
+                    </td>
+                    <td>
+                        <h6 style="font-weight:700">
+                            @item.TENSANPHAM
+                        </h6>
+
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new {@id = item.IDSANPHAM})">
+                            <img style="height:150px; width: 150px; object-fit:cover" src="@item.HINHANH" />
+                        </a>
+                    </td>
+                    <td>
+
+                        @if (item.TRANGTHAI == "Khả dụng")
+                        {
+                            <h6 style="font-weight: 700; color: green">@item.TRANGTHAI</h6>
+                        }
+                        else
+                        {
+                            <h6 style="font-weight: 700; color: red">@item.TRANGTHAI</h6>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>

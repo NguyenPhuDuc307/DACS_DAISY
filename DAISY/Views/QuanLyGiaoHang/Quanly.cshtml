@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:700; margin-top:1rem">LỊCH SỬ ĐẶT HÀNG</h4>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            NGÀY ĐẶT
+        </th>
+        <th>
+            THÀNH TIỀN
+        </th>
+        <th>
+            THANH TOÁN
+        </th>
+        <th>
+            TRẠNG THÁI
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h6 style="font-weight:700">@item.gh.NGAYTAO</h6>
+            </td>
+            <td>
+                <h6 style="font-weight:700; color:green">@String.Format("{0:0,0}", item.gh.THANHTIEN)₫</h6>
+            </td>
+            <td>
+                @if (item.gh.THANHTOAN == false)
+                {
+                    <h6 style="color:red; font-weight:700">Chưa thanh toán</h6>
+                }
+                else
+                {
+                    <h6 style="color:green; font-weight:700">Đã thanh toán</h6>
+                }
+            </td>
+            <td>
+                @if (item.gh.TRANGTHAI == "Chờ xử lý")
+                {
+                    <h6 style="color:orange; font-weight:700">@item.gh.TRANGTHAI</h6>
+                    <a data-bs-toggle="modal" data-bs-target="#_@item.gh.IDGIOHANG" style="text-decoration:none;color:red">Hủy đơn</a>
+                    <a data-bs-toggle="modal" data-bs-target="#_@item.gh.IDGIOHANG@item.gh.IDGIOHANG" style="text-decoration:none;color:dodgerblue">Giao hàng</a>
+
+                    <!-- Modal Hủy -->
+                    <div class="modal fade" id="_@item.gh.IDGIOHANG" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn hủy đơn</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                    <a href="@Url.Action("HuyQL","QuanLyGiaoHang", new {@id = item.gh.IDGIOHANG})" class="btn btn-danger">Xác nhận</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Giao hàng -->
+                    <div class="modal fade" id="_@item.gh.IDGIOHANG@item.gh.IDGIOHANG" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận giao hàng, đơn hàng này bắt đầu giao đến khách hàng</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                    <a href="@Url.Action("Giaohang","QuanLyGiaoHang", new {@id = item.gh.IDGIOHANG})" class="btn btn-primary">Xác nhận</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (item.gh.TRANGTHAI == "Đang giao hàng")
+                {
+                    <h6 style="color:dodgerblue; font-weight:700">@item.gh.TRANGTHAI</h6>
+                }
+                else if (item.gh.TRANGTHAI == "Đã hủy")
+                {
+                    <h6 style="color:red; font-weight:700">@item.gh.TRANGTHAI</h6>
+                }
+                else
+                {
+                    <h6 style="color:green; font-weight:700">@item.gh.TRANGTHAI</h6>
+                }
+
+            </td>
+            <td>
+                <a href="@Url.Action("Chitiet", "GioHangChiTiet", new { @id = item.gh.IDGIOHANG })">Xem chi tiết</a>
+            </td>
+        </tr>
+    }
+
+</table>

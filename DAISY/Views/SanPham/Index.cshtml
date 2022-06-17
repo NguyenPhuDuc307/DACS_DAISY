@@ -6,58 +6,7 @@
 }
 
 
-
-
 <div class="container">
-
-    <div id="msg"></div>
-
-    <script>
-
-    // Khởi tạo và thêm bản đồ
-    var map;
-
-    function haversine_distance(mk1, mk2) {
-        var R = 6371.0710 // Bán kính Trái đất tính bằng km
-        var rlat1 = mk1.position.lat() * (Math.PI / 180); // Chuyển đổi độ sang radian
-        var rlat2 = mk2.position.lat() * (Math.PI / 180); // Chuyển đổi độ sang radian
-        var difflat = rlat2 - rlat1; // Khoảng radian (vĩ độ)
-        var difflon = (mk2.position.lng() - mk1.position.lng()) * (Math.PI / 180); // Khoảng radian (kinh độ)
-
-        var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat / 2) * Math.sin(difflat / 2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin(difflon / 2) * Math.sin(difflon / 2)));
-        return d;
-    }
-
-
-    function initMap() {
-        // Bản đồ, tập trung vào khu vực Khuôn viên Đại học Quốc Gia Tp.HCM
-
-        const center = { lat: 10.873328, lng: 106.7959087 };
-
-        const options = { zoom: 15, scaleControl: true, center: center };
-
-        // Vị trí của các địa điểm cần đo
-
-        // Vị trí trường Đại học Nông Lâm
-        const nonglam = { lat: @ViewBag.ViDo, lng: @ViewBag.KinhDo };
-
-        // Vị trí trường Đại học Khoa Học Tự Nhiên
-        const khtn = { lat: 10.882080578497431, lng: 106.78260594481009 };
-
-
-        // Các điểm đánh dấu cho Vị trí trường Đại học Nông Lâm và Vị trí trường Đại học Khoa Học Tự Nhiên
-        var mk1 = new google.maps.Marker({ position: nonglam, map: map });
-        var mk2 = new google.maps.Marker({ position: khtn, map: map });
-
-        // Vẽ một đường thẳng cho thấy khoảng cách thẳng giữa các điểm đánh dấu
-        var line = new google.maps.Polyline({ path: [nonglam, khtn], map: map });
-
-        // Tính toán và hiển thị khoảng cách giữa các điểm đánh dấu
-        var distance = haversine_distance(mk1, mk2);
-        document.getElementById('msg').innerHTML = distance.toFixed(2) + " km";
-
-    }
-    </script>
 
     @Html.Action("ViewDanhmuc", "Home")
 

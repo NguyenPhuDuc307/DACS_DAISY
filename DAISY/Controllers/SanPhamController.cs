@@ -27,11 +27,15 @@ namespace DAISY.Controllers
         // GET: SanPham
         public ActionResult Index()
         {
-            ViewBag.ViDo = "10.871999612800334";
-            ViewBag.KinhDo = "106.79158015306331";
             var tb_SANPHAM = db.tb_SANPHAM.Include(t => t.tb_LOAISANPHAM);
             return View(tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList());
+        }
 
+        [CustomAuthorize(Roles = "Admin")]
+        public ActionResult Quanly()
+        {
+            var tb_SANPHAM = db.tb_SANPHAM.Include(t => t.tb_LOAISANPHAM);
+            return View(tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList());
         }
 
         // GET: SanPham/Details/5
@@ -53,6 +57,7 @@ namespace DAISY.Controllers
         // GET: SanPham/Create
         public ActionResult Create()
         {
+            ViewBag.listsp = db.tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList();
             ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM, "IDLOAISANPHAM", "TENLOAISANPHAM");
             return View();
         }
@@ -66,11 +71,13 @@ namespace DAISY.Controllers
         {
             if (ModelState.IsValid)
             {
+                tb_SANPHAM.TRANGTHAI = "Khả dụng";
                 db.tb_SANPHAM.Add(tb_SANPHAM);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
+            ViewBag.listsp = db.tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList();
             ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM, "IDLOAISANPHAM", "TENLOAISANPHAM", tb_SANPHAM.IDLOAISANPHAM);
             return View(tb_SANPHAM);
         }
@@ -87,6 +94,11 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
+            List<string> ids = new List<string>();
+            ids.Add("Khả dụng");
+            ids.Add("Tạm ngưng");
+            ViewBag.TRANGTHAI = new SelectList(ids, tb_SANPHAM.TRANGTHAI);
+            ViewBag.listsp = db.tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList();
             ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM, "IDLOAISANPHAM", "TENLOAISANPHAM", tb_SANPHAM.IDLOAISANPHAM);
             return View(tb_SANPHAM);
         }
@@ -96,14 +108,19 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
+        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH,TRANGTHAI")] tb_SANPHAM tb_SANPHAM)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(tb_SANPHAM).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
+            List<string> ids = new List<string>();
+            ids.Add("Khả dụng");
+            ids.Add("Tạm ngưng");
+            ViewBag.TRANGTHAI = new SelectList(ids, tb_SANPHAM.TRANGTHAI);
+            ViewBag.listsp = db.tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList();
             ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM, "IDLOAISANPHAM", "TENLOAISANPHAM", tb_SANPHAM.IDLOAISANPHAM);
             return View(tb_SANPHAM);
         }

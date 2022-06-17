@@ -9,7 +9,10 @@ namespace DAISY.Models
     public partial class AspNetRoles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRoles() { }
+        public AspNetRoles()
+        {
+            AspNetUserRoles = new HashSet<AspNetUserRoles>();
+        }
 
         public AspNetRoles(ApplicationRole role)
         {
@@ -27,6 +30,7 @@ namespace DAISY.Models
         public string Discriminator { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
     }
 }
+

@@ -17,12 +17,31 @@ namespace DAISY.Controllers
 
         public string Roles { get; private set; }
 
+        public int TongSoLuong()
+        {
+            // khởi tạo tổng số sản phẩm
+            int tsl = 0;
+
+            // Lấy ra danh sách giỏ hàng
+            List<Giohang> lstGiohang = Session["GioHang"] as List<Giohang>;
+
+            // nếu danh sách khác 0: gán tsl = tính tổng số lượng danh sách
+            // trả về
+            if (lstGiohang != null)
+            {
+                tsl = lstGiohang.Sum(p => p.iSoluong);
+            }
+            return tsl;
+        }
+
         public ActionResult Index()
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
             tb_CUAHANG cuahang = context.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == id);
             AspNetUsers us = context.AspNetUsers.FirstOrDefault(p => p.Id == id);
+
+            Session["soluong"] = TongSoLuong();
 
             if (user!= null)
             {
@@ -80,6 +99,7 @@ namespace DAISY.Controllers
             }
 
             ViewBag.listvd = list;
+            Session["soluong"] = TongSoLuong();
 
             var Danhmuc = context.tb_SANPHAM.FirstOrDefault(p => p.IDLOAISANPHAM == id);
 

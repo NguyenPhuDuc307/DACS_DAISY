@@ -12,8 +12,6 @@ namespace DAISY.Models
         public tb_SANPHAM()
         {
             tb_CUAHANG_SPCT = new HashSet<tb_CUAHANG_SPCT>();
-            tb_SANPHAM_SPDK = new HashSet<tb_SANPHAM_SPDK>();
-            tb_KICHCO = new HashSet<tb_KICHCO>();
         }
 
         [Key]
@@ -28,15 +26,12 @@ namespace DAISY.Models
         [StringLength(100)]
         public string HINHANH { get; set; }
 
+        [StringLength(32)]
+        public string TRANGTHAI { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_CUAHANG_SPCT> tb_CUAHANG_SPCT { get; set; }
 
         public virtual tb_LOAISANPHAM tb_LOAISANPHAM { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_SANPHAM_SPDK> tb_SANPHAM_SPDK { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_KICHCO> tb_KICHCO { get; set; }
     }
 }

@@ -5,47 +5,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>tb_CUAHANG</h4>
+<div style="margin-top:2rem">
+    <h4 style=" font-weight: 700">THÔNG TIN CỬA HÀNG</h4>
+    @Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUsers.Email)
-        </dd>
+    @if (@Model.UYTIN == true)
+    {
+        <div style="display:flex; margin:1rem">
+            <svg style="color: dodgerblue; margin-top:1px; margin-right: 4px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+            </svg>
+            <a style="text-decoration:none" href="@Url.Action("Uytin", "CuaHang", new {@id = Model.IDCUAHANG})">
+                <h5 style="color: dodgerblue; font-weight: 900" class="card-title">CỬA HÀNG TÍCH CỰC</h5>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div style="display:flex; margin:1rem">
+            <svg style="color: dodgerblue; margin-top:1px; margin-right: 4px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-question-fill" viewBox="0 0 16 16">
+                <path d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z" />
+            </svg>
+            <a style="text-decoration:none" href="@Url.Action("Uytin", "CuaHang", new {@id = Model.IDCUAHANG})">
+                <h5 style="color: dodgerblue; font-weight: 900" class="card-title">ĐỀ XUẤT CỬA HÀNG TÍCH CỰC?</h5>
+            </a>
+        </div>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TENCUAHANG)
-        </dt>
+    @if (@Model.DINHCHI == true)
+    {
+        <div style="display:flex; margin:1rem; margin-top:0">
+            <svg style="margin-top:1px; margin-right: 4px; color:red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+            </svg>
+            <a style="text-decoration:none" href="@Url.Action("Dinhchi", "CuaHang", new {@id = Model.IDCUAHANG})">
+                <h5 style="color:red; font-weight:900" class="card-title">CỬA HÀNG ĐÃ BỊ ĐÌNH CHỈ HOẠT ĐỘNG</h5>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div style="display:flex; margin:1rem; margin-top:0">
+            <svg style="margin-top:1px; margin-right: 4px; color:red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z" />
+            </svg>
+            <a style="text-decoration:none" href="@Url.Action("Dinhchi", "CuaHang", new {@id = Model.IDCUAHANG})">
+                <h5 style="color:red; font-weight:900" class="card-title">TẠM ĐÌNH CHỈ HOẠT ĐỘNG CỬA HÀNG?</h5>
+            </a>
+        </div>
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.TENCUAHANG)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DIACHI)
-        </dt>
+    <img style="padding:1rem; border-radius:1rem" src="@Model.HINHANH" class="card-img-top" alt="...">
+    <div class="card-body" style="font-weight: 700">
 
-        <dd>
-            @Html.DisplayFor(model => model.DIACHI)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HINHANH)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.HINHANH)
-        </dd>
+        @if (@Model.TRANGTHAI == "Đang hoạt động")
+        {
+            <h5 style="color:green; font-weight:700" class="card-title">Trạng thái: @Model.TRANGTHAI</h5>
+        }
+        else
+        {
+            <h5 style="color: red; font-weight: 700" class="card-title">Trạng thái: @Model.TRANGTHAI</h5>
+        }
 
-    </dl>
+        <h5 class="card-title">Tên cửa hàng: @Model.TENCUAHANG</h5>
+
+        <img src="@Model.AspNetUsers.Image" style="height:150px; width: 150px; border-radius:100%; border: 5px; border-style: solid; border-color:lightgray; margin:1rem" />
+
+        <h6 class="card-title">Đại diện cửa hàng: @Model.AspNetUsers.Name</h6>
+
+        <h6 class="card-title">Địa chỉ Email: @Model.AspNetUsers.Email</h6>
+
+        <h6 class="card-title">Số điện thoại: @Model.AspNetUsers.PhoneNumber</h6>
+
+        <iframe src="@Model.GOOGLEMAP" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <h6 class="card-title">Địa chỉ: @Model.AspNetUsers.Diachi</h6>
+
+
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDCUAHANG }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>

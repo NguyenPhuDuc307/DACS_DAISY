@@ -198,7 +198,7 @@ namespace DAISY.Controllers
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+            return View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
         //

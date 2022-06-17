@@ -174,8 +174,9 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio, Version=5.75.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.5.75.2\lib\net451\Twilio.dll</HintPath>
+    <Reference Include="Twilio, Version=5.75.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.75.3\lib\net451\Twilio.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Twilio.AspNet.Common, Version=5.73.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Twilio.AspNet.Common.5.73.0\lib\net451\Twilio.AspNet.Common.dll</HintPath>
@@ -224,18 +225,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CuaHangController.cs" />
     <Compile Include="Controllers\CuaHang_SanPhamController.cs" />
-    <Compile Include="Controllers\CuaHang_ToppingController.cs" />
     <Compile Include="Controllers\Encryptor.cs" />
+    <Compile Include="Controllers\GioHangChiTietController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KichCoController.cs" />
     <Compile Include="Controllers\LoaiSanPhamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\QuanLyGiaoHangController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
-    <Compile Include="Controllers\SanPham_ToppingController.cs" />
-    <Compile Include="Controllers\ToppingController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAuthorizeAttribute .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,25 +245,23 @@
     <Compile Include="Helper\SendMail.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRoles.cs" />
-    <Compile Include="Models\AspNetUserClaims.cs" />
-    <Compile Include="Models\AspNetUserLogins.cs" />
+    <Compile Include="Models\AspNetUserRoles.cs" />
     <Compile Include="Models\AspNetUsers.cs" />
     <Compile Include="Models\DaisyContext.cs" />
+    <Compile Include="Models\DropdownsController.cs" />
     <Compile Include="Models\Giohang.cs" />
-    <Compile Include="Models\GioHang_Topping.cs" />
+    <Compile Include="Models\GioHang_CuaHang.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Controllers\QuanLyAdminController.cs" />
     <Compile Include="Models\tb_CUAHANG.cs" />
     <Compile Include="Models\tb_CUAHANG_SPCT.cs" />
-    <Compile Include="Models\tb_CUAHANG_SPDK.cs" />
     <Compile Include="Models\tb_GIOHANG.cs" />
     <Compile Include="Models\tb_GIOHANG_SPC.cs" />
-    <Compile Include="Models\tb_GIOHANG_SPDK.cs" />
     <Compile Include="Models\tb_KICHCO.cs" />
     <Compile Include="Models\tb_LOAISANPHAM.cs" />
     <Compile Include="Models\tb_SANPHAM.cs" />
-    <Compile Include="Models\tb_SANPHAM_SPDK.cs" />
-    <Compile Include="Models\tb_SPDK.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Payment\Momo\MoMoSecurity.cs" />
     <Compile Include="Payment\Momo\PaymentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -299,6 +298,8 @@
     <Content Include="Content\bootstrap\fontawesome.css" />
     <Content Include="Content\bootstrap\Style.css" />
     <Content Include="Content\bootstrap\Font.css" />
+    <Content Include="Content\Js\JavaScript.js" />
+    <Content Include="Scripts\JavaScript.js" />
     <Content Include="Scripts\swiper-bundle.min.js" />
     <Content Include="Content\bootstrap\Swiper.css" />
     <Content Include="Content\img\image_none.png" />
@@ -416,20 +417,6 @@
     <Content Include="Views\KichCo\Details.cshtml" />
     <Content Include="Views\KichCo\Edit.cshtml" />
     <Content Include="Views\KichCo\Index.cshtml" />
-    <Content Include="Views\tb_SPDK\Create.cshtml" />
-    <Content Include="Views\tb_SPDK\Delete.cshtml" />
-    <Content Include="Views\tb_SPDK\Details.cshtml" />
-    <Content Include="Views\tb_SPDK\Edit.cshtml" />
-    <Content Include="Views\tb_SPDK\Index.cshtml" />
-    <Content Include="Views\Topping\Create.cshtml" />
-    <Content Include="Views\Topping\Delete.cshtml" />
-    <Content Include="Views\Topping\Details.cshtml" />
-    <Content Include="Views\Topping\Edit.cshtml" />
-    <Content Include="Views\Topping\Index.cshtml" />
-    <Content Include="Views\SanPham_Topping\Create.cshtml" />
-    <Content Include="Views\SanPham_Topping\Delete.cshtml" />
-    <Content Include="Views\SanPham_Topping\Details.cshtml" />
-    <Content Include="Views\SanPham_Topping\Index.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Manage\UpdateToaDo.cshtml" />
     <Content Include="Views\CuaHang_SanPham\Create.cshtml" />
@@ -437,7 +424,6 @@
     <Content Include="Views\CuaHang_SanPham\Details.cshtml" />
     <Content Include="Views\CuaHang_SanPham\Edit.cshtml" />
     <Content Include="Views\CuaHang_SanPham\Index.cshtml" />
-    <Content Include="Views\SanPham_Topping\Edit.cshtml" />
     <Content Include="Views\CuaHang_Topping\Create.cshtml" />
     <Content Include="Views\CuaHang_Topping\Delete.cshtml" />
     <Content Include="Views\CuaHang_Topping\Details.cshtml" />
@@ -448,6 +434,32 @@
     <Content Include="Views\GioHang\GiohangPartial.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
     <Content Include="Views\GioHang\XacnhanDonhang.cshtml" />
+    <Content Include="Views\Dropdowns\Index.cshtml" />
+    <Content Include="Views\LoaiSanPham\Quanly.cshtml" />
+    <Content Include="Views\SanPham\Quanly.cshtml" />
+    <Content Include="Views\KichCo\Quanly.cshtml" />
+    <Content Include="Views\QuanLyAdmin\Index.cshtml" />
+    <Content Include="Views\CuaHang\Uytin.cshtml" />
+    <Content Include="Views\CuaHang\Dinhchi.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\CuaHang\Thongtin.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Create.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Delete.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Details.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Edit.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Index.cshtml" />
+    <Content Include="Views\GioHang\ConfirmPaymentClient.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Create.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Delete.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Details.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Edit.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Index.cshtml" />
+    <Content Include="Views\GioHangChiTiet\Chitiet.cshtml" />
+    <Content Include="Views\QuanLyGiaoHang\Quanly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

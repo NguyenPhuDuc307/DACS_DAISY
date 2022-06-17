@@ -83,9 +83,9 @@
             <td style="font-weight:bold;"> <div style="margin-left:10px">@tk.Email</div></td>
         </tr>
         @*<tr style="height:40px">
-            <td>Địa chỉ: </td>
-            <td style="font-weight:bold;"> <div style="margin-left:10px">@tk.Diachi</div></td>
-        </tr>*@
+                <td>Địa chỉ: </td>
+                <td style="font-weight:bold;"> <div style="margin-left:10px">@tk.Diachi</div></td>
+            </tr>*@
         <tr style="height:40px">
             <td>Ðiện thoại: </td>
             <td style="font-weight:bold;"> <div style="margin-left:10px">@tk.PhoneNumber</div></td>
@@ -94,10 +94,24 @@
             <td>Ngày đặt: </td>
             <td style="font-weight:bold;"> <div style="margin-left:10px">@DateTime.Now.ToShortDateString()</div></td>
         </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Hình thức thanh toán</label>
+                    <select name="httt" class="form-select" id="inputGroupSelect01">
+                        <option selected value="1">Thanh toán khi nhận hàng</option>
+                        <option value="2">Thanh toán bằng ví Momo</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
 
         <tr style="height:40px">
             <td></td>
             <td style="font-weight:bold;"> <div style="margin-left:10px"><input type="submit" value="Xác nhận" class="btn btn-success" /></div></td>
         </tr>
+
+
     }
 </table>

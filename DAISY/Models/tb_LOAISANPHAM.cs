@@ -24,6 +24,9 @@ namespace DAISY.Models
         [StringLength(100)]
         public string HINHANH { get; set; }
 
+        [StringLength(32)]
+        public string TRANGTHAI { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_SANPHAM> tb_SANPHAM { get; set; }
     }

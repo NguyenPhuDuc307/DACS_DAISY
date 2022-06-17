@@ -20,9 +20,9 @@ namespace DAISY.Models
 
         public int SOLUONGSPCHINH { get; set; }
 
-        public float GIABAN { get; set; }
+        public double GIABAN { get; set; }
 
-        public float THANHTIEN { get; set; }
+        public double THANHTIEN { get; set; }
 
         public virtual tb_CUAHANG_SPCT tb_CUAHANG_SPCT { get; set; }
 

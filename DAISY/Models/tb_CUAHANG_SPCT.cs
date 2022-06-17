@@ -12,7 +12,6 @@ namespace DAISY.Models
         public tb_CUAHANG_SPCT()
         {
             tb_GIOHANG_SPC = new HashSet<tb_GIOHANG_SPC>();
-            tb_GIOHANG_SPDK = new HashSet<tb_GIOHANG_SPDK>();
         }
 
         public int ID { get; set; }
@@ -45,8 +44,5 @@ namespace DAISY.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_GIOHANG_SPC> tb_GIOHANG_SPC { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tb_GIOHANG_SPDK> tb_GIOHANG_SPDK { get; set; }
     }
 }

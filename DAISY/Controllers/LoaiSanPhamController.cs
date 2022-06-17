@@ -31,6 +31,12 @@ namespace DAISY.Controllers
             return View(db.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList());
         }
 
+        [CustomAuthorize(Roles = "Admin")]
+        public ActionResult Quanly()
+        {
+            return View(db.tb_LOAISANPHAM.OrderByDescending(p => p.TRANGTHAI).ToList());
+        }
+
         // GET: LoaiSanPham/Details/5
         public ActionResult Details(int? id)
         {
@@ -49,6 +55,7 @@ namespace DAISY.Controllers
         // GET: LoaiSanPham/Create
         public ActionResult Create()
         {
+            ViewBag.listlsp = db.tb_LOAISANPHAM.OrderByDescending(p => p.TRANGTHAI).ToList();
             return View();
         }
 
@@ -61,11 +68,13 @@ namespace DAISY.Controllers
         {
             if (ModelState.IsValid)
             {
+                tb_LOAISANPHAM.TRANGTHAI = "Khả dụng";
                 db.tb_LOAISANPHAM.Add(tb_LOAISANPHAM);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
+            ViewBag.listlsp = db.tb_LOAISANPHAM.OrderByDescending(p => p.TRANGTHAI).ToList();
             return View(tb_LOAISANPHAM);
         }
 
@@ -81,6 +90,11 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
+            List<string> ids = new List<string>();
+            ids.Add("Khả dụng");
+            ids.Add("Tạm ngưng");
+            ViewBag.TRANGTHAI = new SelectList(ids, tb_LOAISANPHAM.TRANGTHAI);
+            ViewBag.listlsp = db.tb_LOAISANPHAM.OrderByDescending(p => p.TRANGTHAI).ToList();
             return View(tb_LOAISANPHAM);
         }
 
@@ -89,14 +103,20 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH")] tb_LOAISANPHAM tb_LOAISANPHAM)
+        public ActionResult Edit([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH,TRANGTHAI")] tb_LOAISANPHAM tb_LOAISANPHAM)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(tb_LOAISANPHAM).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit");
             }
+
+            List<string> ids = new List<string>();
+            ids.Add("Khả dụng");
+            ids.Add("Tạm ngưng");
+            ViewBag.TRANGTHAI = ids;
+            ViewBag.listlsp = db.tb_LOAISANPHAM.OrderByDescending(p => p.TRANGTHAI).ToList();
             return View(tb_LOAISANPHAM);
         }
 

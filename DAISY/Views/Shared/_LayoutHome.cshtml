@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="~/Content/bootstrap/fontawesome.css">
     <link rel="stylesheet" href="~/Content/bootstrap/App.css" type="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
+    <script src="~/Scripts/jquery-3.6.0.min.js" type="text/javascript"></script>
+    
 </head>
 <body>
 
@@ -24,50 +24,38 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" style="color:red" href="@Url.Action("Index", "Home")"><b>DAISY</b></a>
+                <a class="navbar-brand" style="color: red; margin-left:1rem" href="@Url.Action("Index", "Home")"><b>DAISY</b></a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     @if ((string)Session["role"] == "Admin")
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "Home")">Quản lý Website</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "QuanLyAdmin")">Quản lý Website</a>
                         </li>
-                        <li class="nav-item">
+@*                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "Role")">Quyền truy cập</a>
-                        </li>
-                        <li class="nav-item">
+                        </li>*@
+@*                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang")">Cửa hàng</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "LoaiSanPham")">Loại sản phẩm</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "LoaiSanPham")">Loại sản phẩm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham")">Sản phẩm</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "SanPham")">Sản phẩm</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "KichCo")">Kích cỡ</a>
-                        </li>
+                        </li>*@
                     }
                     else if ((string)Session["role"] == "Cửa hàng")
                     {
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Cuahang", "Home")">Quản lý Cửa hàng</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Thongtin", "CuaHang")">Quản lý cửa hàng</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Khachhang", "Home")">Quản lý Đơn hàng</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_SanPham")">Sản phẩm</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "CuaHang_Topping")">Topping</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="@Url.Action("Index", "SanPham_Topping")">Sản Phẩm Topping</a>
+                            <a class="nav-link active" aria-current="page" href="@Url.Action("Quanly", "QuanLyGiaoHang")">Quản lý đơn đặt hàng</a>
                         </li>
                     }
                     <li>@Html.Partial("~/Views/GioHang/GioHangPartial.cshtml")</li>
