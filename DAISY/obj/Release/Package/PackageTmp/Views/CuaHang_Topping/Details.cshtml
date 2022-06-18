@@ -1,0 +1,67 @@
+﻿@model DAISY.Models.tb_CUAHANG_SPDK
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_CUAHANG_SPDK</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_CUAHANG.IDUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_CUAHANG.IDUSER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_SPDK.TENSPDK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_SPDK.TENSPDK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TENSPDK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENSPDK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINHANH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIABAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIABAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TRANGTHAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TRANGTHAI)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -34,7 +34,7 @@ namespace DAISY.Controllers
             return tsl;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string str)
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
@@ -46,6 +46,7 @@ namespace DAISY.Controllers
             if (user!= null)
             {
                 Session["Name"] = user.Name;
+                Session["Id"] = id;
                 Session["ViDo"] = us.ToaDo_VD;
                 Session["KinhDo"] = us.ToaDo_KD;
 
@@ -58,26 +59,96 @@ namespace DAISY.Controllers
                     
             }
 
-            var listsp = context.tb_SANPHAM.OrderBy(p => p.TENSANPHAM).ToList();
+            var tb_GIOHANG = context.tb_GIOHANG.OrderByDescending(p => p.NGAYTAO).ToList();
+            var tb_GIOHANG_SPC = context.tb_GIOHANG_SPC.ToList();
+            var tb_CUAHANG_SPCT = context.tb_CUAHANG_SPCT.ToList();
 
-            var listDanhmuc = context.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList();
+            var list = from e in tb_GIOHANG
+                       join d in tb_GIOHANG_SPC on e.IDGIOHANG equals d.IDGIOHANG into table1
+                       from d in table1.ToList()
+                       join i in tb_CUAHANG_SPCT on d.IDSANPHAM equals i.ID into table2
+                       from i in table2.ToList()
+                       select new GioHang_CuaHang
+                       {
+                           gh = e,
+                           ghct = d,
+                           ch = i
+                       };
+            var listdoiduyet = list.Where(p => p.gh.TRANGTHAI == "Chờ xử lý");
+            Session["listdoi"] = listdoiduyet.Count();
+
+            var listdoi = context.tb_CUAHANG_SPCT.Where(p => p.CHODUYET == "Chờ duyệt").ToList();
+
+            Session["doiduyet"] = listdoi.Count();
+
+            var listsp = context.tb_SANPHAM.Where(p => p.TRANGTHAI != "Tạm ngưng").Where(p => p.TENSANPHAM.Contains(str) || p.tb_LOAISANPHAM.TENLOAISANPHAM.Contains(str) || str == null).OrderBy(p => p.TENSANPHAM).ToList();
+
+            var listDanhmuc = context.tb_LOAISANPHAM.Where(p => p.TRANGTHAI != "Tạm ngưng").Where(p => p.TENLOAISANPHAM.Contains(str) || str == null).OrderBy(p => p.TENLOAISANPHAM).ToList();
             ViewBag.Danhmuc = listDanhmuc;
 
-            var listCuahang = context.tb_CUAHANG.OrderBy(p => p.TENCUAHANG).ToList();
+            var listCuahang = context.tb_CUAHANG.Where(p => p.TRANGTHAI == "Đang hoạt động" && p.DINHCHI != true && p.XETDUYET == true).Where(p => p.TENCUAHANG.Contains(str) || str == null).OrderBy(p => p.TENCUAHANG).ToList();
             ViewBag.Cuahang = listCuahang;
-            
+
+
+
+
+            var listsp_ch = context.tb_CUAHANG_SPCT.Where(p => p.TRANGTHAI == "Còn hàng").Where(p=> p.TENSANPHAM.Contains(str) || p.tb_SANPHAM.TENSANPHAM.Contains(str) || p.tb_CUAHANG.TENCUAHANG.Contains(str) || p.tb_SANPHAM.tb_LOAISANPHAM.TENLOAISANPHAM.Contains(str) || str == null).ToList();
+            ViewBag.listsp_ch = listsp_ch;
+            return View(listsp);
+        }
+
+        public ActionResult Search(string str)
+        {
+
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
+            tb_CUAHANG cuahang = context.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == id);
+            AspNetUsers us = context.AspNetUsers.FirstOrDefault(p => p.Id == id);
+
+            Session["soluong"] = TongSoLuong();
+
+            if (user != null)
+            {
+                Session["Name"] = user.Name;
+                Session["Id"] = id;
+                Session["ViDo"] = us.ToaDo_VD;
+                Session["KinhDo"] = us.ToaDo_KD;
+
+                Session["TaiKhoan"] = us;
+
+                if (cuahang != null)
+                {
+                    Session["IdCuaHang"] = cuahang.IDCUAHANG;
+                }
+
+            }
+
+
+            var listsp = context.tb_SANPHAM.Where(p => p.TRANGTHAI != "Tạm ngưng").Where(p=> p.TENSANPHAM.Contains(str) || p.tb_LOAISANPHAM.TENLOAISANPHAM == str || str == null).OrderBy(p => p.TENSANPHAM).ToList();
+
+            var listDanhmuc = context.tb_LOAISANPHAM.Where(p => p.TRANGTHAI != "Tạm ngưng").Where(p => p.TENLOAISANPHAM.Contains(str) || str == null).OrderBy(p => p.TENLOAISANPHAM).ToList();
+            ViewBag.Danhmuc = listDanhmuc;
+
+            var listCuahang = context.tb_CUAHANG.Where(p => p.TRANGTHAI == "Đang hoạt động" && p.DINHCHI != true && p.XETDUYET == true).Where(p => p.TENCUAHANG.Contains(str) || str == null).OrderBy(p => p.TENCUAHANG).ToList();
+            ViewBag.Cuahang = listCuahang;
+
+
+
+
+            var listsp_ch = context.tb_CUAHANG_SPCT.Where(p => p.TRANGTHAI == "Còn hàng").Where(p => p.TENSANPHAM.Contains(str)|| p.MOTA == str || p.tb_CUAHANG.TENCUAHANG == str || p.tb_SANPHAM.TENSANPHAM == str || str == null).ToList();
+            ViewBag.listsp_ch = listsp_ch;
             return View(listsp);
         }
 
         public ActionResult ViewDanhmuc()
         {
-            var listDanhmuc = context.tb_LOAISANPHAM.OrderBy(p => p.TENLOAISANPHAM).ToList();
+            var listDanhmuc = context.tb_LOAISANPHAM.Where(p=> p.TRANGTHAI == "Khả dụng").OrderBy(p => p.TENLOAISANPHAM).ToList();
             return View(listDanhmuc);
         }
 
         public ActionResult SanPhamByDanhMuc(int id)
         {
-            var listsp = context.tb_SANPHAM.Where(p=> p.IDLOAISANPHAM == id).OrderBy(p => p.TENSANPHAM).ToList();
+            var listsp = context.tb_SANPHAM.Where(p=> p.IDLOAISANPHAM == id && p.TRANGTHAI == "Khả dụng").OrderBy(p => p.TENSANPHAM).ToList();
             var Danhmuc = context.tb_SANPHAM.FirstOrDefault(p => p.IDLOAISANPHAM == id);
 
             if (Danhmuc != null)
@@ -89,7 +160,7 @@ namespace DAISY.Controllers
 
         public ActionResult SanPhamBySanPham(int id)
         {
-            var listsp = context.tb_CUAHANG_SPCT.Where(p => p.IDSANPHAM == id).OrderBy(p => p.TENSANPHAM).ToList();
+            var listsp = context.tb_CUAHANG_SPCT.Where(p => p.IDSANPHAM == id && p.TRANGTHAI == "Còn hàng").OrderBy(p => p.TENSANPHAM).ToList();
 
             List<string> list = new List<string>();
 

@@ -197,6 +197,7 @@ namespace DAISY.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    model.RoleName = "Khách hàng";
                     result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
@@ -327,6 +328,27 @@ namespace DAISY.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(id);
+            tb_CUAHANG cuahang = context.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == id);
+            AspNetUsers us = context.AspNetUsers.FirstOrDefault(p => p.Id == id);
+
+            if (user != null)
+            {
+                Session["Name"] = user.Name;
+                Session["Id"] = id;
+                Session["ViDo"] = us.ToaDo_VD;
+                Session["KinhDo"] = us.ToaDo_KD;
+
+                Session["TaiKhoan"] = us;
+
+                if (cuahang != null)
+                {
+                    Session["IdCuaHang"] = cuahang.IDCUAHANG;
+                }
+
+            }
+
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }

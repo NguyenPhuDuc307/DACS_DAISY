@@ -32,6 +32,12 @@ namespace DAISY.Controllers
             return View(tb_CUAHANG.ToList());
         }
 
+        public ActionResult LoadCH(int? idch)
+        {
+            var tb_CUAHANG = db.tb_CUAHANG.Include(t => t.AspNetUsers).FirstOrDefault(p=> p.IDCUAHANG == idch);
+            return View(tb_CUAHANG);
+        }
+
         // GET: CuaHang/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,6 +50,39 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
+            return View(tb_CUAHANG);
+        }
+
+        public int TongSoLuong()
+        {
+            // khởi tạo tổng số sản phẩm
+            int tsl = 0;
+
+            // Lấy ra danh sách giỏ hàng
+            List<Giohang> lstGiohang = Session["GioHang"] as List<Giohang>;
+
+            // nếu danh sách khác 0: gán tsl = tính tổng số lượng danh sách
+            // trả về
+            if (lstGiohang != null)
+            {
+                tsl = lstGiohang.Sum(p => p.iSoluong);
+            }
+            return tsl;
+        }
+
+        public ActionResult Giaodien(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            if (tb_CUAHANG == null)
+            {
+                return HttpNotFound();
+            }
+            Session["soluong"] = TongSoLuong();
+            ViewBag.list = db.tb_CUAHANG_SPCT.Where(p=> p.tb_CUAHANG.IDCUAHANG == id).ToList();
             return View(tb_CUAHANG);
         }
 
@@ -78,15 +117,17 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,DIACHI,HINHANH")] tb_CUAHANG tb_CUAHANG)
+        public ActionResult Create([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,HINHANH, GOOGLEMAP")] tb_CUAHANG tb_CUAHANG)
         {
             if (ModelState.IsValid)
             {
                 tb_CUAHANG.UYTIN = false;
                 tb_CUAHANG.DINHCHI = false;
+                tb_CUAHANG.TRANGTHAI = "Đang hoạt động";
+                tb_CUAHANG.XETDUYET = false;
                 db.tb_CUAHANG.Add(tb_CUAHANG);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage");
             }
 
             ViewBag.IDUSER = new SelectList(db.AspNetUsers, "Id", "Email", tb_CUAHANG.IDUSER);
@@ -148,11 +189,11 @@ namespace DAISY.Controllers
 
             if(tb_CUAHANG.UYTIN == true)
             {
-                ViewBag.mess = "Bạn có chắc chắn muốn cấp huy hiệu gian hàng tích cực cho cửa hàng này?";
+                ViewBag.mess = "Bạn có chắc chắn muốn hủy bỏ huy hiệu gian hàng tích cực của cửa hàng này?";
             }
             else
             {
-                ViewBag.mess = "Bạn có chắc chắn muốn hủy bỏ huy hiệu gian hàng tích cực của cửa hàng này?";
+                ViewBag.mess = "Bạn có chắc chắn muốn cấp huy hiệu gian hàng tích cực cho cửa hàng này?";
             }
 
             return View(tb_CUAHANG);
@@ -183,6 +224,36 @@ namespace DAISY.Controllers
 
             
             return RedirectToAction("Details", new {@id = id });
+        }
+
+        public ActionResult Xetduyet(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+            if (tb_CUAHANG == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.mess = "Bạn có chắc chắn muốn xét duyệt hoạt động cho cửa hàng này?";
+
+            return View(tb_CUAHANG);
+        }
+
+        [HttpPost, ActionName("Xetduyet")]
+        [ValidateAntiForgeryToken]
+        public ActionResult XetduyetConfirmed(int id)
+        {
+            tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+
+                tb_CUAHANG.XETDUYET = true;
+                db.Entry(tb_CUAHANG).State = EntityState.Modified;
+                db.SaveChanges();
+                SendMail.SendEmail(tb_CUAHANG.AspNetUsers.Email, "DAISY - Xin chúc mừng cửa hàng của bạn đã được duyệt.",
+                    "Xin chúc mừng cửa hàng của bạn đã được duyệt. Giờ đây bạn có thể đăng bài sản phẩm.", "");
+            return RedirectToAction("Details", new { @id = id });
         }
 
         public ActionResult Dinhchi(int? id)

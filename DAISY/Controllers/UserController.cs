@@ -15,6 +15,17 @@ namespace DAISY.Controllers
         private DaisyContext db = new DaisyContext();
 
         // GET: User
+        public string ProcessUpload(HttpPostedFileBase file)
+        {
+            if (file == null)
+            {
+                return "";
+            }
+            file.SaveAs(Server.MapPath("~/Content/img/User/" + file.FileName));
+            return "/Content/img/User/" + file.FileName;
+        }
+
+
         public ActionResult Index()
         {
             return View(db.AspNetUsers.ToList());
@@ -101,7 +112,7 @@ namespace DAISY.Controllers
             {
                 db.Entry(aspNetUsers).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage");
             }
             return View(aspNetUsers);
         }

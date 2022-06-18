@@ -22,26 +22,70 @@ namespace DAISY.Controllers
             var tb_GIOHANG = db.tb_GIOHANG.Include(t => t.AspNetUsers);
             return View(tb_GIOHANG.Where(p=> p.IDKHACHHANG == id).OrderByDescending(p=> p.NGAYTAO).ToList());
         }
+        public static DateTime GetFirstDayOfMonth(DateTime dtInput)
+        {
+            DateTime dtResult = dtInput;
+            dtResult = dtResult.AddDays((-dtResult.Day) + 1);
+            return dtResult;
+        }
 
         public ActionResult Quanly()
         {
-            int id = (int)Session["IdCuaHang"];
-            var tb_GIOHANG = db.tb_GIOHANG.OrderByDescending(p=> p.NGAYTAO).ToList();
-            var tb_GIOHANG_SPC = db.tb_GIOHANG_SPC.ToList();
-            var tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.ToList();
 
-            var list = from e in tb_GIOHANG
-                       join d in tb_GIOHANG_SPC on e.IDGIOHANG equals d.IDGIOHANG into table1
-                       from d in table1.ToList()
-                       join i in tb_CUAHANG_SPCT on d.IDSANPHAM equals i.ID into table2
-                       from i in table2.ToList()
-                       select new GioHang_CuaHang
-                       {
-                           gh = e,
-                           ghct = d,
-                           ch = i
-                       };
-            return View(list);
+            DateTime ngay = DateTime.Now.Date;
+            DateTime now = DateTime.Now;
+            int dayOfWeek = (int)now.DayOfWeek;
+            DateTime tuan = now.AddDays(-(int)now.DayOfWeek);
+            DateTime thang = GetFirstDayOfMonth(now);
+
+            if (Session["IdCuaHang"] == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                int id = (int)Session["IdCuaHang"];
+                var tb_GIOHANG = db.tb_GIOHANG.OrderByDescending(p => p.NGAYTAO).ToList();
+                var tb_GIOHANG_SPC = db.tb_GIOHANG_SPC.ToList();
+                var tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.ToList();
+
+                var list = from e in tb_GIOHANG
+                           join d in tb_GIOHANG_SPC on e.IDGIOHANG equals d.IDGIOHANG into table1
+                           from d in table1.ToList()
+                           join i in tb_CUAHANG_SPCT on d.IDSANPHAM equals i.ID into table2
+                           from i in table2.ToList()
+                           where d.tb_CUAHANG_SPCT.IDCUAHANG == id
+                           select new GioHang_CuaHang
+                           {
+                               gh = e,
+                               ghct = d,
+                               ch = i
+                           };
+                var listdoi = list.Where(p => p.gh.TRANGTHAI == "Chờ xử lý");
+                Session["listdoi"] = listdoi.Count();
+
+                ViewBag.sl = list.Count();
+                ViewBag.tien = list.Where(p => p.gh.THANHTOAN == true).Sum(p => p.gh.THANHTIEN);
+                ViewBag.sp = tb_GIOHANG_SPC.Where(p => p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
+
+
+                ViewBag.listngay = list.Where(p => p.gh.NGAYTAO >= ngay);
+                ViewBag.slngay = list.Where(p => p.gh.NGAYTAO >= ngay).Count();
+                ViewBag.tienngay = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= ngay).Sum(p => p.gh.THANHTIEN);
+                ViewBag.spngay = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= ngay && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
+
+                ViewBag.listtuan = list.Where(p => p.gh.NGAYTAO >= tuan);
+                ViewBag.sltuan = list.Where(p => p.gh.NGAYTAO >= tuan).Count();
+                ViewBag.tientuan = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= tuan).Sum(p => p.gh.THANHTIEN);
+                ViewBag.sptuan = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= tuan && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
+
+                ViewBag.listthang = list.Where(p => p.gh.NGAYTAO >= thang);
+                ViewBag.slthang = list.Where(p => p.gh.NGAYTAO >= thang).Count();
+                ViewBag.tienthang = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= thang).Sum(p => p.gh.THANHTIEN);
+                ViewBag.spthang = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= thang && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
+
+                return View(list);
+            }
         }
 
         public ActionResult Huy(int? id)
@@ -57,6 +101,16 @@ namespace DAISY.Controllers
         {
             tb_GIOHANG tb_GIOHANG = db.tb_GIOHANG.Find(id);
             tb_GIOHANG.TRANGTHAI = "Đang giao hàng";
+            db.Entry(tb_GIOHANG).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Quanly");
+        }
+
+        public ActionResult Thanhcong(int? id)
+        {
+            tb_GIOHANG tb_GIOHANG = db.tb_GIOHANG.Find(id);
+            tb_GIOHANG.TRANGTHAI = "Đã thanh toán";
+            tb_GIOHANG.THANHTOAN = true;
             db.Entry(tb_GIOHANG).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Quanly");

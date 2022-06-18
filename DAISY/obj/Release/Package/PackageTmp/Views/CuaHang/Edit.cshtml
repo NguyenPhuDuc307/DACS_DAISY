@@ -1,0 +1,105 @@
+﻿@model DAISY.Models.tb_CUAHANG
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style=" font-weight: 700; margin-top:2rem">THÔNG TIN CỬA HÀNG</h4>
+@Html.ActionLink("Trở về", "Thongtin", "CuaHang")
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IDCUAHANG)
+        @Html.HiddenFor(model => model.IDUSER)
+        @Html.HiddenFor(model => model.UYTIN)
+        @Html.HiddenFor(model => model.partnerCode)
+        @Html.HiddenFor(model => model.accessKey)
+        @Html.HiddenFor(model => model.serectkey)
+
+
+        <div class="form-group mb-3">
+            Tên cửa hàng
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TENCUAHANG, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TENCUAHANG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            Hình ảnh
+            <div class="col-md-10">
+                <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
+                @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+
+                <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:400px; width:100%; margin-top:1rem" />
+
+                @section upload
+                {
+                    <script>
+                        $(function () {
+                            $('#pictureUpload').click(function () {
+                                $('#fileUpload').trigger('click');
+                            });
+                        });
+                        $('#fileUpload').change(function () {
+                            if (window.FormData !== undefined) {
+                                var fileUpload = $('#fileUpload').get(0);
+                                var files = fileUpload.files;
+                                var formData = new FormData();
+                                formData.append('file', files[0]);
+                                $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '/CuaHang/ProcessUpload',
+                                        contentType: false,
+                                        processData: false,
+                                        data: formData,
+                                        success: function (urlImage) {
+                                            $('#pictureUpload').attr('src', urlImage);
+                                            $('#HINHANH').val(urlImage);
+                                        },
+                                        error: function (err) {
+                                            alert('Error ', err.statusText);
+
+                                        }
+                                    });
+                            }
+                        });
+                    </script>
+                }
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            Đường dẫn Google Map
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GOOGLEMAP, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GOOGLEMAP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            Trạng thái
+            <div class="col-md-10">
+                @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-outline-danger" />
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,76 @@
+﻿@model DAISY.Models.tb_KICHCO
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:700; margin-top:1rem">KÍCH CỠ</h4>
+@Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group mb-3">
+                    Tên kích cỡ
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TENKICHCO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TENKICHCO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    Thể tích - trọng lượng
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.THETICH_TRONGLUONG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.THETICH_TRONGLUONG, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Thêm kích thước" class="btn btn-outline-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="col-6">
+        <table class="table table-striped-columns">
+            <tr style="font-size:20px; color: red">
+                <th>
+                    KÍCH CỠ
+                </th>
+                <th>
+                    THỂ TÍCH - TRỌNG LƯỢNG
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.listkc)
+            {
+                <tr>
+                    <td width="300">
+                        <a href="@Url.Action("Edit", "KichCo", new { id = item.IDKICHCO })" style="font-weight:700; text-decoration:none" class="text-hover">
+                            @item.TENKICHCO
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "KichCo", new { id = item.IDKICHCO })" style="font-weight:700; text-decoration:none" class="text-hover">
+                            @item.THETICH_TRONGLUONG
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+    

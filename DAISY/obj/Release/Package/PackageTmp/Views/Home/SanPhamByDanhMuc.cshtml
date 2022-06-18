@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "SanPhamByDanhMuc";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+
+<div class="container">
+
+    @Html.Action("ViewDanhmuc", "Home")
+
+
+    <div class="row" style="margin-bottom:2rem; margin-top: 2rem">
+        <div class="col-2" style="width:240px">
+            <h5 style="font-weight:700">DANH MỤC SẢN PHẨM</h5>
+        </div>
+        <div class="col">
+            <div class="position-relative outline">
+                @ViewBag.Danhmuc &emsp; <a style="text-decoration:none; font-size:20px; font-weight:bolder; color:red" href="@Url.Action("Index", "SanPham")">✕</a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-2">
+            <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
+                @foreach (var item in Model)
+                {
+                    <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
+                        @item.TENSANPHAM
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
+                @foreach (var item in Model)
+                {
+                    <div class="show">
+                        <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                            <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 style="height: 30px; text-align:center; color:black">@item.TENSANPHAM</h6>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+            Xem thêm
+        </div>
+    </div>
+    @*  Learn more*@
+    <script>
+        let loadMoreBtn = document.querySelector('#load-more');
+        let currentItem = 10;
+
+        loadMoreBtn.onclick = () => {
+            let showes = [...document.querySelectorAll('.container .show-container .show')];
+            let listes = [...document.querySelectorAll('.container .list-container .list')];
+            for (var i = currentItem; i < currentItem + 10; i++) {
+                showes[i].style.display = 'inline-block';
+                listes[i].style.display = 'inline-block';
+            }
+            currentItem += 10;
+
+            if (currentItem >= showes.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+    </script>
+</div>
+

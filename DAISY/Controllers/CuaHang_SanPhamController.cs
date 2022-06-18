@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DAISY.Helper;
 using DAISY.Models;
 
 namespace DAISY.Controllers
@@ -13,6 +14,7 @@ namespace DAISY.Controllers
     public class CuaHang_SanPhamController : Controller
     {
         private DaisyContext db = new DaisyContext();
+
 
         public string ProcessUpload(HttpPostedFileBase file)
         {
@@ -24,11 +26,26 @@ namespace DAISY.Controllers
             return "/Content/img/Cuahangsanpham/" + file.FileName;
         }
 
+
         // GET: CuaHang_SanPham
         public ActionResult Index()
         {
+            int id=0;
+            if(Session["IdCuaHang"] != null)
+            {
+                id = (int)Session["IdCuaHang"];
+            }
             var tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.Include(t => t.tb_CUAHANG).Include(t => t.tb_KICHCO).Include(t => t.tb_SANPHAM);
-            return View(tb_CUAHANG_SPCT.ToList());
+            return View(tb_CUAHANG_SPCT.Include(p=>p.tb_CUAHANG).Where(p=> p.tb_CUAHANG.IDCUAHANG == id).ToList());
+        }
+
+        public ActionResult Quanly()
+        {
+            var listdoi = db.tb_CUAHANG_SPCT.Where(p => p.CHODUYET == "Chờ duyệt").ToList();
+
+            Session["doiduyet"] = listdoi.Count();
+            var tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.Include(t => t.tb_CUAHANG).Include(t => t.tb_KICHCO).Include(t => t.tb_SANPHAM);
+            return View(tb_CUAHANG_SPCT.Include(p => p.tb_CUAHANG).OrderBy(p=>p.CHODUYET).ToList());
         }
 
         // GET: CuaHang_SanPham/Details/5
@@ -49,10 +66,9 @@ namespace DAISY.Controllers
         // GET: CuaHang_SanPham/Create
         public ActionResult Create()
         {
-            int idCuaHang = (int)Session["IdCuaHang"];
-            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "TENCUAHANG");
+            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "IDUSER");
             ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO");
-            ViewBag.IDSANPHAM = new SelectList(db.tb_CUAHANG_SPCT.Where(p => p.IDCUAHANG == idCuaHang), "IDSANPHAM", "TENSANPHAM");
+            ViewBag.IDSANPHAM = new SelectList(db.tb_SANPHAM, "IDSANPHAM", "TENSANPHAM");
             return View();
         }
 
@@ -61,7 +77,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,HINHANH,GIASANPHAM,TRANGTHAI")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
+        public ActionResult Create([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
         {
             if (ModelState.IsValid)
             {
@@ -70,9 +86,9 @@ namespace DAISY.Controllers
                 return RedirectToAction("Index");
             }
 
-            int idCuaHang = (int)Session["IdCuaHang"];
-            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO");
-            ViewBag.IDSANPHAM = new SelectList(db.tb_CUAHANG_SPCT.Where(p => p.IDCUAHANG == idCuaHang), "IDSANPHAM", "TENSANPHAM");
+            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "IDUSER", tb_CUAHANG_SPCT.IDCUAHANG);
+            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO", tb_CUAHANG_SPCT.IDKICHCO);
+            ViewBag.IDSANPHAM = new SelectList(db.tb_SANPHAM, "IDSANPHAM", "TENSANPHAM", tb_CUAHANG_SPCT.IDSANPHAM);
             return View(tb_CUAHANG_SPCT);
         }
 
@@ -88,10 +104,13 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
-
-            int idCuaHang = (int)Session["IdCuaHang"];
-            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO");
-            ViewBag.IDSANPHAM = new SelectList(db.tb_CUAHANG_SPCT.Where(p => p.IDCUAHANG == idCuaHang), "IDSANPHAM", "TENSANPHAM");
+            List<string> ids = new List<string>();
+            ids.Add("Còn hàng");
+            ids.Add("Tạm ngưng bán");
+            ViewBag.TRANGTHAI = new SelectList(ids, tb_CUAHANG_SPCT.TRANGTHAI);
+            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "IDUSER", tb_CUAHANG_SPCT.IDCUAHANG);
+            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO", tb_CUAHANG_SPCT.IDKICHCO);
+            ViewBag.IDSANPHAM = new SelectList(db.tb_SANPHAM, "IDSANPHAM", "TENSANPHAM", tb_CUAHANG_SPCT.IDSANPHAM);
             return View(tb_CUAHANG_SPCT);
         }
 
@@ -100,7 +119,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,HINHANH,GIASANPHAM,TRANGTHAI")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
+        public ActionResult Edit([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
         {
             if (ModelState.IsValid)
             {
@@ -108,37 +127,60 @@ namespace DAISY.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            int idCuaHang = (int)Session["IdCuaHang"];
-            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO");
-            ViewBag.IDSANPHAM = new SelectList(db.tb_CUAHANG_SPCT.Where(p => p.IDCUAHANG == idCuaHang), "IDSANPHAM", "TENSANPHAM");
+            List<string> ids = new List<string>();
+            ids.Add("Còn hàng");
+            ids.Add("Tạm ngưng bán");
+            ViewBag.TRANGTHAI = new SelectList(ids, tb_CUAHANG_SPCT.TRANGTHAI);
+            ViewBag.IDCUAHANG = new SelectList(db.tb_CUAHANG, "IDCUAHANG", "IDUSER", tb_CUAHANG_SPCT.IDCUAHANG);
+            ViewBag.IDKICHCO = new SelectList(db.tb_KICHCO, "IDKICHCO", "TENKICHCO", tb_CUAHANG_SPCT.IDKICHCO);
+            ViewBag.IDSANPHAM = new SelectList(db.tb_SANPHAM, "IDSANPHAM", "TENSANPHAM", tb_CUAHANG_SPCT.IDSANPHAM);
             return View(tb_CUAHANG_SPCT);
         }
-
-        // GET: CuaHang_SanPham/Delete/5
-        public ActionResult Delete(int? id)
+        /// <summary>
+        /// //////////////////////////////////
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Ngung(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             tb_CUAHANG_SPCT tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.Find(id);
-            if (tb_CUAHANG_SPCT == null)
+
+            if (tb_CUAHANG_SPCT.TRANGTHAI == "Tạm ngưng bán")
             {
-                return HttpNotFound();
+                tb_CUAHANG_SPCT.TRANGTHAI = "Còn hàng";
+                db.Entry(tb_CUAHANG_SPCT).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(tb_CUAHANG_SPCT);
+            else
+            {
+                tb_CUAHANG_SPCT.TRANGTHAI = "Tạm ngưng bán";
+                db.Entry(tb_CUAHANG_SPCT).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
-        // POST: CuaHang_SanPham/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Tuchoi(int? id)
         {
             tb_CUAHANG_SPCT tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.Find(id);
             db.tb_CUAHANG_SPCT.Remove(tb_CUAHANG_SPCT);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            SendMail.SendEmail(tb_CUAHANG_SPCT.tb_CUAHANG.AspNetUsers.Email, "DAISY - Sản phẩm của bạn bị từ chối đăng bài.", "Chúng tôi nhận thấy sản phẩm của bạn không đúng mô tả hoặc không phù hợp<br/>" +
+                "Chúng tôi quyết định từ chối bài đăng. Trân trọng!", "");
+
+            return RedirectToAction("Quanly");
+        }
+
+        public ActionResult Duyet(int? id)
+        {
+            tb_CUAHANG_SPCT tb_CUAHANG_SPCT = db.tb_CUAHANG_SPCT.Find(id);
+
+                tb_CUAHANG_SPCT.CHODUYET = "Đã duyệt";
+                db.Entry(tb_CUAHANG_SPCT).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Quanly");
         }
 
         protected override void Dispose(bool disposing)

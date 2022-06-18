@@ -29,21 +29,14 @@ namespace DAISY.Models
 
         public string GOOGLEMAP { get; set; }
 
-        [StringLength(32)]
-        public string partnerCode { get; set; }
-
-        [StringLength(32)]
-        public string accessKey { get; set; }
-
-        [StringLength(32)]
-        public string serectkey { get; set; }
-
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
 
         public bool? UYTIN { get; set; }
 
         public bool? DINHCHI { get; set; }
+
+        public bool? XETDUYET { get; set; }
 
         public virtual AspNetUsers AspNetUsers { get; set; }
 

@@ -453,6 +453,7 @@ namespace DAISY.Controllers
         //Tham khảo bảng mã lỗi tại: https://developers.momo.vn/#/docs/aio/?id=b%e1%ba%a3ng-m%c3%a3-l%e1%bb%97i
         public ActionResult ConfirmPaymentClient()
         {
+            Session["soluong"] = TongSoLuong();
             //hiển thị thông báo cho người dùng
             return View();
         }
@@ -474,6 +475,7 @@ namespace DAISY.Controllers
         {
             AspNetUsers tk = (AspNetUsers)Session["Taikhoan"];
             Session["htThanhToan"] = tk.Name;
+            Session["soluong"] = TongSoLuong();
             Session["sdtThanhToan"] = tk.PhoneNumber;
             Session["timeThanhToan"] = DateTime.Now.Date;
             return View();

@@ -58,7 +58,7 @@ namespace DAISY.Controllers
         public ActionResult Create()
         {
             ViewBag.listsp = db.tb_SANPHAM.OrderBy(p => p.tb_LOAISANPHAM.TENLOAISANPHAM).ToList();
-            ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM, "IDLOAISANPHAM", "TENLOAISANPHAM");
+            ViewBag.IDLOAISANPHAM = new SelectList(db.tb_LOAISANPHAM.Where(p=> p.TRANGTHAI != "Tạm ngưng"), "IDLOAISANPHAM", "TENLOAISANPHAM");
             return View();
         }
 

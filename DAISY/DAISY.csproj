@@ -236,6 +236,7 @@
     <Compile Include="Controllers\QuanLyGiaoHangController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\ThongKeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAuthorizeAttribute .cs" />
     <Compile Include="Global.asax.cs">
@@ -460,6 +461,13 @@
     <Content Include="Views\GioHangChiTiet\Index.cshtml" />
     <Content Include="Views\GioHangChiTiet\Chitiet.cshtml" />
     <Content Include="Views\QuanLyGiaoHang\Quanly.cshtml" />
+    <Content Include="Views\CuaHang\LoadCH.cshtml" />
+    <Content Include="Views\CuaHang_SanPham\Quanly.cshtml" />
+    <Content Include="Views\GioHangChiTiet\ChitietND.cshtml" />
+    <Content Include="Views\ThongKe\Index.cshtml" />
+    <Content Include="Views\CuaHang\Giaodien.cshtml" />
+    <Content Include="Views\CuaHang\Xetduyet.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

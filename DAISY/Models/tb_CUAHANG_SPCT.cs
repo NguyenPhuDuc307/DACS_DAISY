@@ -27,6 +27,9 @@ namespace DAISY.Models
         public string TENSANPHAM { get; set; }
 
         [Required]
+        public string MOTA { get; set; }
+
+        [Required]
         [StringLength(128)]
         public string HINHANH { get; set; }
 
@@ -35,6 +38,10 @@ namespace DAISY.Models
         [Required]
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
+
+        [Required]
+        [StringLength(64)]
+        public string CHODUYET { get; set; }
 
         public virtual tb_CUAHANG tb_CUAHANG { get; set; }
 

@@ -21,9 +21,18 @@ namespace DAISY.Controllers
             return View(tb_GIOHANG_SPC.ToList());
         }
 
+
+
+
         public ActionResult Chitiet(int id)
         {
             var tb_GIOHANG_SPC = db.tb_GIOHANG_SPC.Where(p=> p.IDGIOHANG == id);
+            return View(tb_GIOHANG_SPC.ToList());
+        }
+
+        public ActionResult ChitietND(int id)
+        {
+            var tb_GIOHANG_SPC = db.tb_GIOHANG_SPC.Where(p => p.IDGIOHANG == id);
             return View(tb_GIOHANG_SPC.ToList());
         }
 

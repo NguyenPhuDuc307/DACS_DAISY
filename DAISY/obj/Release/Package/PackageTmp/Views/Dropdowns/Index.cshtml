@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    
+</head>
+<body>
+
+    <form method="post">
+        <table>
+            <tr>
+                <td>
+                    Loại sản phẩm
+                </td>
+                <td>
+                    <select class="form-select" id="drloaiSP">
+                        <option value="-1">-- Chọn loại sản phẩm --</option>
+                        @foreach (var item in ViewBag.LoaiSP)
+                        {
+                            <option value="@item.IDLOAISANPHAM">@item.TENLOAISANPHAM</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sản phẩm
+                </td>
+                <td>
+                    <select class="form-select" id="drSP">
+                        <option value="-1">-- Chọn sản phẩm --</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $('#drloaiSP').on('change', function () {
+                @*alert('test');*@
+                var idloaisp = $('#drloaiSP option:selected').val();
+                @*alert(idloaisp);*@
+                $.ajax({
+                    type: 'GET',
+                    data: { idloaisp: idloaisp },
+                    url: '@Url.Action("loadSP", "Dropdowns")',
+                    success: function (result) {
+                        @*alert(result);*@
+                        @*var sanphams = JSON.parse(result);*@
+                        var s = '<option value="-1">-- Chọn sản phẩm --</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            s += '<option value="' + result[i].Id + '">' + result[i].Name + '</option>';
+                        }
+                        $('#drSP').html(s);
+                    }
+                })
+            })
+        })
+        </script>
+    </form>
+</body>
+</html>
