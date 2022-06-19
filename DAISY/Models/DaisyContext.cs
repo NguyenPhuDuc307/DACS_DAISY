@@ -12,7 +12,10 @@ namespace DAISY.Models
         {
         }
 
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<tb_CUAHANG> tb_CUAHANG { get; set; }
@@ -22,6 +25,7 @@ namespace DAISY.Models
         public virtual DbSet<tb_KICHCO> tb_KICHCO { get; set; }
         public virtual DbSet<tb_LOAISANPHAM> tb_LOAISANPHAM { get; set; }
         public virtual DbSet<tb_SANPHAM> tb_SANPHAM { get; set; }
+        public virtual DbSet<tb_THEODOI> tb_THEODOI { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -29,6 +33,16 @@ namespace DAISY.Models
                 .HasMany(e => e.AspNetUserRoles)
                 .WithRequired(e => e.AspNetRoles)
                 .HasForeignKey(e => e.RoleId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserClaims)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.AspNetUserLogins)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.AspNetUserRoles)
@@ -47,8 +61,19 @@ namespace DAISY.Models
                 .HasForeignKey(e => e.IDKHACHHANG)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<AspNetUsers>()
+                .HasMany(e => e.tb_THEODOI)
+                .WithRequired(e => e.AspNetUsers)
+                .HasForeignKey(e => e.IdUser)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<tb_CUAHANG>()
                 .HasMany(e => e.tb_CUAHANG_SPCT)
+                .WithRequired(e => e.tb_CUAHANG)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<tb_CUAHANG>()
+                .HasMany(e => e.tb_THEODOI)
                 .WithRequired(e => e.tb_CUAHANG)
                 .WillCascadeOnDelete(false);
 

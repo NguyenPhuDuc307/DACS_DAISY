@@ -7,7 +7,7 @@
 
 <ul class="nav navbar-nav navbar-right" style="margin-right:1rem" >
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <b>Xin chào </b> <b style="color:red">@Session["Name"]</b>
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -21,8 +21,10 @@
 }
 else
 {
-<ul style="margin-right:1rem" class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { style = "text-decoration: none; color:green", id = "loginLink" })</li>
+<ul style="margin-right:1rem ; margin-top:8px" class="nav navbar-nav navbar-right">
+    <li>
+        @Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-warning position-relative", id = "loginLink" })
+    </li>
     
 </ul>
 }

@@ -26,7 +26,7 @@ namespace DAISY.Models
         [StringLength(256)]
         public string TENSANPHAM { get; set; }
 
-        [Required]
+        [Column(TypeName = "ntext")]
         public string MOTA { get; set; }
 
         [Required]
@@ -39,7 +39,6 @@ namespace DAISY.Models
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
 
-        [Required]
         [StringLength(64)]
         public string CHODUYET { get; set; }
 

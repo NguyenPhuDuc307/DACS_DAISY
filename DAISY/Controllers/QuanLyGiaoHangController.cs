@@ -31,7 +31,6 @@ namespace DAISY.Controllers
 
         public ActionResult Quanly()
         {
-
             DateTime ngay = DateTime.Now.Date;
             DateTime now = DateTime.Now;
             int dayOfWeek = (int)now.DayOfWeek;

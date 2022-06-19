@@ -55,31 +55,37 @@ namespace DAISY.Controllers
                 if (cuahang != null)
                 {
                     Session["IdCuaHang"] = cuahang.IDCUAHANG;
+
+                    var tb_GIOHANG = context.tb_GIOHANG.OrderByDescending(p => p.NGAYTAO).ToList();
+                    var tb_GIOHANG_SPC = context.tb_GIOHANG_SPC.ToList();
+                    var tb_CUAHANG_SPCT = context.tb_CUAHANG_SPCT.ToList();
+
+                    var list = from e in tb_GIOHANG
+                               join d in tb_GIOHANG_SPC on e.IDGIOHANG equals d.IDGIOHANG into table1
+                               from d in table1.ToList()
+                               join i in tb_CUAHANG_SPCT on d.IDSANPHAM equals i.ID into table2
+                               from i in table2.ToList()
+                               where d.tb_CUAHANG_SPCT.IDSANPHAM == cuahang.IDCUAHANG
+                               select new GioHang_CuaHang
+                               {
+                                   gh = e,
+                                   ghct = d,
+                                   ch = i
+                               };
+                    var listdoi = list.Where(p => p.gh.TRANGTHAI == "Chờ xử lý");
+                    Session["listdoi"] = listdoi.Count();
                 }
                     
             }
 
-            var tb_GIOHANG = context.tb_GIOHANG.OrderByDescending(p => p.NGAYTAO).ToList();
-            var tb_GIOHANG_SPC = context.tb_GIOHANG_SPC.ToList();
-            var tb_CUAHANG_SPCT = context.tb_CUAHANG_SPCT.ToList();
+            
 
-            var list = from e in tb_GIOHANG
-                       join d in tb_GIOHANG_SPC on e.IDGIOHANG equals d.IDGIOHANG into table1
-                       from d in table1.ToList()
-                       join i in tb_CUAHANG_SPCT on d.IDSANPHAM equals i.ID into table2
-                       from i in table2.ToList()
-                       select new GioHang_CuaHang
-                       {
-                           gh = e,
-                           ghct = d,
-                           ch = i
-                       };
-            var listdoiduyet = list.Where(p => p.gh.TRANGTHAI == "Chờ xử lý");
-            Session["listdoi"] = listdoiduyet.Count();
 
-            var listdoi = context.tb_CUAHANG_SPCT.Where(p => p.CHODUYET == "Chờ duyệt").ToList();
 
-            Session["doiduyet"] = listdoi.Count();
+
+            var listdoi1 = context.tb_CUAHANG_SPCT.Where(p => p.CHODUYET == "Chờ duyệt").ToList();
+
+            Session["doiduyet"] = listdoi1.Count();
 
             var listsp = context.tb_SANPHAM.Where(p => p.TRANGTHAI != "Tạm ngưng").Where(p => p.TENSANPHAM.Contains(str) || p.tb_LOAISANPHAM.TENLOAISANPHAM.Contains(str) || str == null).OrderBy(p => p.TENSANPHAM).ToList();
 

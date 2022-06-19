@@ -92,12 +92,13 @@ namespace DAISY.Controllers
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             AspNetUsers user = context.AspNetUsers.FirstOrDefault(p => p.Email == model.Email);
-
-            var roleid = await UserManager.GetRolesAsync(user.Id);
-            _roleName = roleid[0].ToString();
-            Session["role"] = _roleName;
-
-
+            if(user != null)
+            {
+                var roleid = await UserManager.GetRolesAsync(user.Id);
+                _roleName = roleid[0].ToString();
+                Session["role"] = _roleName;
+            }
+            
             switch (result)
             {
                 case SignInStatus.Success:

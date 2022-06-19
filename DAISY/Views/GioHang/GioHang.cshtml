@@ -41,7 +41,7 @@
             </td>
             <td style="width:100px">
                 <div style="margin-top: 75px;">
-                    <b><input class="form-control" id="soluong" type="number" min="1" name="txtSolg" value="@item.iSoluong" style="width: 70px " /></b>
+                    <b><input class="form-control" id="soluong_@item.idSP" type="number" min="1" name="txtSolg" value="@item.iSoluong" style="width: 70px " /></b>
                 </div>
             </td>
             <td>
@@ -58,9 +58,9 @@
 
                 <script type="text/javascript">
                     $(document).ready(function () {
-                        $('#soluong').on('change', function () {
+                        $('#soluong_@item.idSP').on('change', function () {
                             @*alert('test');*@
-                            var sl = $('#soluong').val();
+                            var sl = $('#soluong_@item.idSP').val();
                             @*alert(idloaisp);*@
                             $.ajax({
                                 type: 'GET',

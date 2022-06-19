@@ -310,8 +310,7 @@ namespace DAISY.Controllers
         }
         public ActionResult DatHang(FormCollection collection)
         {
-            // lấy ra giỏ hàng
-            tb_GIOHANG dh = new tb_GIOHANG();
+            
 
             Session["soluong"] = TongSoLuong();
 
@@ -326,44 +325,54 @@ namespace DAISY.Controllers
 
             var httt = collection["httt"].ToString();
 
-
-            // gán đây đủ dữ liệu cho giỏ hàng
-            dh.IDKHACHHANG = kh.Id;
-            dh.NGAYTAO = DateTime.Now;
-            dh.TRANGTHAI = "Chờ xử lý";
-            dh.THANHTOAN = false;
-            dh.THANHTIEN = TongTien();
             float tt = (float)TongTien();
 
             string ttstr = tt.ToString();
-            // thêm giỏ hàng vào cơ sở dữ liệu
-            data.tb_GIOHANG.Add(dh);
 
-            // lưu lại
-            data.SaveChanges();
-
-            string idgh = dh.IDGIOHANG.ToString();
-            string khachhang = (string)Session["Name"];
-            string ngaytao = dh.NGAYTAO.ToString();
-            string noidung = idgh +" - " + khachhang + " - " + ngaytao;
+            List<string> strings = new List<string>();
 
             // vòng lặp thêm chi tiết sản phẩm vào cơ sở dữ liệu
             foreach (var item in gh)
             {
+
+                // lấy ra giỏ hàng
+                tb_GIOHANG dh = new tb_GIOHANG();
+
+
                 // tạo ra đối tượng giỏ hàng sản phẩm chính
                 tb_GIOHANG_SPC ghsp = new tb_GIOHANG_SPC();
+
+
+
+                // gán đây đủ dữ liệu cho giỏ hàng
+                dh.IDKHACHHANG = kh.Id;
+                dh.NGAYTAO = DateTime.Now;
+                dh.TRANGTHAI = "Chờ xử lý";
+                dh.THANHTOAN = false;
+                dh.THANHTIEN = item.dThanhtien;
+
+                // thêm giỏ hàng vào cơ sở dữ liệu
+                data.tb_GIOHANG.Add(dh);
+
+                // lưu lại
+                data.SaveChanges();
+
+
+
 
                 // thêm đầy đủ dữ liệu giỏ hàng sản phẩm chính
                 ghsp.IDGIOHANG = dh.IDGIOHANG;
                 ghsp.IDSANPHAM = item.idSP;
                 ghsp.SOLUONGSPCHINH = item.iSoluong;
                 ghsp.GIABAN = item.giaBan;
-                ghsp.THANHTIEN = (float)TongTien();
+                ghsp.THANHTIEN = (float)item.dThanhtien;
 
                 sp = data.tb_CUAHANG_SPCT.Single(n => n.ID == item.idSP);
 
                 // thêm vào danh sách sản phẩm chi tiết
                 data.tb_GIOHANG_SPC.Add(ghsp);
+
+                strings.Add(dh.IDGIOHANG.ToString());
             }
 
             // lưu vào cơ sở dữ liệu
@@ -372,9 +381,18 @@ namespace DAISY.Controllers
             // gán Giỏ hàng =  rỗng
             Session["Giohang"] = null;
 
-            
+            string idgh = "";
 
-            if(httt == "1")
+            foreach (var item in strings)
+            {
+                idgh+= item + ",";
+            }
+
+            string khachhang = (string)Session["Name"];
+            string ngaytao = DateTime.Now.ToString();
+            string noidung = idgh + " - " + khachhang + " - " + ngaytao;
+
+            if (httt == "1")
             {
                 // đến trang xác nhận
                 return RedirectToAction("XacnhanDonhang", "GioHang");
