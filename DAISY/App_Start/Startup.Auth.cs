@@ -61,8 +61,8 @@ namespace DAISY
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "176385174228-gectljl6oalbpnji9s39jgfq2a9vj0gd.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "1099011228591-p1nl0fn9mkhr09rvcj5q3daai3vlb6av.apps.googleusercontent.com",
+                ClientSecret = "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"
             });
         }
     }

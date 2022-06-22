@@ -96,7 +96,10 @@ namespace DAISY.Controllers
             {
                 var roleid = await UserManager.GetRolesAsync(user.Id);
                 _roleName = roleid[0].ToString();
-                Session["role"] = _roleName;
+                Session["role1"] = _roleName;
+                AspNetUsers us = context.AspNetUsers.FirstOrDefault(p => p.Id == user.Id);
+                Session["ViDo"] = us.ToaDo_VD;
+                Session["KinhDo"] = us.ToaDo_KD;
             }
             
             switch (result)
@@ -173,6 +176,7 @@ namespace DAISY.Controllers
             foreach (var role in RoleManager.Roles)
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             ViewBag.Roles = list;
+
             return View();
         }
 

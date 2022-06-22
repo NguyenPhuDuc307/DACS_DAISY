@@ -1,0 +1,121 @@
+﻿@model IEnumerable<DAISY.Models.tb_LOAISANPHAM>
+
+@{
+    ViewBag.Title = "Quanly";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:flex">
+    <h4 style="margin-top: 2rem; font-weight:700">QUẢN LÝ</h4>
+    <h4 style="margin-top: 2rem; margin-left:0.75rem; font-weight:700; color:red">LOẠI SẢN PHẨM</h4>
+</div>
+
+<a style="font-weight:700; text-decoration: none" class="text-hover" href="@Url.Action("Create","LoaiSanPham")">
+    <h5>
+        Thêm mới
+    </h5>
+</a>
+
+<ul style="margin-top: 2rem" class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+            </svg>
+        </button>
+
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-grid" viewBox="0 0 16 16">
+                <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
+            </svg>
+        </button>
+    </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+    <div style="width: 100%" class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+
+        <table class="table table-striped-columns">
+            <tr style="font-size:20px; color: red">
+                <th>
+                    TÊN LOẠI SẢN PHẨM
+                </th>
+                <th>
+                    HÌNH ẢNH
+                </th>
+                <th>
+                    TRẠNG THÁI
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <h6 style="font-weight:700">
+                            @Html.DisplayFor(modelItem => item.TENLOAISANPHAM)
+                        </h6>
+                        
+                    </td>
+                    <td>
+                        <img style="height:150px; width: 150px; object-fit:cover" src="@item.HINHANH" />
+                    </td>
+                    <td>
+
+                        @if (item.TRANGTHAI == "Khả dụng")
+                        {
+                            <h6 style="font-weight: 700; color: green">@item.TRANGTHAI</h6>
+                        }
+                        else
+                        {
+                            <h6 style="font-weight: 700; color: red">@item.TRANGTHAI</h6>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Tùy chỉnh", "Edit", new { id = item.IDLOAISANPHAM }) |
+                        @Html.ActionLink("Xem chi tiết", "Details", new { id = item.IDLOAISANPHAM })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+
+        <div class="show-container row row-cols-2 row-cols-lg-6 g-3 g-lg-3">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                        <div style="text-align:center; font-weight:600; margin-top:1rem">
+                            @if (item.TRANGTHAI == "Khả dụng")
+                            {
+                                <p style="color:green">
+                                    @item.TRANGTHAI
+                                </p>
+                            }
+                            else
+                            {
+                                <p style="color:red">
+                                    @item.TRANGTHAI
+                                </p>
+                            }
+                        </div>
+                        <a style="text-decoration:none" href="@Url.Action("Edit",new { @id = item.IDLOAISANPHAM})"><img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top img-hover" alt="..."></a>
+                        <div class="card-body">
+                            <h6 style="height: 20px; text-align:center">@item.TENLOAISANPHAM</h6>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
+

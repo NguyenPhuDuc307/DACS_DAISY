@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DAISYModelStoreContainer" CdmEntityContainer="DAISYEntities">
+    <FunctionImportMapping FunctionName="DAISYModel.Store.FNSOLUONGSANPHAM" FunctionImportName="FNSOLUONGSANPHAM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DAISYModel.FNSOLUONGSANPHAM_Result">
+          <ScalarProperty Name="TENSANPHAM" ColumnName="TENSANPHAM" />
+          <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

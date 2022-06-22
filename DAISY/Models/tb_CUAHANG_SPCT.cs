@@ -36,6 +36,10 @@ namespace DAISY.Models
         public double GIASANPHAM { get; set; }
 
         [Required]
+        [StringLength(64)]
+        public string METATITLE { get; set; }
+
+        [Required]
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
 

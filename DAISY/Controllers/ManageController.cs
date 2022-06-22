@@ -106,6 +106,8 @@ namespace DAISY.Controllers
                 Image = user.Image,
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+            var isCuaHang = db.tb_CUAHANG.FirstOrDefault(p => p.IDUSER == userId);
+            ViewBag.isCuaHang = isCuaHang;
             return View(model);
         }
 

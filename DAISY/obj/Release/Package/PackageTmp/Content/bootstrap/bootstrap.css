@@ -5,6 +5,9 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -3925,11 +3928,11 @@ textarea.form-control-lg {
 }
 
 .nav-link {
-  display: block;
-  padding: 0.5rem 1rem;
-  color: #0d6efd;
-  text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: red;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
@@ -3937,12 +3940,12 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #0a58ca;
+    color: red;
 }
 .nav-link.disabled {
-  color: #6c757d;
-  pointer-events: none;
-  cursor: default;
+    color: red;
+    pointer-events: none;
+    cursor: default;
 }
 
 .nav-tabs {
@@ -3960,15 +3963,15 @@ textarea.form-control-lg {
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {
-  color: #6c757d;
-  background-color: transparent;
-  border-color: transparent;
+    color: red;
+    background-color: transparent;
+    border-color: transparent;
 }
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: red;
-  background-color: #fff;
-  border-color: #dee2e6 #dee2e6 #fff;
+    color: red;
+    background-color: red;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -3982,11 +3985,7 @@ textarea.form-control-lg {
   color: red;
   border-radius: 0.25rem;
 }
-    .nav-pills .nav-link.active,
-    .nav-pills .show > .nav-link {
-        color: #fff;
-        background-color: red;
-    }
+
 
 .nav-fill > .nav-link,
 .nav-fill .nav-item {
@@ -6802,10 +6801,16 @@ textarea.form-control-lg {
   left: 50% !important;
 }
 
+.start-20 {
+    left: 40% !important;
+}
+
 .start-100 {
   left: 100% !important;
 }
-
+.start-95 {
+    left: 95% !important;
+}
 .end-0 {
   right: 0 !important;
 }

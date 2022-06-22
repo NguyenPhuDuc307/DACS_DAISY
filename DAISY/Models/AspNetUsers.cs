@@ -53,7 +53,7 @@ namespace DAISY.Models
 
         public string Image { get; set; }
 
-        public bool? Gioitinh { get; set; }
+        public string Gioitinh { get; set; }
 
         [StringLength(128)]
         public string ToaDo_VD { get; set; }

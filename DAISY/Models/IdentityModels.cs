@@ -13,7 +13,7 @@ namespace DAISY.Models
         [Display (Name = "Họ tên"), Required]
         [StringLength (100)]
         public string Name { get; set; }
-        public bool Gioitinh { get; set; }
+        public string Gioitinh { get; set; }
         public string Image { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

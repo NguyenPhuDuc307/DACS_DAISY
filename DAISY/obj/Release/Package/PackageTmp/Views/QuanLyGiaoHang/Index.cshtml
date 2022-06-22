@@ -48,14 +48,13 @@
                 @if (item.TRANGTHAI == "Chờ xử lý")
                 {
                     <h6 style="color:orange; font-weight:700">@item.TRANGTHAI</h6>
-                    <a data-bs-toggle="modal" data-bs-target="#_@item.IDGIOHANG" style="text-decoration:none;color:red">Nhấn để hủy đơn</a>
-
+                    <a data-bs-toggle="modal" data-bs-target="#_@item.IDGIOHANG" style="text-decoration:none;color:red" class="btn btn-warning"><i tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Nhấn để hủy đơn hàng" style="color:red" class="bi bi-cart-x-fill"></i></a>
                     <!-- Modal -->
                     <div class="modal fade" id="_@item.IDGIOHANG" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5  class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn hủy đơn</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn hủy đơn</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-footer">
@@ -81,7 +80,9 @@
 
             </td>
             <td>
-                <a style="text-decoration:none" href="@Url.Action("ChitietND", "GioHangChiTiet", new { @id = item.IDGIOHANG })">Xem chi tiết</a>
+                
+
+                <a style="text-decoration:none" class="btn btn-primary" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Chi tiết đơn hàng" href="@Url.Action("ChitietND", "GioHangChiTiet", new { @id = item.IDGIOHANG })"><i class="bi bi-info-circle-fill"></i></a>
             </td>
         </tr>
     }

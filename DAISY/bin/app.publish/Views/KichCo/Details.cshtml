@@ -1,0 +1,35 @@
+﻿@model DAISY.Models.tb_KICHCO
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_KICHCO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TENKICHCO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENKICHCO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THETICH_TRONGLUONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THETICH_TRONGLUONG)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDKICHCO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

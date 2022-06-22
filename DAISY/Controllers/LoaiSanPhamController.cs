@@ -52,6 +52,41 @@ namespace DAISY.Controllers
             return View(tb_LOAISANPHAM);
         }
 
+        public string KiemtraTitle(string title, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_LOAISANPHAM sp = db.tb_LOAISANPHAM.FirstOrDefault(p => p.METATITLE == title);
+
+            if (sp != null) { ktra = "Tồn tại"; }
+            return ktra;
+        }
+
+        public string KiemtraTitleEdit(string title, string tt, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_LOAISANPHAM sp = db.tb_LOAISANPHAM.FirstOrDefault(p => p.METATITLE == title);
+
+
+
+            if (sp != null)
+            {
+
+                if (sp.METATITLE == tt)
+                {
+                    ktra = "Chưa tồn tại";
+                }
+                else
+                {
+                    ktra = "Tồn tại";
+                }
+            }
+            return ktra;
+        }
+
         // GET: LoaiSanPham/Create
         public ActionResult Create()
         {
@@ -64,7 +99,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH")] tb_LOAISANPHAM tb_LOAISANPHAM)
+        public ActionResult Create([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH,METATITLE")] tb_LOAISANPHAM tb_LOAISANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +138,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH,TRANGTHAI")] tb_LOAISANPHAM tb_LOAISANPHAM)
+        public ActionResult Edit([Bind(Include = "IDLOAISANPHAM,TENLOAISANPHAM,HINHANH,METATITLE,TRANGTHAI")] tb_LOAISANPHAM tb_LOAISANPHAM)
         {
             if (ModelState.IsValid)
             {

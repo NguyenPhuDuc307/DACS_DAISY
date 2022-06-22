@@ -84,7 +84,7 @@ namespace DAISY.Models
         public string Image { get; set; }
 
         [Display(Name = "Giới tính")]
-        public bool Gioitinh { get; set; }
+        public string Gioitinh { get; set; }
 
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }

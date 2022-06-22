@@ -201,7 +201,7 @@
     --swiper-navigation-size: 44px
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next, .swiper-button-next1, .swiper-button-prev, .swiper-button-prev1 {
     position: absolute;
     top: 42%;
     width: calc(var(--swiper-navigation-size)/ 44 * 27);
@@ -274,7 +274,7 @@
     display: none
 }
 
-.swiper-pagination {
+.swiper-pagination   {
     position: absolute;
     text-align: center;
     transition: .3s opacity;

@@ -39,7 +39,37 @@
             @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group mb-3">
+        Tiêu đề SEO <i style="color:dodgerblue" class="bi bi-info-circle" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-content="Tiêu đề SEO giúp sản phẩm dễ dàng tìm kiếm trên đường dẫn. Cú pháp được khuyến nghị: 'name'-'name'-..."></i>
 
+        <div class="col-md-10">
+            <input name="METATITLE" id="METATITLE" class="form-control" value="" />
+            @Html.ValidationMessageFor(model => model.METATITLE, "", new { @class = "text-danger" })
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#METATITLE').on('change', function () {
+                    @*alert('test');*@
+                    var sl = $('#METATITLE').val();
+                    @*alert(idloaisp);*@
+                    $.ajax({
+                        type: 'GET',
+                        data: { 'title': sl,},
+                        url: '@Url.Action("KiemtraTitle", "CuaHang_SanPham")',
+                        success: function (result) {
+                            if (result == 'Tồn tại') {
+                                alert('Cảnh báo: Tiêu đề SEO này đã được sử dụng, bạn vui lòng nhập tên khác.');
+                                $('#METATITLE').val('');
+                            }
+                            else {
+                            }
+                        }
+                    })
+                })
+            })
+        </script>
+    </div>
     <div class="form-group">
         Mô tả
         <div class="col-md-10">
@@ -107,9 +137,9 @@
         </div>
     </div>
 
-    <input value="Còn hàng" name="TRANGTHAI" type="text" hidden/>
+    <input value="Còn hàng" name="TRANGTHAI" type="text" hidden />
 
-    <input value="Chờ duyệt" name="CHODUYET" type="text"  hidden/>
+    <input value="Chờ duyệt" name="CHODUYET" type="text" hidden />
 
     <div class="form-group mb-3">
         <div class="col-md-offset-2 col-md-10">

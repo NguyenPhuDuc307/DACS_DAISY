@@ -67,21 +67,32 @@ namespace DAISY.Controllers
                 ViewBag.tien = list.Where(p => p.gh.THANHTOAN == true).Sum(p => p.gh.THANHTIEN);
                 ViewBag.sp = tb_GIOHANG_SPC.Where(p => p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
 
+                var listkh = list.Where(p=> p.gh.TRANGTHAI == "Đã thanh toán").GroupBy(p => p.gh.IDKHACHHANG);
+                ViewBag.listkh = listkh.OrderByDescending(p=> p.Sum(a => a.gh.THANHTIEN)).Take(5);
 
                 ViewBag.listngay = list.Where(p => p.gh.NGAYTAO >= ngay);
                 ViewBag.slngay = list.Where(p => p.gh.NGAYTAO >= ngay).Count();
                 ViewBag.tienngay = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= ngay).Sum(p => p.gh.THANHTIEN);
                 ViewBag.spngay = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= ngay && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
 
+                var listkhngay = list.Where(p => p.gh.TRANGTHAI == "Đã thanh toán" && p.gh.NGAYTAO >= ngay).GroupBy(p => p.gh.IDKHACHHANG);
+                ViewBag.listkhngay = listkhngay.OrderByDescending(p => p.Sum(a => a.gh.THANHTIEN)).Take(5);
+
                 ViewBag.listtuan = list.Where(p => p.gh.NGAYTAO >= tuan);
                 ViewBag.sltuan = list.Where(p => p.gh.NGAYTAO >= tuan).Count();
                 ViewBag.tientuan = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= tuan).Sum(p => p.gh.THANHTIEN);
                 ViewBag.sptuan = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= tuan && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
 
+                var listkhtuan = list.Where(p => p.gh.TRANGTHAI == "Đã thanh toán" && p.gh.NGAYTAO >= tuan).GroupBy(p => p.gh.IDKHACHHANG);
+                ViewBag.listkhtuan = listkhtuan.OrderByDescending(p => p.Sum(a => a.gh.THANHTIEN)).Take(5);
+
                 ViewBag.listthang = list.Where(p => p.gh.NGAYTAO >= thang);
                 ViewBag.slthang = list.Where(p => p.gh.NGAYTAO >= thang).Count();
                 ViewBag.tienthang = list.Where(p => p.gh.THANHTOAN == true).Where(p => p.gh.NGAYTAO >= thang).Sum(p => p.gh.THANHTIEN);
                 ViewBag.spthang = tb_GIOHANG_SPC.Where(p => p.tb_GIOHANG.NGAYTAO >= thang && p.tb_CUAHANG_SPCT.IDCUAHANG == id).Sum(p => p.SOLUONGSPCHINH);
+
+                var listthang = list.Where(p => p.gh.TRANGTHAI == "Đã thanh toán" && p.gh.NGAYTAO >= thang).GroupBy(p => p.gh.IDKHACHHANG);
+                ViewBag.listkhthang = listthang.OrderByDescending(p => p.Sum(a => a.gh.THANHTIEN)).Take(5);
 
                 return View(list);
             }

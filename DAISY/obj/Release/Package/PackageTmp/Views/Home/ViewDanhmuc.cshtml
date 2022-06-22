@@ -12,14 +12,15 @@
 
         @foreach (var item in Model)
         {
+            var url = "/" + "danh-muc/" + item.METATITLE + "-" + item.IDLOAISANPHAM;
             <div class="swiper-slide" style="background-color:transparent">
 
                 <div class="card card-hover" style=" border-radius: 1rem ">
-                    <a href="@Url.Action("SanPhamByDanhMuc", "Home",new { @id = item.IDLOAISANPHAM})">
+                    <a href="@url">
                         <img style="border-radius:1rem;" src="@item.HINHANH" class="img-hover card-img-top" alt="...">
                     </a>
                     <div class="card-body">
-                        <h6 style="height: 20px; text-decoration:none; color:black">@item.TENLOAISANPHAM</h6>
+                        <h5 style="height: 20px; text-decoration:none; color:black">@item.TENLOAISANPHAM</h5>
                     </div>
                 </div>
 

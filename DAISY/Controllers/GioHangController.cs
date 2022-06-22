@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DAISY.Payment.Momo;
 using Newtonsoft.Json.Linq;
+using MoMo;
 
 namespace DAISY.Controllers
 {
@@ -390,7 +390,7 @@ namespace DAISY.Controllers
 
             string khachhang = (string)Session["Name"];
             string ngaytao = DateTime.Now.ToString();
-            string noidung = idgh + " - " + khachhang + " - " + ngaytao;
+            string noidung = "Thanh toán hóa đơn";
 
             if (httt == "1")
             {

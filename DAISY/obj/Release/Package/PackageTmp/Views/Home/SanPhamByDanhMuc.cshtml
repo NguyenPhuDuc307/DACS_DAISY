@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "SanPhamByDanhMuc";
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -22,41 +22,54 @@
 
     </div>
 
-
-
-    <div class="row">
-        <div class="col-2">
-            <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
-                @foreach (var item in Model)
-                {
-                    <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
-                        @item.TENSANPHAM
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="col">
-            <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
-                @foreach (var item in Model)
-                {
-                    <div class="show">
-                        <div class="card card-hover shadow" style=" border-radius: 1rem ">
-                            <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 style="height: 30px; text-align:center; color:black">@item.TENSANPHAM</h6>
-                            </div>
+    @if (ViewBag.count != 0)
+    {
+        <div class="row">
+            <div class="col-2">
+                <div class="card list-container" style="padding: 2rem; border-radius: 1rem; box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.125);">
+                    @foreach (var item in Model)
+                    {
+                        <div class="list text-hover" style="margin-top:12px; margin-bottom: 14px">
+                            @item.TENSANPHAM
                         </div>
+                    }
+                </div>
+            </div>
+            <div class="col">
+                <div class="show-container row row-cols-2 row-cols-lg-5 g-3 g-lg-3">
+                    @foreach (var item in Model)
+                    {
+                        <div class="show">
+                            <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                                
+                                <a href="@Url.Action("SanPhamBySanPham", new { @id = item.IDSANPHAM})">
+                                    <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h6 style="height: 30px; text-align:center; color:black">@item.TENSANPHAM</h6>
+                                </div>
+                            </div>
 
-                    </div>
-                }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
-            Xem thêm
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-1" style="width:150px; text-align: center" id="load-more">
+                Xem thêm
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <h2>
+            Hiện tại danh mục này chưa có sản phẩm, bạn quay lại sau nhé.
+        </h2>
+
+    }
+
+
     @*  Learn more*@
     <script>
         let loadMoreBtn = document.querySelector('#load-more');

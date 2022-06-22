@@ -5,103 +5,143 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4 style="font-weight:700; margin-top:1rem">LOẠI SẢN PHẨM</h4>
-@Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
-<hr />
+
 
 <div class="row">
     <div class="col-4">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+        <div class="card" style="position:fixed; width:20rem; padding:2rem">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.IDLOAISANPHAM)
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.IDLOAISANPHAM)
 
-                <div class="form-group">
-                    Tên loại sản phẩm
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TENLOAISANPHAM, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TENLOAISANPHAM, "", new { @class = "text-danger" })
+                    <div class="form-group mb-3">
+                        Tên loại sản phẩm
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.TENLOAISANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TENLOAISANPHAM, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    Hình ảnh
-                    <div class="col-md-10">
-                        <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
-                        @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
-                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+                    <div class="form-group mb-3">
+                        Tiêu đề SEO <i style="color:dodgerblue" class="bi bi-info-circle" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-content="Tiêu đề SEO giúp sản phẩm dễ dàng tìm kiếm trên đường dẫn. Cú pháp được khuyến nghị: 'name'-'name'-..."></i>
 
-                        <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:270px; width:270px" />
+                        <div class="col-md-10">
+                            <input name="METATITLE" id="METATITLE" class="form-control" value="@Model.METATITLE" />
+                            @Html.ValidationMessageFor(model => model.METATITLE, "", new { @class = "text-danger" })
+                        </div>
 
-                        @section upload
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('#METATITLE').on('change', function () {
+                                    @*alert('test');*@
+                                    var sl = $('#METATITLE').val();
+                                    @*alert(idloaisp);*@
+                                    $.ajax({
+                                        type: 'GET',
+                                        data: { 'title': sl, 'tt': '@Model.METATITLE'},
+                                        url: '@Url.Action("KiemtraTitleEdit", "LoaiSanPham")',
+                                        success: function (result) {
+                                            if (result == 'Tồn tại') {
+                                                alert('Cảnh báo: Tiêu đề SEO này đã được sử dụng, bạn vui lòng nhập tên khác.');
+                                                $('#METATITLE').val('');
+                                            }
+                                            else {
+                                            }
+                                        }
+                                    })
+                                })
+                            })
+                        </script>
+                    </div>
+
+                    <div class="form-group">
+                        Hình ảnh
+                        <div class="col-md-10">
+                            <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" hidden />
+                            @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+                            <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+
+                            <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:250px; width:250px" />
+
+                            @section upload
                 {
-                            <script>
-                                $(function () {
-                                    $('#pictureUpload').click(function () {
-                                        $('#fileUpload').trigger('click');
+                                <script>
+                                    $(function () {
+                                        $('#pictureUpload').click(function () {
+                                            $('#fileUpload').trigger('click');
+                                        });
                                     });
-                                });
-                                $('#fileUpload').change(function () {
-                                    if (window.FormData !== undefined) {
-                                        var fileUpload = $('#fileUpload').get(0);
-                                        var files = fileUpload.files;
-                                        var formData = new FormData();
-                                        formData.append('file', files[0]);
-                                        $.ajax(
-                                            {
-                                                type: 'POST',
-                                                url: '/LoaiSanPham/ProcessUpload',
-                                                contentType: false,
-                                                processData: false,
-                                                data: formData,
-                                                success: function (urlImage) {
-                                                    $('#pictureUpload').attr('src', urlImage);
-                                                    $('#HINHANH').val(urlImage);
-                                                },
-                                                error: function (err) {
-                                                    alert('Error ', err.statusText);
+                                    $('#fileUpload').change(function () {
+                                        if (window.FormData !== undefined) {
+                                            var fileUpload = $('#fileUpload').get(0);
+                                            var files = fileUpload.files;
+                                            var formData = new FormData();
+                                            formData.append('file', files[0]);
+                                            $.ajax(
+                                                {
+                                                    type: 'POST',
+                                                    url: '/LoaiSanPham/ProcessUpload',
+                                                    contentType: false,
+                                                    processData: false,
+                                                    data: formData,
+                                                    success: function (urlImage) {
+                                                        $('#pictureUpload').attr('src', urlImage);
+                                                        $('#HINHANH').val(urlImage);
+                                                    },
+                                                    error: function (err) {
+                                                        alert('Error ', err.statusText);
 
-                                                }
-                                            });
-                                    }
-                                });
-                            </script>
-                        }
+                                                    }
+                                                });
+                                        }
+                                    });
+                                </script>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        Trạng thái
+                        <div class="col-md-10">
+                            @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Lưu thay đổi" class="btn btn-outline-danger" />
+                        </div>
                     </div>
                 </div>
+            }
 
-                <div class="form-group">
-                    Trạng thái
-                    <div class="col-md-10">
-                        @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <br />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Lưu thay đổi" class="btn btn-outline-danger" />
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+        </div>
+            
+        </div>
 
     <div class="col-8">
+        <h4 style="font-weight:700">LOẠI SẢN PHẨM</h4>
+        @Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
+        <hr />
         <a href="@Url.Action("Create")" style="text-decoration:none">
             Thêm mới
         </a>
-        <table class="table table-striped-columns">
+        <table class="table table-bordered table-hover">
             <tr style="font-size:20px; color: red">
+                <th>
+                    HÌNH ẢNH
+                </th>
                 <th>
                     TÊN LOẠI SẢN PHẨM
                 </th>
                 <th>
-                    HÌNH ẢNH
+                    TIÊU ĐỀ SEO
                 </th>
                 <th>
                     TRẠNG THÁI
@@ -111,18 +151,22 @@
             @foreach (var item in ViewBag.listlsp)
             {
                 <tr>
+                    <td style="width: 200px">
+                        <a href="@Url.Action("Edit", new {@id = item.IDLOAISANPHAM})">
+                            <img style="height:auto; width: 100%; object-fit:cover" src="@item.HINHANH" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new {@id = item.IDLOAISANPHAM})" style="font-weight:700; text-decoration:none" class="text-hover">
+                            @item.TENLOAISANPHAM
+                        </a>
+                    </td>
                     <td>
                         <h6 style="font-weight:700">
-                            @item.TENLOAISANPHAM
+                            @item.METATITLE
                         </h6>
-
                     </td>
-                    <td>
-                        <a href="@Url.Action("Edit", new {@id = item.IDLOAISANPHAM})">
-                            <img style="height:150px; width: 150px; object-fit:cover" src="@item.HINHANH" />
-                        </a>
 
-                    </td>
                     <td>
 
                         @if (item.TRANGTHAI == "Khả dụng")

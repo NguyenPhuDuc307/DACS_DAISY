@@ -1,0 +1,179 @@
+﻿@model DAISY.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:2rem">
+    <h4 style=" font-weight: 700">THÔNG TIN NGƯỜI DÙNG</h4>
+    @Html.ActionLink("Trở về", "Index", "QuanLyAdmin")
+    <hr />
+
+    <div class="row">
+        <div class="col-3">
+            <dl class="dl-horizontal">
+
+                <dt>
+                    <img src="@Model.Image" style="border-radius: 100%; height: 200px; width: 200px; border: 5px; border-color: lightgray; border-style: solid;" />
+                </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    Xác nhận Email
+                </dt>
+
+                <dd>
+                    @if (Model.EmailConfirmed == true)
+                    {
+                        <p style="color:green">Đã xác nhận</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Chưa xác nhận</p>
+                    }
+
+                </dd>
+
+                <dt>
+                    Tên đăng nhập
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    Tên người dùng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    Giới tính
+                </dt>
+
+                <dd>
+                    @if (Model.Gioitinh == true)
+                    {
+                        <p style="color:green">Nam</p>
+                    }
+                    else
+                    {
+                        <p style="color:red">Nữ</p>
+                    }
+                </dd>
+
+                <dt>
+                    Số điện thoại
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+
+                <dt>
+                    Địa chỉ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Diachi)
+                </dd>
+
+
+            </dl>
+        </div>
+        <div class="col">
+            <table class="table">
+                <tr style="font-size:20px; color: red">
+                    <th>
+                        TÊN NGƯỜI DÙNG
+                    </th>
+
+                    <th>
+                        HÌNH ẢNH
+                    </th>
+
+                    <th>
+                        EMAIL
+                    </th>
+                    <th>
+                        QUYỀN TRUY CẬP
+                    </th>
+                    <th>
+                        SỐ ĐIỆN THOẠI
+                    </th>
+                </tr>
+
+                @foreach (var item in ViewBag.listnd)
+                {
+                    <tr>
+                        <td>
+
+                            @if (@item.aspNetUsers.EmailConfirmed == true)
+                            {
+                                <h6 style="font-weight:700; color:green">
+                                    @item.aspNetUsers.Name
+                                </h6>
+                            }
+                            else
+                            {
+                                <h6 style="font-weight: 700; color: red">
+                                    @item.aspNetUsers.Name
+                                </h6>
+                            }
+
+
+
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("Details", "User", new {@id = @item.aspNetUsers.Id})">
+                                <img style="height:150px; width: 150px; border-radius:100%; border: 5px; border-style: solid; border-color:lightgray;" src="@item.aspNetUsers.Image" />
+                            </a>
+                        </td>
+
+                        <td>
+                            <h6 style="font-weight:700">
+                                @item.aspNetUsers.Email
+                            </h6>
+
+                        </td>
+
+                        <td>
+                            @if (@item.aspNetUserRoles.RoleId == "2a800a1c-c647-4135-909f-66333d635fcb")
+                            {
+                                <h6 style="font-weight:700; color:green">
+                                    Khách hàng
+                                </h6>
+                            }
+                            else
+                            {
+                                <h6 style="font-weight:700; color:red">
+                                    Cửa hàng
+                                </h6>
+                            }
+
+                        </td>
+
+                        <td>
+                            <h6 style="font-weight:700">
+                                @item.aspNetUsers.PhoneNumber
+                            </h6>
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

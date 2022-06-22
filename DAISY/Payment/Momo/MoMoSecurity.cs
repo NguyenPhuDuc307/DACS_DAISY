@@ -1,12 +1,12 @@
-﻿using System;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace DAISY.Payment.Momo
+namespace MoMo
 {
-    public class MoMoSecurity
+    class MoMoSecurity
     {
         private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
         public MoMoSecurity()

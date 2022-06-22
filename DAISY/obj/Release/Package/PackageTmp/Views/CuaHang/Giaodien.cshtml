@@ -2,40 +2,181 @@
 
 @{
     ViewBag.Title = "Giaodien";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-<div style="display:flex">
-    @if (Model.UYTIN == true)
-    {
-        <svg style="margin-top:1px; margin-right: 4px; color:red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
-            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
-        </svg>
-    }
-    <h4 style="font-weight:700">Cửa hàng: @Html.DisplayFor(model => model.TENCUAHANG)</h4>
-</div>
+
 
 
 <div>
     <hr />
     <div class="row">
-        <div class="col-6">
-            <img src="@Model.HINHANH" style="width:100%; height:100%; object-fit:cover" />
+        <div class="col-4">
+            <div class="card">
+                <img class="shadow-sm" src="@Model.HINHANH" style="width:100%; height:250px ; object-fit:cover" />
+
+
+                <div class="position-relative">
+                    <div style="margin-left:5rem" class="position-absolute top-100 start-0 translate-middle">
+                        <img style="border-radius:100%; height:8rem; width:8rem; border: 5px solid white" src="@Model.AspNetUsers.Image" />
+                    </div>
+                </div>
+
+                <div style="display:flex; margin-left:9.5rem; margin-top:5px">
+                    @if (Model.UYTIN == true)
+                    {
+                        <svg style="margin-top:1px; margin-right: 4px; color:red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+                        </svg>
+                    }
+                    <h5 style="font-weight:700">Cửa hàng: @Html.DisplayFor(model => model.TENCUAHANG)</h5>
+                </div>
+                <span class="lecture" style="margin-left:9.5rem">
+                    @if (Model.isLogin)
+                    {
+                        if (Model.isShowFollow)
+                        {
+                            <button data-user-id="@Model.IDCUAHANG" class="btn btn-outline-dark btn-sm js-tongle-follow"> + Bấm để theo dõi</button>
+                        }
+                        else
+                        {
+                            <button data-user-id="@Model.IDCUAHANG" class="btn btn-danger btn-sm js-tongle-follow"> ✓ Đang theo dõi</button>
+                        }
+                    }
+                </span>
+                <h6 style="padding:1rem; text-align:right">
+                    Địa chỉ: 
+                    @Html.DisplayFor(model => model.AspNetUsers.Diachi)
+                </h6>
+                    
+                <iframe class="img-thumbnail shadow-sm" src="@Model.GOOGLEMAP" style="border: 0; width: 100%; height: 350px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
         </div>
-        <div class="col-6">
-            <iframe src="@Model.GOOGLEMAP" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="col-8">
+
+            <h5 style="font-weight:700; color:black">DANH SÁCH SẢN PHẨM</h5>
+
+
+            @if (ViewBag.count != 0)
+            {
+                <div class="row row-cols-2 row-cols-lg-4 g-3 g-lg-3">
+                    @foreach (var item in ViewBag.list)
+                    {
+                        <div onmousemove="initMap('@item.ID', @item.tb_CUAHANG.AspNetUsers.ToaDo_VD, @item.tb_CUAHANG.AspNetUsers.ToaDo_KD)" class="show">
+                            <div class="card card-hover shadow" style=" border-radius: 1rem ">
+                                <a href="@Url.Action("Giaodien", "CuaHang", new {@id = item.tb_CUAHANG.IDCUAHANG})">
+                                    <img style="border-radius:1rem; object-fit:cover" src="@item.HINHANH" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h6 data-bs-toggle="modal" data-bs-target="#a_@item.ID" style="height: 50px; color:black; cursor:pointer; font-weight:700">@item.TENSANPHAM</h6>
+                                    <h6 style="color: red; font-weight:800">@String.Format("{0:0,0}", item.GIASANPHAM)₫</h6>
+
+                                    <div style="display:flex; color:black">
+                                        <svg style="margin-right:5px; color:orange" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                                            <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
+                                        </svg>
+                                        <h6>@item.tb_CUAHANG.TENCUAHANG</h6>
+                                    </div>
+                                    <div style="display:flex">
+                                        <svg style="margin-top:3px; margin-right:5px; color:black" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>
+                                        <div style="color:black" id="@item.ID"></div>
+                                    </div>
+                                    <hr />
+                                    <div style="width: 100%">
+                                        <a style="width: 100%" class="btn btn-outline-danger" href="@Url.Action("ThemGioHang", "GioHang", new { @id = item.ID, @strURL = Request.Url.ToString() })">Thêm vào giỏ</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="a_@item.ID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Thông tin sản phẩm</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <a href="@Url.Action("Giaodien", "CuaHang", new {@id = item.tb_CUAHANG.IDCUAHANG})">
+                                            <img style="border-radius:1rem; object-fit:cover" src="@item.HINHANH" class="card-img-top" alt="...">
+                                        </a>
+                                        <div class="card-body">
+                                            <h6 style="color:black; font-weight:700; margin-top:1rem">@item.TENSANPHAM</h6>
+                                            <i style="height: 50px; color:black">@item.MOTA</i>
+                                            <h6 style="color: red; font-weight:800">@String.Format("{0:0,0}", item.GIASANPHAM)₫</h6>
+
+                                            <div style="display:flex; color:black">
+                                                <svg style="margin-right:5px; color:orange" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                                                    <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
+                                                </svg>
+                                                <h6>@item.tb_CUAHANG.TENCUAHANG</h6>
+                                            </div>
+                                            <hr />
+                                            <div style="width: 100%">
+                                                <a style="width: 100%" class="btn btn-outline-danger" href="@Url.Action("ThemGioHang", "GioHang", new { @id = item.ID, @strURL = Request.Url.ToString() })">Thêm vào giỏ</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    }
+                </div>
+            }
+            else
+            {
+                <h2>
+                    Hiện tại cửa hàng chưa có sản phẩm nào, bạn có thể quay lại sau nhé.
+                </h2>
+            }
+
+            @section scripts{
+                <script>
+                    $(document).ready(function () {
+                        $(".js-tongle-follow").click(function (e) {
+                            var button = $(e.target);
+                            var Idcuahang = button.attr("data-user-id");
+                            $.post("/Api/TheoDoi", { IdCuahang: button.attr("data-user-id") })
+                                .done(function (result) {
+                                    if (result == "cancel") {
+                                        $('.js-tongle-follow').each(function (i, obj) {
+                                            if ($(this).attr('data-user-id') == Idcuahang) {
+                                                $(this).removeClass("btn-danger")
+                                                    .addClass("btn-outline-dark")
+                                                    .text(" + Bấm để theo dõi");
+                                            }
+                                        });
+                                        alert("Bạn đã hủy theo dõi cửa hàng")
+                                    } else {
+                                        $('.js-tongle-follow').each(function (i, obj) {
+                                            if ($(this).attr('data-user-id') == Idcuahang) {
+                                                $(this).removeClass("btn-outline-dark")
+                                                    .addClass("btn-danger")
+                                                    .text(" ✓ Đang theo dõi");
+                                            }
+                                        });
+                                        alert("Bạn đang theo dõi cửa hàng")
+                                    }
+                                }).fail(function () {
+                                    alert("Something fail");
+                                });
+                        });
+                    })
+                </script>
+            }
         </div>
+            
     </div>
-    <dl class="dl-horizontal">
-        <dt>
-            Địa chỉ
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUsers.Diachi)
-        </dd>
-
-    </dl>
 </div>
 
 
@@ -77,41 +218,3 @@
 </script>
 
 
-<h5 style="font-weight:700; color:black">DANH SÁCH SẢN PHẨM</h5>
-<div class="row row-cols-2 row-cols-lg-6 g-3 g-lg-3">
-    @foreach (var item in ViewBag.list)
-    {
-        <div onmousemove="initMap('@item.ID', @item.tb_CUAHANG.AspNetUsers.ToaDo_VD, @item.tb_CUAHANG.AspNetUsers.ToaDo_KD)" class="show">
-            <div class="card card-hover shadow" style=" border-radius: 1rem ">
-                <img style="border-radius:1rem;" src="@item.HINHANH" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h6 style="height: 50px; color:black; font-weight:700">@item.TENSANPHAM</h6>
-                    <h6 style="color: red; font-weight:800">@String.Format("{0:0,0}", item.GIASANPHAM)₫</h6>
-
-                    <div style="display:flex; color:black">
-                        <svg style="margin-right:5px; color:orange" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
-                            <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
-                        </svg>
-                        <h6>@item.tb_CUAHANG.TENCUAHANG</h6>
-                    </div>
-
-
-
-
-                    <div style="display:flex">
-                        <svg style="margin-top:3px; margin-right:5px; color:black" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-                            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                        <div style="color:black" id="@item.ID"></div>
-                    </div>
-                    <hr />
-                    <div style="width: 100%">
-                        <a style="width: 100%" class="btn btn-outline-danger" href="@Url.Action("ThemGioHang", "GioHang", new { @id = item.ID, @strURL = Request.Url.ToString() })">Thêm vào giỏ hàng</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    }
-</div>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DAISYModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="FNSOLUONGSANPHAM_Result">
+    <Property Name="TENSANPHAM" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SOLUONG" Type="Int32" />
+  </ComplexType>
+  <EntityContainer Name="DAISYEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="FNSOLUONGSANPHAM" IsComposable="true" ReturnType="Collection(DAISYModel.FNSOLUONGSANPHAM_Result)">
+      <Parameter Name="IDCUAHANG" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

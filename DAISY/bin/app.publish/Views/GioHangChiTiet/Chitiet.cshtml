@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DAISY.Models.tb_GIOHANG_SPC>
+
+@{
+    ViewBag.Title = "Chitiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="font-weight:700; margin-top:1rem">CHI TIẾT GIỎ HÀNG</h4>
+<a href="@Url.Action("Quanly", "QuanLyGiaoHang")">Trở về</a>
+<hr />
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                <img src="@item.tb_CUAHANG_SPCT.HINHANH" style="height:300px; width:300px; border-radius:1rem" />
+
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.tb_CUAHANG_SPCT.TENSANPHAM)
+                <div style="display:flex">
+                    <p>Loại: &nbsp;</p> @Html.DisplayFor(modelItem => item.tb_CUAHANG_SPCT.tb_SANPHAM.tb_LOAISANPHAM.TENLOAISANPHAM)
+                </div>
+
+                <div style="display:flex">
+                    <p>Số lượng:  &nbsp;</p> <p style="color:red">@Html.DisplayFor(modelItem => item.SOLUONGSPCHINH)</p>
+                </div>
+
+                <div style="display:flex">
+                    <p>Giá bán: &nbsp;</p> <p style="color:red">@String.Format("{0:0,0}", item.GIABAN)₫</p>
+                </div>
+
+            </th>
+
+        </tr>
+    }
+
+</table>
+
+@foreach (var item in Model)
+{
+    <div style="display:flex">
+        <h4 style="font-weight:700">
+            TỔNG TIỀN: &nbsp;
+        </h4>
+        <h4 style="color: red; font-weight: 700">@String.Format("{0:0,0}", item.tb_GIOHANG.THANHTIEN)₫</h4>
+    </div>
+
+    break;
+}

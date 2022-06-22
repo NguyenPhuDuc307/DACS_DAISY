@@ -1,0 +1,53 @@
+﻿@model DAISY.Models.tb_SANPHAM
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xoá sản phẩm</h2>
+
+<h4>Bạn có chắc chắn muốn xoá sản phẩm này chứ</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Loại sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_LOAISANPHAM.TENLOAISANPHAM)
+        </dd>
+
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENSANPHAM)
+        </dd>
+
+        <dt>
+            Hình ảnh
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.HINHANH)" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xoá" class="btn btn-outline-danger" />
+        </div>
+    }
+</div>
+
+<br />
+
+<p>
+    @Html.ActionLink("Trở về", "Index")
+</p>

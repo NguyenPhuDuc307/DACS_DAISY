@@ -1,0 +1,28 @@
+﻿@model DAISY.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+<h4 style="margin-top: 1rem">Sử dụng dịch vụ khác để đăng nhập.</h4>
+<hr />
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() == 0) {
+    <div class="d-grid gap-2">
+        <button type="button" class="btn btn-primary mb-3" id="btnGoogle">Google</button>
+    </div>
+    }
+    else {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger mb-3" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                        </div>
+                    }
+                </p>
+            </div>
+        }
+    }
+}

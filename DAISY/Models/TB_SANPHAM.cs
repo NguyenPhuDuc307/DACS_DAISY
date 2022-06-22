@@ -26,6 +26,11 @@ namespace DAISY.Models
         [StringLength(100)]
         public string HINHANH { get; set; }
 
+        [Required]
+        [StringLength(64)]
+        public string METATITLE { get; set; }
+
+        [Required]
         [StringLength(32)]
         public string TRANGTHAI { get; set; }
 

@@ -20,7 +20,8 @@ namespace DAISY.Models
 
             ViewBag.listkc = db.tb_KICHCO.OrderBy(p => p.TENKICHCO).ToList();
 
-            ViewBag.listch = db.tb_CUAHANG.OrderByDescending(p => p.IDCUAHANG).ToList();
+            ViewBag.listch = db.tb_CUAHANG.OrderByDescending(p => p.IDCUAHANG).OrderBy(p=> p.XETDUYET).ToList();
+            Session["demch"] = db.tb_CUAHANG.OrderByDescending(p => p.IDCUAHANG).Where(p=> p.XETDUYET == false).Count();
 
             var listnd = db.AspNetUsers.OrderBy(p => p.Name).ToList();
 

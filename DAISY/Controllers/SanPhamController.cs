@@ -54,6 +54,40 @@ namespace DAISY.Controllers
             return View(tb_SANPHAM);
         }
 
+        public string KiemtraTitle(string title, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_SANPHAM sp = db.tb_SANPHAM.FirstOrDefault(p => p.METATITLE == title);
+
+            if (sp != null) { ktra = "Tồn tại"; }
+            return ktra;
+        }
+
+        public string KiemtraTitleEdit(string title, string tt, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_SANPHAM sp = db.tb_SANPHAM.FirstOrDefault(p => p.METATITLE == title);
+
+
+
+            if (sp != null) { 
+
+                if(sp.METATITLE == tt)
+                {
+                    ktra = "Chưa tồn tại";
+                }
+                else
+                {
+                    ktra = "Tồn tại";
+                }
+            }
+            return ktra;
+        }
+
         // GET: SanPham/Create
         public ActionResult Create()
         {
@@ -67,7 +101,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH")] tb_SANPHAM tb_SANPHAM)
+        public ActionResult Create([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH,METATITLE")] tb_SANPHAM tb_SANPHAM)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +142,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH,TRANGTHAI")] tb_SANPHAM tb_SANPHAM)
+        public ActionResult Edit([Bind(Include = "IDSANPHAM,IDLOAISANPHAM,TENSANPHAM,HINHANH,TRANGTHAI,METATITLE")] tb_SANPHAM tb_SANPHAM)
         {
             if (ModelState.IsValid)
             {

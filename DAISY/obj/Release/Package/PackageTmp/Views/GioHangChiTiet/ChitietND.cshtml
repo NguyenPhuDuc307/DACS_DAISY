@@ -22,6 +22,9 @@
                 <div style="display:flex">
                     <p>Loại: &nbsp;</p> @Html.DisplayFor(modelItem => item.tb_CUAHANG_SPCT.tb_SANPHAM.tb_LOAISANPHAM.TENLOAISANPHAM)
                 </div>
+                <div style="display:flex">
+                    <p>Cửa hàng: &nbsp;</p> <p style="color:green">@Html.DisplayFor(modelItem => item.tb_CUAHANG_SPCT.tb_CUAHANG.TENCUAHANG)</p>
+                </div>
 
                 <div style="display:flex">
                     <p>Số lượng:  &nbsp;</p> <p style="color:red">@Html.DisplayFor(modelItem => item.SOLUONGSPCHINH)</p>
@@ -30,6 +33,7 @@
                 <div style="display:flex">
                     <p>Giá bán: &nbsp;</p> <p style="color:red">@String.Format("{0:0,0}", item.GIABAN)₫</p>
                 </div>
+
 
             </th>
 

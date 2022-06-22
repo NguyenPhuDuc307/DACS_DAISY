@@ -1,17 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated && Session["Name"] != null)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
-
+    var url = "/" + "quan-ly-tai-khoan/";
 <ul class="nav navbar-nav navbar-right" style="margin-right:1rem" >
-    <li class="nav-item dropdown">
-        <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <b>Xin chào </b> <b style="color:red">@Session["Name"]</b>
+    <li class="nav-item dropdown dropstart" >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img style="height:38px; width:38px; object-fit: cover; border: 2px solid #cdcdcd; border-radius:100%; margin-left:5px" src="@Session["Avatar"]" />
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="@Url.Action("Index","Manage")">Thông tin tài khoản</a></li>
+            <li><a class="dropdown-item" href="@url">Thông tin tài khoản</a></li>
             <li><a class="dropdown-item" href="@Url.Action("Index","QuanLyGiaoHang")">Lịch sử đặt hàng</a></li>
             <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
         </ul>

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DAISY.Payment.Momo;
 using Newtonsoft.Json.Linq;
 using System.Web.Mvc;
+using MoMo;
 
 namespace DAISY.Controllers
 {

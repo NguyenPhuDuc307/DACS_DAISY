@@ -14,31 +14,34 @@
         <dt>
             <a href="@Url.Action("Edit", "User", new {@id = Session["Id"]})">Thay đổi thông tin</a>
         </dt>
+        <dt style="font-size:24px; margin-top:1rem">
+            @Session["Name"]
+        </dt>
         <dt>Ảnh đại diện:</dt>
         <dd>
             @*<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
-            <button class="btn btn-primary" type="button" disabled>Disabled button</button>
-        </span>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>
+                    <button class="btn btn-primary" type="button" disabled>Disabled button</button>
+                </span>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>
 
-        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasTopLabel">Offcanvas top</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                ...
-            </div>
-        </div>
-        <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>*@
+                <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasTopLabel">Offcanvas top</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        ...
+                    </div>
+                </div>
+                <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>*@
             <!-- Button trigger modal -->
             @if (Model.Image == "link")
             {
-                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height:10rem; width:10rem; border-radius:50%; margin-top:1rem" src="~/Content/img/image_none.png" class="img-thumbnail" alt="...">
+                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height:10rem; width:10rem; border-radius:50%; margin-top:1rem; object-fit:cover" src="~/Content/img/image_none.png" class="img-thumbnail" alt="...">
             }
             else
             {
-                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height:10rem; width:10rem; border-radius:50%; margin-top:1rem" src="@Model.Image" class="img-thumbnail" alt="...">
+                <img data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="height: 10rem; width: 10rem; border-radius: 50%; margin-top: 1rem; object-fit: cover" src="@Model.Image" class="img-thumbnail" alt="...">
             }
 
             <!-- Modal -->
@@ -62,7 +65,7 @@
                 </div>
 
             }
-            <br/>
+            <br />
             @Html.ActionLink("Cập nhật tọa độ", "UpdateToaDo")
 
             <a href="#">
@@ -109,22 +112,22 @@
             Uncomment the following block after you have set up two-factor authentication*@
 
 
-        <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None") [
-                @if (Model.PhoneNumber != null)
-                {
-                    @Html.ActionLink("Change", "AddPhoneNumber")
-                    @: &nbsp;|&nbsp;
-                    @Html.ActionLink("Remove", "RemovePhoneNumber")
-                }
-                else
-                {
-                    @Html.ActionLink("Add", "AddPhoneNumber")
-                }
-                ]
-            </dd>
-@*            <dt>Two-Factor Authentication:</dt>
+@*        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None") [
+            @if (Model.PhoneNumber != null)
+            {
+                @Html.ActionLink("Change", "AddPhoneNumber")
+                @: &nbsp;|&nbsp;
+                @Html.ActionLink("Remove", "RemovePhoneNumber")
+            }
+            else
+            {
+                @Html.ActionLink("Add", "AddPhoneNumber")
+            }
+            ]
+        </dd>*@
+        @*            <dt>Two-Factor Authentication:</dt>
             <dd>
                 @if (Model.TwoFactor)
                 {
@@ -151,8 +154,13 @@
 
     </dl>
 
-    <a class="btn btn-primary" href="@Url.Action("Create", "CuaHang")">ĐĂNG KÝ TÀI KHOẢN BÁN HÀNG</a>
+    @if (ViewBag.isCuaHang == null && (string)Session["role"] != "Admin")
+    {
+        <a class="btn btn-primary" href="@Url.Action("Create", "CuaHang")">ĐĂNG KÝ TÀI KHOẢN BÁN HÀNG</a>
+    }
 
-</div>
+
+
+    </div>
 
 

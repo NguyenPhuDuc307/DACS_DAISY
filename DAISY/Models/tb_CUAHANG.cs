@@ -30,6 +30,11 @@ namespace DAISY.Models
 
         public string GOOGLEMAP { get; set; }
 
+        [Required]
+        [StringLength(64)]
+        public string METATITLE { get; set; }
+
+        [Required]
         [StringLength(128)]
         public string TRANGTHAI { get; set; }
 
@@ -46,5 +51,9 @@ namespace DAISY.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_THEODOI> tb_THEODOI { get; set; }
+
+        public bool isLogin = false;
+        public bool isShowGoing = false;
+        public bool isShowFollow = false;
     }
 }

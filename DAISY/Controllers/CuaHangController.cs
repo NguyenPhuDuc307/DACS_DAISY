@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DAISY.Helper;
 using DAISY.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DAISY.Controllers
 {
@@ -32,6 +34,41 @@ namespace DAISY.Controllers
             return View(tb_CUAHANG.ToList());
         }
 
+        public string KiemtraTitle(string title, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_CUAHANG sp = db.tb_CUAHANG.FirstOrDefault(p => p.METATITLE == title);
+
+            if (sp != null) { ktra = "Tồn tại"; }
+            return ktra;
+        }
+
+        public string KiemtraTitleEdit(string title, string tt, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_CUAHANG sp = db.tb_CUAHANG.FirstOrDefault(p => p.METATITLE == title);
+
+
+
+            if (sp != null)
+            {
+
+                if (sp.METATITLE == tt)
+                {
+                    ktra = "Chưa tồn tại";
+                }
+                else
+                {
+                    ktra = "Tồn tại";
+                }
+            }
+            return ktra;
+        }
+
         public ActionResult LoadCH(int? idch)
         {
             var tb_CUAHANG = db.tb_CUAHANG.Include(t => t.AspNetUsers).FirstOrDefault(p=> p.IDCUAHANG == idch);
@@ -53,7 +90,13 @@ namespace DAISY.Controllers
             return View(tb_CUAHANG);
         }
 
-        public int TongSoLuong()
+        public ActionResult Xem(int? id)
+        {
+            Session["IdCuaHang"] = id;
+            return RedirectToAction("Quanly", "QuanLyGiaoHang");
+        }
+
+            public int TongSoLuong()
         {
             // khởi tạo tổng số sản phẩm
             int tsl = 0;
@@ -83,6 +126,29 @@ namespace DAISY.Controllers
             }
             Session["soluong"] = TongSoLuong();
             ViewBag.list = db.tb_CUAHANG_SPCT.Where(p=> p.tb_CUAHANG.IDCUAHANG == id).ToList();
+            ViewBag.count = db.tb_CUAHANG_SPCT.Where(p => p.tb_CUAHANG.IDCUAHANG == id).Count();
+
+
+
+            var upcommingCourse = db.tb_CUAHANG.ToList();
+            //lấy user login hiện tại
+            var userID = User.Identity.GetUserId();
+
+            //tìm Name của user từ lectureid
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(tb_CUAHANG.IDUSER);
+            //lấy ds tham gia khóa học
+            if (userID != null)
+            {
+                tb_CUAHANG.isLogin = true;
+
+                //ktra user đã theo dõi giảng viên của khóa học ?
+                tb_THEODOI findFollow = db.tb_THEODOI.FirstOrDefault(p => p.IdUser == userID && p.IdCuahang == tb_CUAHANG.IDCUAHANG);
+                if (findFollow == null)
+                    tb_CUAHANG.isShowFollow = true;
+            }
+
+
+
             return View(tb_CUAHANG);
         }
 
@@ -96,7 +162,16 @@ namespace DAISY.Controllers
             {
                 int id = (int)Session["IdCuaHang"];
 
+
                 tb_CUAHANG tb_CUAHANG = db.tb_CUAHANG.Find(id);
+                if (tb_CUAHANG == null)
+                {
+                    return HttpNotFound();
+                }
+                Session["soluong"] = TongSoLuong();
+                ViewBag.list = db.tb_CUAHANG_SPCT.Where(p => p.tb_CUAHANG.IDCUAHANG == id).ToList();
+                ViewBag.count = db.tb_CUAHANG_SPCT.Where(p => p.tb_CUAHANG.IDCUAHANG == id).Count();
+
                 if (tb_CUAHANG == null)
                 {
                     return HttpNotFound();
@@ -117,7 +192,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,HINHANH, GOOGLEMAP")] tb_CUAHANG tb_CUAHANG)
+        public ActionResult Create([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,HINHANH, GOOGLEMAP,METATITLE")] tb_CUAHANG tb_CUAHANG)
         {
             if (ModelState.IsValid)
             {
@@ -159,7 +234,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,DIACHI,HINHANH, GOOGLEMAP,TRANGTHAI")] tb_CUAHANG tb_CUAHANG)
+        public ActionResult Edit([Bind(Include = "IDCUAHANG,IDUSER,TENCUAHANG,DIACHI,HINHANH, GOOGLEMAP,METATITLE,TRANGTHAI")] tb_CUAHANG tb_CUAHANG)
         {
             if (ModelState.IsValid)
             {
@@ -253,6 +328,7 @@ namespace DAISY.Controllers
                 db.SaveChanges();
                 SendMail.SendEmail(tb_CUAHANG.AspNetUsers.Email, "DAISY - Xin chúc mừng cửa hàng của bạn đã được duyệt.",
                     "Xin chúc mừng cửa hàng của bạn đã được duyệt. Giờ đây bạn có thể đăng bài sản phẩm.", "");
+            Session["demch"] = db.tb_CUAHANG.OrderByDescending(p => p.IDCUAHANG).Where(p => p.XETDUYET == false).Count();
             return RedirectToAction("Details", new { @id = id });
         }
 

@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using System.Net;
 
-namespace DAISY.Payment.Momo
+namespace MoMo
 {
-    public class PaymentRequest
+    class PaymentRequest
     {
         public PaymentRequest()
         {

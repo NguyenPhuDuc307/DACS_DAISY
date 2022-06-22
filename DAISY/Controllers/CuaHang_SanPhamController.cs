@@ -63,6 +63,41 @@ namespace DAISY.Controllers
             return View(tb_CUAHANG_SPCT);
         }
 
+        public string KiemtraTitle(string title, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_CUAHANG_SPCT sp = db.tb_CUAHANG_SPCT.FirstOrDefault(p => p.METATITLE == title);
+
+            if (sp != null) { ktra = "Tồn tại"; }
+            return ktra;
+        }
+
+        public string KiemtraTitleEdit(string title, string tt, FormCollection collection)
+        {
+            string ktra = "Chưa tồn tại";
+
+            // tìm loai sản phẩm theo idSP
+            tb_CUAHANG_SPCT sp = db.tb_CUAHANG_SPCT.FirstOrDefault(p => p.METATITLE == title);
+
+
+
+            if (sp != null)
+            {
+
+                if (sp.METATITLE == tt)
+                {
+                    ktra = "Chưa tồn tại";
+                }
+                else
+                {
+                    ktra = "Tồn tại";
+                }
+            }
+            return ktra;
+        }
+
         // GET: CuaHang_SanPham/Create
         public ActionResult Create()
         {
@@ -77,7 +112,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
+        public ActionResult Create([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,METATITLE,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +154,7 @@ namespace DAISY.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
+        public ActionResult Edit([Bind(Include = "ID,IDCUAHANG,IDSANPHAM,IDKICHCO,TENSANPHAM,MOTA,HINHANH,GIASANPHAM,METATITLE,TRANGTHAI,CHODUYET")] tb_CUAHANG_SPCT tb_CUAHANG_SPCT)
         {
             if (ModelState.IsValid)
             {

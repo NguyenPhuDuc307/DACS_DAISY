@@ -13,114 +13,144 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-        @Html.HiddenFor(model => model.IDCUAHANG)
-        @Html.HiddenFor(model => model.CHODUYET)
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.IDCUAHANG)
+    @Html.HiddenFor(model => model.CHODUYET)
 
 
-        <div class="form-group mb-3">
-            Chọn sản phẩm
-            <div class="col-md-10">
-                @Html.DropDownList("IDSANPHAM", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDSANPHAM, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Chọn kích cỡ
-            <div class="col-md-10">
-                @Html.DropDownList("IDKICHCO", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDKICHCO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Tên sản phẩm
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Mô tả
-            <div class="col-md-10">
-                <textarea class="form-control" name="MOTA">@Model.MOTA</textarea>
-                @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Hình ảnh sản phẩm
-            <div class="col-md-10">
-
-                <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
-
-                @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
-
-                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
-                <br />
-
-                <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:270px; width:270px" />
-                @section upload
-                        {
-                    <script>
-                        $(function () {
-                            $('#pictureUpload').click(function () {
-                                $('#fileUpload').trigger('click');
-                            });
-                        });
-                        $('#fileUpload').change(function () {
-                            if (window.FormData !== undefined) {
-                                var fileUpload = $('#fileUpload').get(0);
-                                var files = fileUpload.files;
-                                var formData = new FormData();
-                                formData.append('file', files[0]);
-                                $.ajax(
-                                    {
-                                        type: 'POST',
-                                        url: '/CuaHang_SanPham/ProcessUpload',
-                                        contentType: false,
-                                        processData: false,
-                                        data: formData,
-                                        success: function (urlImage) {
-                                            $('#pictureUpload').attr('src', urlImage);
-                                            $('#HINHANH').val(urlImage);
-                                        },
-                                        error: function (err) {
-                                            alert('Error ', err.statusText);
-
-                                        }
-                                    });
-                            }
-                        });
-                    </script>
-                }
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Giá sản phẩm
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GIASANPHAM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GIASANPHAM, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            Trạng thái
-            <div class="col-md-10">
-                @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group mb-3">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu thay đổi" class="btn btn-danger" />
-            </div>
+    <div class="form-group mb-3">
+        Chọn sản phẩm
+        <div class="col-md-10">
+            @Html.DropDownList("IDSANPHAM", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDSANPHAM, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group mb-3">
+        Chọn kích cỡ
+        <div class="col-md-10">
+            @Html.DropDownList("IDKICHCO", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDKICHCO, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        Tên sản phẩm
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TENSANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TENSANPHAM, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        Tiêu đề SEO <i style="color:dodgerblue" class="bi bi-info-circle" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="right" data-bs-content="Tiêu đề SEO giúp sản phẩm dễ dàng tìm kiếm trên đường dẫn. Cú pháp được khuyến nghị: 'name'-'name'-..."></i>
+
+        <div class="col-md-10">
+            <input name="METATITLE" id="METATITLE" class="form-control" value="@Model.METATITLE" />
+            @Html.ValidationMessageFor(model => model.METATITLE, "", new { @class = "text-danger" })
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#METATITLE').on('change', function () {
+                    @*alert('test');*@
+                    var sl = $('#METATITLE').val();
+                    @*alert(idloaisp);*@
+                    $.ajax({
+                        type: 'GET',
+                        data: { 'title': sl, 'tt': '@Model.METATITLE'},
+                        url: '@Url.Action("KiemtraTitleEdit", "CuaHang_SanPham")',
+                        success: function (result) {
+                            if (result == 'Tồn tại') {
+                                alert('Cảnh báo: Tiêu đề SEO này đã được sử dụng, bạn vui lòng nhập tên khác.');
+                                $('#METATITLE').val('');
+                            }
+                            else {
+                            }
+                        }
+                    })
+                })
+            })
+        </script>
+    </div>
+    <div class="form-group mb-3">
+        Mô tả
+        <div class="col-md-10">
+            <textarea class="form-control" name="MOTA">@Model.MOTA</textarea>
+            @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        Hình ảnh sản phẩm
+        <div class="col-md-10">
+
+            <input name="HINHANH" id="HINHANH" class="form-control" value="@Model.HINHANH" />
+
+            @Html.ValidationMessageFor(model => model.HINHANH, "", new { @class = "text-danger" })
+
+            <input type="file" name="fileUpload" id="fileUpload" accept="image/*" zz style="display:none;" />
+            <br />
+
+            <img src="@Model.HINHANH" id="pictureUpload" class="img-none" style="height:270px; width:270px" />
+            @section upload
+                        {
+                <script>
+                    $(function () {
+                        $('#pictureUpload').click(function () {
+                            $('#fileUpload').trigger('click');
+                        });
+                    });
+                    $('#fileUpload').change(function () {
+                        if (window.FormData !== undefined) {
+                            var fileUpload = $('#fileUpload').get(0);
+                            var files = fileUpload.files;
+                            var formData = new FormData();
+                            formData.append('file', files[0]);
+                            $.ajax(
+                                {
+                                    type: 'POST',
+                                    url: '/CuaHang_SanPham/ProcessUpload',
+                                    contentType: false,
+                                    processData: false,
+                                    data: formData,
+                                    success: function (urlImage) {
+                                        $('#pictureUpload').attr('src', urlImage);
+                                        $('#HINHANH').val(urlImage);
+                                    },
+                                    error: function (err) {
+                                        alert('Error ', err.statusText);
+
+                                    }
+                                });
+                        }
+                    });
+                </script>
+            }
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        Giá sản phẩm
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GIASANPHAM, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GIASANPHAM, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        Trạng thái
+        <div class="col-md-10">
+            @Html.DropDownList("TRANGTHAI", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TRANGTHAI, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu thay đổi" class="btn btn-danger" />
+        </div>
+    </div>
+</div>
 }

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DAISY.Models.tb_CUAHANG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Địa chỉ Email
+        </th>
+        <th>
+            Tên cửa hàng
+        </th>
+        <th>
+            Hình ảnh trang bán hàng
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TENCUAHANG)
+        </td>
+        <td>
+            <img style="height:200px; width: 400px; object-fit:cover" src="@item.HINHANH" />
+        </td>
+        <td>
+            @Html.ActionLink("Xem chi tiết", "Details", new { id=item.IDCUAHANG }) |
+            @Html.ActionLink("Quản lý", "Delete", new { id=item.IDCUAHANG })
+        </td>
+    </tr>
+}
+
+</table>

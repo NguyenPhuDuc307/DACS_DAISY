@@ -98,6 +98,14 @@ namespace DAISY.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<string> ids = new List<string>();
+            ids.Add("Nam");
+            ids.Add("Nữ");
+            ids.Add("Khác");
+            ViewBag.Gioitinh = new SelectList(ids, aspNetUsers.Gioitinh);
+            
+
             return View(aspNetUsers);
         }
 
@@ -114,6 +122,12 @@ namespace DAISY.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Manage");
             }
+
+            List<string> ids = new List<string>();
+            ids.Add("Nam");
+            ids.Add("Nữ");
+            ids.Add("Khác");
+            ViewBag.Gioitinh = new SelectList(ids);
             return View(aspNetUsers);
         }
 

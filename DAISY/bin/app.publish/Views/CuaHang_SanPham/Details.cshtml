@@ -1,0 +1,83 @@
+﻿@model DAISY.Models.tb_CUAHANG_SPCT
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_CUAHANG_SPCT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_CUAHANG.IDUSER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_CUAHANG.IDUSER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_KICHCO.TENKICHCO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_KICHCO.TENKICHCO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_SANPHAM.TENSANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_SANPHAM.TENSANPHAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TENSANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENSANPHAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HINHANH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINHANH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GIASANPHAM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GIASANPHAM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TRANGTHAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TRANGTHAI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CHODUYET)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CHODUYET)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
